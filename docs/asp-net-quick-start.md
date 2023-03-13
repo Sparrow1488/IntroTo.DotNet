@@ -70,6 +70,8 @@
 
 * [Лучшие практики разработки REST API](https://tproger.ru/translations/luchshie-praktiki-razrabotki-rest-api-20-sovetov/)
 
+* [Рекоммендации от Майкрософт](https://github.com/microsoft/api-guidelines)
+
 #### Библиотеки
 
 1. AutoMapper
