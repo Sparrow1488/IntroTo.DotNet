@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CleanServices.API.Contracts\CleanServices.API.Contracts.csproj" />
+      <ProjectReference Include="..\CleanServices.Data.Infrastructure\CleanServices.Data.Infrastructure.csproj" />
+      <ProjectReference Include="..\CleanServices.Models\CleanServices.Models.csproj" />
+      <ProjectReference Include="..\CleanServices.Validators\CleanServices.Validators.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.5.1" />
+      <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    </ItemGroup>
+
+</Project>
