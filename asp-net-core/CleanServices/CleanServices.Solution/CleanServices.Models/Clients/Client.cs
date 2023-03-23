@@ -7,7 +7,7 @@ namespace CleanServices.Models.Clients;
 
 public class Client : Entity
 {
-    public ClientInfo Info { get; set; }
+    public ClientInfo? Info { get; set; }
     public ClientCredentials Credentials { get; set; }
-    public ClientProfile Profile { get; set; }
+    public ClientProfile? Profile { get; set; }
 }

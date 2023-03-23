@@ -1,5 +1,8 @@
 using AutoMapper;
+using CleanServices.API.Infrastructure.Exceptions.StatusCode;
+using CleanServices.API.Infrastructure.Extensions;
 using CleanServices.API.Infrastructure.Services.Clients;
+using CleanServices.API.Infrastructure.Services.Hashers;
 using CleanServices.Data.Infrastructure.Contexts;
 using CleanServices.Mappers;
 using CleanServices.Validators.Models.Client;
@@ -7,13 +10,15 @@ using CleanServices.Validators.Models.Credentials.Password;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Controllers
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .UseCustomInvalidModelStateResponse();
 
 #endregion
 
@@ -51,6 +56,8 @@ builder.Services.AddDbContext<AppDbContext>(
 #region Services
 
 builder.Services.AddScoped<IClientsService, ClientsService>();
+
+builder.Services.AddScoped<IHasher, Sha256Hasher>();
 
 #endregion
 

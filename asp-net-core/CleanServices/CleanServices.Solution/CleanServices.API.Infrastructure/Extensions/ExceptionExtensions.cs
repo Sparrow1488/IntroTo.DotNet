@@ -35,9 +35,10 @@ public static class ExceptionExtensions
 
     private static Error CreateError(Exception ex)
     {
+        var details = ex.Data.ToList()
         return new Error
         {
-            Data = ex.Data,
+            Details = ex.Data,
             Message = ex.Message
         };
     }

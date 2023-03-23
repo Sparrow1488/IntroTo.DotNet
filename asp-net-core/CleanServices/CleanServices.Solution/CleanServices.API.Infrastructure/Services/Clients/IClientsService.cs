@@ -6,5 +6,6 @@ namespace CleanServices.API.Infrastructure.Services.Clients;
 public interface IClientsService
 {
     Task<Client?> GetByIdAsync(int id);
-    Task<ClientCreationResult> CreateAsync(Client client, string login, string password, string? email);
+    Task<ClientCreationResult> CreateAsync(string login, string password, string? email);
+    Task<ClientUpdateResult> UpdateAsync(Client client);
 }

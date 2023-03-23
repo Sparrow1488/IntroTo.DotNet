@@ -1,11 +1,10 @@
 using AutoMapper;
-using CleanServices.API.Contracts.Client.Requests;
+using CleanServices.API.Contracts.Client.Requests.Create;
+using CleanServices.API.Contracts.Client.Requests.Update;
 using CleanServices.API.Contracts.Client.Responses;
 using CleanServices.API.Infrastructure.Exceptions.StatusCode;
-using CleanServices.API.Infrastructure.Extensions;
 using CleanServices.API.Infrastructure.Services.Clients;
 using CleanServices.API.Infrastructure.Services.Results;
-using CleanServices.Models.Clients;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanServices.API.Controllers;
@@ -25,32 +24,38 @@ public class ClientsController : ApiController
     public async Task<IActionResult> GetById(int id)
     {
         var client = await _clientsService.GetByIdAsync(id);
-
-        if (client is not null)
-        {
-            var response = _mapper.Map<ClientResponse>(client);
-            return Ok(response);
-        }
-
-        var ex = new NotFoundException("Client not found", id, "Client");
-        var errorResponse = ex.ToErrorResponse();
-        return StatusCode(errorResponse.StatusCode, errorResponse);
+        if (client is null) 
+            return Exception(new NotFoundException("Client not found", id, "Client"));
+        
+        var response = _mapper.Map<ClientResponse>(client);
+        return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateClient(ClientCreateRequest request)
+    public async Task<IActionResult> CreateClient(ClientCredentialsCreateRequest request)
     {
-        var credentials = request.Credentials;
-        var client = _mapper.Map<Client>(request);
+        var result = await _clientsService.CreateAsync(request.Login, request.Password, null);
+        if (result.Status != ResultStatus.Success) 
+            return Exception(result.Exception!);
+        
+        var response = _mapper.Map<ClientResponse>(result.Entity);
+        return Ok(response);
+    }
 
-        var result = await _clientsService.CreateAsync(client, credentials.Login, credentials.Password, null);
-        if (result.Status == ResultStatus.Success)
-        {
-            var response = _mapper.Map<ClientResponse>(result.Entity);
-            return Ok(response);
-        }
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateClient(int id, ClientUpdateRequest request)
+    {
+        var client = await _clientsService.GetByIdAsync(id);
+        if (client is null)
+            return Exception(new NotFoundException("Client not found", id, "Client"));
 
-        var errorResponse = result.Exception!.ToErrorResponse();
-        return StatusCode(errorResponse.StatusCode, errorResponse);
+        _mapper.Map(request, client);
+
+        var updateResult = await _clientsService.UpdateAsync(client);
+        if (updateResult.Status != ResultStatus.Success) 
+            return Exception(updateResult.Exception!);
+        
+        var response = _mapper.Map<ClientResponse>(updateResult.Entity);
+        return Ok(response);
     }
 }

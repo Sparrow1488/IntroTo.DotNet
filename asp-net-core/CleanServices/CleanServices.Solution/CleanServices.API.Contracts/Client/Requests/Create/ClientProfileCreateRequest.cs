@@ -1,4 +1,4 @@
-namespace CleanServices.API.Contracts.Client.Requests;
+namespace CleanServices.API.Contracts.Client.Requests.Create;
 
 public struct ClientProfileCreateRequest
 {

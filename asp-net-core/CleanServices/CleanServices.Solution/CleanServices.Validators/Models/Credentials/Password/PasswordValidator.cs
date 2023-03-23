@@ -8,7 +8,10 @@ public class PasswordValidator : IPasswordValidator
     {
         if (password.Length < 6)
         {
-            var failure = new ValidationFailure("TooShort", "Min 6 characters required");
+            var failure = new ValidationFailure("Password", "Min 6 characters required")
+            {
+                ErrorCode = "too_short_password"
+            };
             return Task.FromResult(new ValidationResult(new[] { failure }));
         }
 

@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CleanServices.API.Contracts\CleanServices.API.Contracts.csproj" />
       <ProjectReference Include="..\CleanServices.Models\CleanServices.Models.csproj" />
     </ItemGroup>
 
