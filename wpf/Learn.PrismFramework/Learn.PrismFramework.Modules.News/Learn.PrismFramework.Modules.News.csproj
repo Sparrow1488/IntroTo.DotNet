@@ -11,4 +11,8 @@
       <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Learn.PrismFramework.Infrastructure\Learn.PrismFramework.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

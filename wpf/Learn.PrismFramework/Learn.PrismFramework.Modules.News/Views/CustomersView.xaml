@@ -1,0 +1,44 @@
+<UserControl x:Class="Learn.PrismFramework.Modules.News.Views.CustomersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Learn.PrismFramework.Modules.News.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0"
+            ItemsSource="{Binding Customers}"
+            SelectedItem="{Binding SelectedCustomer}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}" />
+                    <GridViewColumn Header="Name" Width="400" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <StackPanel 
+            Grid.Row="1" 
+            VerticalAlignment="Bottom" 
+            Background="DarkGray">
+            
+            <Button
+                Width="75" 
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Command="{Binding LoadCustomersCommand}"
+                Content="Update" />
+            
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

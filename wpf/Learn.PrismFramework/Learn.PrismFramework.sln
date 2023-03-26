@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework", "Lea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Modules.News", "Learn.PrismFramework.Modules.News\Learn.PrismFramework.Modules.News.csproj", "{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Models", "Learn.PrismFramework.Models\Learn.PrismFramework.Models.csproj", "{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Infrastructure", "Learn.PrismFramework.Infrastructure\Learn.PrismFramework.Infrastructure.csproj", "{41D7BEF3-D676-4AA2-A2A8-2A7B7C5C2BCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D7BEF3-D676-4AA2-A2A8-2A7B7C5C2BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D7BEF3-D676-4AA2-A2A8-2A7B7C5C2BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D7BEF3-D676-4AA2-A2A8-2A7B7C5C2BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D7BEF3-D676-4AA2-A2A8-2A7B7C5C2BCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

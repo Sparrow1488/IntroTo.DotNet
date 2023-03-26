@@ -1,6 +1,6 @@
 using Prism.Mvvm;
 
-namespace Learn.PrismFramework.ViewModels;
+namespace Learn.PrismFramework.Infrastructure.ViewModels;
 
 public abstract class ViewModel : BindableBase
 {

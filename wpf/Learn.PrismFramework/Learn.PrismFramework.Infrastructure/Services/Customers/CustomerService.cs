@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Learn.PrismFramework.Models.Customers;
 
-namespace Learn.PrismFramework.Services.Customer;
-using Customer = Learn.PrismFramework.Models.Customer.Customer;
+namespace Learn.PrismFramework.Infrastructure.Services.Customers;
 
 public sealed class CustomerService : ICustomerService
 {

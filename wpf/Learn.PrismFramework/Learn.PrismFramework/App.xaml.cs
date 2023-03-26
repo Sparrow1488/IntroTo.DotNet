@@ -1,7 +1,6 @@
 ﻿using System.Windows;
+using Learn.PrismFramework.Infrastructure.Services.Customers;
 using Learn.PrismFramework.Modules.News;
-using Learn.PrismFramework.Modules.News.Views;
-using Learn.PrismFramework.Services.Customer;
 using Learn.PrismFramework.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -23,6 +22,7 @@ public partial class App : PrismApplication
 
     protected override void ConfigureModuleCatalog(IModuleCatalog catalog)
     {
-        catalog.AddModule<ArticleModule>();
+        catalog.AddModule<ProfileModule>();
+        catalog.AddModule<CustomersModule>();
     }
 }
