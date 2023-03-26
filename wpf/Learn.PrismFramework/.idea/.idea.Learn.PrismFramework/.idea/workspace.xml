@@ -5,32 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Events/SelectProfileEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/ViewModels/ViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Customers/Customer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Goods/Good.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Identities/IIdentity.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Orders/Order.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Profiles/IProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/CustomersModule.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ViewModels/CustomersViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ViewModels/ProfileViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/CustomersView.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/CustomersView.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework/App.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Events/SelectCustomerEvent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Goods/GoodsService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Goods/IGoodsService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Orders/IOrdersService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Orders/OrdersService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/CustomerOrdersModule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/CustomerOrdersViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/CustomerOrdersView.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/CustomerOrdersView.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ArticleModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ProfileModule.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Learn.PrismFramework.Modules.News.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Learn.PrismFramework.Modules.News.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ArticleView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ProfileView.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ArticleView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ProfileView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/CustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/CustomerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/ICustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/ICustomerService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Models/Orders/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Orders/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/CustomersModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/CustomersModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Learn.PrismFramework.Modules.News.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Learn.PrismFramework.Modules.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ProfileModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ProfileModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ViewModels/CustomersViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/CustomersViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ViewModels/ProfileViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/ProfileViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/CustomersView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/CustomersView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/CustomersView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/CustomersView.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ProfileView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/ProfileView.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ProfileView.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/ProfileView.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Learn.PrismFramework.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/Learn.PrismFramework.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Models/Customer/Customer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Services/Customer/CustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/CustomerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Services/Customer/ICustomerService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Services/Customers/ICustomerService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/ViewModel.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Views/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/Views/MainWindow.xaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +98,7 @@
       <updated>1679593754766</updated>
       <workItem from="1679593759990" duration="2870000" />
       <workItem from="1679824288683" duration="6227000" />
-      <workItem from="1679831730459" duration="5608000" />
+      <workItem from="1679831730459" duration="8496000" />
     </task>
     <servers />
   </component>

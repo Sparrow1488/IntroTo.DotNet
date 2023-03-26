@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using Learn.PrismFramework.Infrastructure.Services.Customers;
-using Learn.PrismFramework.Modules.News;
+using Learn.PrismFramework.Infrastructure.Services.Goods;
+using Learn.PrismFramework.Infrastructure.Services.Orders;
+using Learn.PrismFramework.Modules;
 using Learn.PrismFramework.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -18,11 +20,14 @@ public partial class App : PrismApplication
     protected override void RegisterTypes(IContainerRegistry registry)
     {
         registry.RegisterScoped<ICustomerService, CustomerService>();
+        registry.RegisterScoped<IGoodsService, GoodsService>();
+        registry.RegisterScoped<IOrdersService, OrdersService>();
     }
 
     protected override void ConfigureModuleCatalog(IModuleCatalog catalog)
     {
         catalog.AddModule<ProfileModule>();
         catalog.AddModule<CustomersModule>();
+        catalog.AddModule<CustomerOrdersModule>();
     }
 }

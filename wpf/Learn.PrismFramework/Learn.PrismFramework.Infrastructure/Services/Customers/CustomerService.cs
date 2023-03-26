@@ -16,7 +16,10 @@ public sealed class CustomerService : ICustomerService
         };
     }
 
-    public ICollection<Customer> GetAll() => _store;
+    public Customer? GetById(int customerId) =>
+        _store.FirstOrDefault(x => x.Id == customerId);
+
+    public IEnumerable<Customer> GetAll() => _store;
 
     public Customer? Create(Customer customer)
     {

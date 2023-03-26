@@ -4,6 +4,7 @@ namespace Learn.PrismFramework.Infrastructure.Services.Customers;
 
 public interface ICustomerService
 {
-    ICollection<Customer> GetAll();
+    Customer? GetById(int customerId);
+    IEnumerable<Customer> GetAll();
     Customer? Create(Customer customer);
 }

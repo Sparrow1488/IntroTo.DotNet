@@ -9,4 +9,6 @@ public class Order : IIdentity
     public int Id { get; set; }
     public Customer Customer { get; set; }
     public List<Good> Goods { get; set; }
+    public int TotalItems => Goods.Count;
+    public double Sum => Goods.Sum(x => x.Price);
 }

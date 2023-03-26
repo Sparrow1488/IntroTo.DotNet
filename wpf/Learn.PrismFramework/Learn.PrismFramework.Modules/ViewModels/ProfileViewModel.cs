@@ -3,7 +3,7 @@ using Learn.PrismFramework.Infrastructure.ViewModels;
 using Learn.PrismFramework.Models.Profiles;
 using Prism.Events;
 
-namespace Learn.PrismFramework.Modules.News.ViewModels;
+namespace Learn.PrismFramework.Modules.ViewModels;
 
 public class ProfileViewModel : ViewModel
 {

@@ -22,7 +22,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Learn.PrismFramework.Infrastructure\Learn.PrismFramework.Infrastructure.csproj" />
       <ProjectReference Include="..\Learn.PrismFramework.Models\Learn.PrismFramework.Models.csproj" />
-      <ProjectReference Include="..\Learn.PrismFramework.Modules.News\Learn.PrismFramework.Modules.News.csproj" />
+      <ProjectReference Include="..\Learn.PrismFramework.Modules\Learn.PrismFramework.Modules.csproj" />
     </ItemGroup>
 
 </Project>

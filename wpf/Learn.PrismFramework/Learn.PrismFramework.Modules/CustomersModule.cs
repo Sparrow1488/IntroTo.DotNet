@@ -1,9 +1,9 @@
-using Learn.PrismFramework.Modules.News.Views;
+using Learn.PrismFramework.Modules.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace Learn.PrismFramework.Modules.News;
+namespace Learn.PrismFramework.Modules;
 
 public class CustomersModule : IModule
 {

@@ -10,7 +10,7 @@
         
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -22,7 +22,11 @@
             <ContentControl regions:RegionManager.RegionName="CustomersRegion" />
         </DockPanel>
         
-        <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="True">
+        <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
+            <ContentControl regions:RegionManager.RegionName="CustomerOrdersRegion" />
+        </DockPanel>
+        
+        <DockPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" LastChildFill="True">
             <ContentControl regions:RegionManager.RegionName="ProfileRegion" />
         </DockPanel>
 

@@ -7,7 +7,7 @@ using Learn.PrismFramework.Models.Customers;
 using Prism.Commands;
 using Prism.Events;
 
-namespace Learn.PrismFramework.Modules.News.ViewModels;
+namespace Learn.PrismFramework.Modules.ViewModels;
 
 public class CustomersViewModel : ViewModel
 {
@@ -32,7 +32,10 @@ public class CustomersViewModel : ViewModel
         set
         {
             if (SetProperty(ref _selectedCustomer, value))
-                _aggregator.GetEvent<SelectProfileEvent>().Publish(value);
+            {
+                _aggregator.GetEvent<SelectProfileEvent>().Publish(value!);
+                _aggregator.GetEvent<SelectCustomerEvent>().Publish(value!);
+            }
         }
     }
 

@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework", "Learn.PrismFramework\Learn.PrismFramework.csproj", "{C1A62682-6AF2-4A08-A7EA-CCF016122959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Modules.News", "Learn.PrismFramework.Modules.News\Learn.PrismFramework.Modules.News.csproj", "{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Modules", "Learn.PrismFramework.Modules\Learn.PrismFramework.Modules.csproj", "{4C5FFBD4-98C3-4F52-A0D0-321C505963E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.PrismFramework.Models", "Learn.PrismFramework.Models\Learn.PrismFramework.Models.csproj", "{71C56497-914E-4A5C-9767-4E3D0B1F6EAA}"
 EndProject
