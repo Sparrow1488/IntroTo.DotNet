@@ -9,9 +9,9 @@ using Prism.Mvvm;
 
 namespace Learn.PrismFramework.ViewModels;
 
-public class MainWindowViewModel : BindableBase
+public class MainWindowViewModel : ViewModel
 {
-    private string _selectedCustomer;
+    private Customer? _selectedCustomer;
 
     private readonly IModuleManager _modules;
     private readonly ICustomerService _service;
@@ -24,7 +24,7 @@ public class MainWindowViewModel : BindableBase
     }
 
     public ObservableCollection<Customer> Customers { get; }
-    public string SelectedCustomer
+    public Customer? SelectedCustomer
     {
         get => _selectedCustomer;
         set => SetProperty(ref _selectedCustomer, value);

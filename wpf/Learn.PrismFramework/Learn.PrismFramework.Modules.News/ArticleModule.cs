@@ -9,9 +9,9 @@ public class ArticleModule : IModule
 {
     public void RegisterTypes(IContainerRegistry containerRegistry) { }
 
-    public void OnInitialized(IContainerProvider containerProvider)
+    public void OnInitialized(IContainerProvider resolver)
     {
-        var regionManager = containerProvider.Resolve<IRegionManager>();
+        var regionManager = resolver.Resolve<IRegionManager>();
         regionManager.RegisterViewWithRegion("ArticleRegion", typeof(ArticleView));
     }
 }

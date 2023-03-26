@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ArticleModule.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ArticleView.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/Views/ArticleView.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/ViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ArticleModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules.News/ArticleModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +17,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/954322e532bc8874b178f6d262e3c3167c7b341ad7c1bfa48480ec2834fcc/UnityContainerExtension.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6582ecb23b4aa8a8f5783aea63216633d5d567653731f9a8f7ebfda417c8c26/DelegateCommandBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/39a8ec5045aab88c9fedaa5062b6423c4e4585ef18b25d72998f85a3e3ffd3/ModuleInitializer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/041a21951cd74d2d98db48f7e89a785b8378b0/93/4bde0de5/TraceRoutedEvent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/298d6dde1b157528c521e1c73120a83d71642b7de21d157994516d186dd33b42/DelegateCommand.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,6 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -68,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1679593754766</updated>
       <workItem from="1679593759990" duration="2870000" />
-      <workItem from="1679824288683" duration="4904000" />
+      <workItem from="1679824288683" duration="6227000" />
     </task>
     <servers />
   </component>
