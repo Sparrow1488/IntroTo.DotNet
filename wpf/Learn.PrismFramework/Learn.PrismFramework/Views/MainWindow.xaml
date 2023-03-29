@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -19,7 +18,9 @@
         </Grid.ColumnDefinitions>
         
         <DockPanel Grid.Row="0" Grid.Column="0" LastChildFill="True">
-            <ContentControl regions:RegionManager.RegionName="CustomersRegion" />
+            <!-- <ContentControl regions:RegionManager.RegionName="CustomersRegion" /> -->
+            <TextBlock Text="{Binding Message}" />
+            <Button Content="Ответьте на вопрос" Height="50" Command="{Binding ShowQuestionBoxCommand}" />
         </DockPanel>
         
         <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
@@ -29,7 +30,15 @@
         <DockPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" LastChildFill="True">
             <ContentControl regions:RegionManager.RegionName="ProfileRegion" />
         </DockPanel>
-
         
+        <!-- <DockPanel  -->
+        <!--     Grid.Row="0"  -->
+        <!--     Grid.Column="0"  -->
+        <!--     Grid.RowSpan="2"  -->
+        <!--     Grid.ColumnSpan="2"  -->
+        <!--     LastChildFill="True"> -->
+        <!--     <ContentControl regions:RegionManager.RegionName="KeyboardRegion" /> -->
+        <!-- </DockPanel> -->
+
     </Grid>
 </Window>
