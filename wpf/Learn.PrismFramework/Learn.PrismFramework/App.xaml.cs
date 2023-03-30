@@ -5,6 +5,7 @@ using Learn.PrismFramework.Infrastructure.Services.Orders;
 using Learn.PrismFramework.Modules;
 using Learn.PrismFramework.Modules.ViewModels;
 using Learn.PrismFramework.Modules.Views;
+using Learn.PrismFramework.Services.Interaction;
 using Learn.PrismFramework.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -24,7 +25,10 @@ public partial class App
         registry.RegisterScoped<IGoodsService, GoodsService>();
         registry.RegisterScoped<IOrdersService, OrdersService>();
         
+        registry.RegisterScoped<IKeyboardInteractionService, KeyboardInteractionService>();
+        
         registry.RegisterDialog<QuestionDialog, QuestionDialogViewModel>();
+        // registry.RegisterDialog<KeyboardDialog, KeyboardDialogViewModel>();
     }
 
     protected override void ConfigureModuleCatalog(IModuleCatalog catalog)

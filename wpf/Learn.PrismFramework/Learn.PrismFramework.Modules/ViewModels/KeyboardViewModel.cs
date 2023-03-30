@@ -1,18 +1,20 @@
 using System;
 using System.Windows.Input;
 using Learn.PrismFramework.Infrastructure.ViewModels;
-using Learn.PrismFramework.Models.Controls.Keyboard;
 using Microsoft.Xaml.Behaviors.Core;
+using Prism.Commands;
 
 namespace Learn.PrismFramework.Modules.ViewModels;
 
 public class KeyboardViewModel : ViewModel
 {
     private string? _text;
-    
+
+    public event Action<string> OnPressButton;
+
     public KeyboardViewModel()
     {
-        PressKeyCommand = new ActionCommand(OnPressKey);
+        PressKeyCommand = new DelegateCommand<string>(OnPressKey);
     }
 
     public string? Text
@@ -23,11 +25,10 @@ public class KeyboardViewModel : ViewModel
     
     public ICommand PressKeyCommand { get; }
 
-    private void OnPressKey(object keyButtonObj)
+    private void OnPressKey(string symbol)
     {
-        if (keyButtonObj is not KeyButton keyButton)
-            throw new ArgumentException($"Passed argument {nameof(keyButtonObj)} not cased to {nameof(KeyButton)}");
-
-        Text += keyButton.Symbol;
+        Text += symbol;
+        
+        OnPressButton?.Invoke(symbol);
     }
 }

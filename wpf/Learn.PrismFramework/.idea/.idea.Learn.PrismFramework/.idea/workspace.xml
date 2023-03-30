@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Controls/Keyboard/KeyButton.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Models/Controls/Keyboard/KeyboardLayout.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/KeyboardModule.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/KeyboardViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/QuestionDialogViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/QuestionDialog.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/QuestionDialog.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/KeyboardDialogViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework/Services/Interaction/IKeyboardInteractionService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Learn.PrismFramework/Services/Interaction/KeyboardInteractionService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Learn.PrismFramework.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Infrastructure/Learn.PrismFramework.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Learn.PrismFramework.Modules.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Learn.PrismFramework.Modules.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/KeyboardViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/ViewModels/KeyboardViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/QuestionDialog.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/QuestionDialog.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Learn.PrismFramework.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/Learn.PrismFramework.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/Views/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/Views/MainWindow.xaml" afterDir="false" />
     </list>
@@ -28,12 +31,20 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/041a21951cd74d2d98db48f7e89a785b8378b0/93/4bde0de5/TraceRoutedEvent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ce0d39a20924ee08fe5c3b22564eb1f21060/0c/37a0d352/ModuleManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8a22e552021d47449a0ac8c1c678543ff86e80/1c/1ab42eb5/UserControl.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eb6d0140529d4519af064c8b472c27a81e00/8c/c3e52169/IInteractionRequest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/298d6dde1b157528c521e1c73120a83d71642b7de21d157994516d186dd33b42/DelegateCommand.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/39a8ec5045aab88c9fedaa5062b6423c4e4585ef18b25d72998f85a3e3ffd3/ModuleInitializer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3dcfc349c0db89d3c47b9075648030b58b18cbbafd3d556ec8d8297a7ccf46/TaskExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6582ecb23b4aa8a8f5783aea63216633d5d567653731f9a8f7ebfda417c8c26/DelegateCommandBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7b35dd47dd190c64e7b8b2aa234a3246df16b68ddd0967520392e8af1a6049/IDialogCoordinator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/954322e532bc8874b178f6d262e3c3167c7b341ad7c1bfa48480ec2834fcc/UnityContainerExtension.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9f535253597dc73165d33550c23edc02f9239e97075d6c42772e7c8d9f6833/WpfXamlLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a23bb6dae8ef859e6645b199cb2326f33f72492211a2763ff9a929f64741c5f6/DialogCoordinator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e7db1970b4b4f513baacfddb3d33541806414701a93d4b8897925380179c9b/DialogManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f6f0a3ed1ea9776a649921ca4d31cfde3d8da8bb0c2c33f8ad5e9285240487a/RegionViewRegistry.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Learn.PrismFramework/obj/Debug/net7.0-windows/App.g.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,20 +60,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\ilyao\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\ilyao\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\ilyao\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\ilyao\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\ilyao\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\ilyao\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Learn.PrismFramework" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/Learn.PrismFramework/bin/Debug/net7.0-windows/Learn.PrismFramework.exe" />
@@ -99,7 +112,10 @@
       <workItem from="1680087521396" duration="4866000" />
       <workItem from="1680093475717" duration="401000" />
       <workItem from="1680111512576" duration="2948000" />
-      <workItem from="1680116744610" duration="2168000" />
+      <workItem from="1680116744610" duration="3808000" />
+      <workItem from="1680120592070" duration="1084000" />
+      <workItem from="1680189579776" duration="1683000" />
+      <workItem from="1680197292808" duration="2042000" />
     </task>
     <servers />
   </component>
@@ -119,24 +135,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs</url>
-          <line>41</line>
-          <properties documentPath="C:\Users\ilyao\OneDrive\Desktop\Development\Learning\IntroTo\IntroTo.DotNet\wpf\Learn.PrismFramework\Learn.PrismFramework\ViewModels\MainWindowViewModel.cs" initialLine="41" containingFunctionPresentation="lambda expression inside method 'OnShowQuestionBox'">
-            <startOffsets>
-              <option value="1105" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1243" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

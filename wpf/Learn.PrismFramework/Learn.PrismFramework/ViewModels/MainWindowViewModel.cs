@@ -1,6 +1,9 @@
 using System.Windows.Input;
 using Learn.PrismFramework.Infrastructure.ViewModels;
+using Learn.PrismFramework.Modules.ViewModels;
 using Learn.PrismFramework.Modules.Views;
+using Learn.PrismFramework.Services.Interaction;
+using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Services.Dialogs;
 
@@ -9,13 +12,20 @@ namespace Learn.PrismFramework.ViewModels;
 public class MainWindowViewModel : ViewModel
 {
     private readonly IDialogService _dialogService;
+    private readonly IKeyboardInteractionService _keyboardInteraction;
+    private readonly IDialogCoordinator _dialogCoordinator;
     private string? _message;
 
-    public MainWindowViewModel(IDialogService dialogService)
+    public MainWindowViewModel(
+        IDialogService dialogService,
+        IKeyboardInteractionService keyboardInteraction)
     {
         _dialogService = dialogService;
-        
+        _keyboardInteraction = keyboardInteraction;
+        _dialogCoordinator = DialogCoordinator.Instance;
+
         ShowQuestionBoxCommand = new DelegateCommand(OnShowQuestionBox);
+        ShowKeyboardCommand = new DelegateCommand(OnShowKeyboard);
     }
 
     public string? Message
@@ -25,6 +35,7 @@ public class MainWindowViewModel : ViewModel
     }
     
     public ICommand ShowQuestionBoxCommand { get; }
+    public ICommand ShowKeyboardCommand { get; }
 
     private void OnShowQuestionBox()
     {
@@ -43,5 +54,16 @@ public class MainWindowViewModel : ViewModel
                     ? "Пользователь - ровный чел"
                     : "Пользователь гондон";
             });
+    }
+
+    private async void OnShowKeyboard()
+    {
+        // await _dialogCoordinator.ShowMessageAsync(this, "Title", "Text");
+
+        var keyboard = new KeyboardViewModel();
+        var dialogViewModel = new KeyboardDialogViewModel(keyboard);
+        await _dialogCoordinator.ShowMetroDialogAsync(this, new KeyboardDialog(dialogViewModel));
+        
+        // _keyboardInteraction.ShowKeyboard(input => Message = input);
     }
 }
