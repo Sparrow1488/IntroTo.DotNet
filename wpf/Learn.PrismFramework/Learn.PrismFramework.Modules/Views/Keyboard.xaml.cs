@@ -1,5 +1,5 @@
 using System.Windows;
-using System.Windows.Controls;
+using Microsoft.Practices.Prism.Regions;
 
 namespace Learn.PrismFramework.Modules.Views;
 

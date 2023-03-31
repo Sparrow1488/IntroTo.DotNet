@@ -28,7 +28,7 @@ public partial class App
         registry.RegisterScoped<IKeyboardInteractionService, KeyboardInteractionService>();
         
         registry.RegisterDialog<QuestionDialog, QuestionDialogViewModel>();
-        // registry.RegisterDialog<KeyboardDialog, KeyboardDialogViewModel>();
+        registry.RegisterDialog<KeyboardDialog, KeyboardDialogViewModel>();
     }
 
     protected override void ConfigureModuleCatalog(IModuleCatalog catalog)
