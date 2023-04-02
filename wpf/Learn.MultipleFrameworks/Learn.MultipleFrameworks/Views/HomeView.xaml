@@ -9,6 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Text}" FontSize="16" />
             <TextBlock Text="Hello Prism!" FontSize="28" />
             <Button Content="Open dialog" FontSize="24" Command="{Binding OpenDialogCommand}" />            
         </StackPanel>
