@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Modules;
+using Learn.MultipleFrameworks.Services;
 using Learn.MultipleFrameworks.ViewModels;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
@@ -15,6 +16,7 @@ public partial class App
     {
         container.RegisterDialog<DialogView, DialogViewModel>(Dialogs.Default);
         container.RegisterSingleton<IDialogCoordinator>(_ => DialogCoordinator.Instance);
+        container.RegisterScoped<CustomDialogService>();
     }
 
     protected override Window CreateShell() => Container.Resolve<MainWindow>();
