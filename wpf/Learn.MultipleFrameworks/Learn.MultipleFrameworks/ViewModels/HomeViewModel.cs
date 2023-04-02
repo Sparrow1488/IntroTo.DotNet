@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Services.Dialogs;
-using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Events;

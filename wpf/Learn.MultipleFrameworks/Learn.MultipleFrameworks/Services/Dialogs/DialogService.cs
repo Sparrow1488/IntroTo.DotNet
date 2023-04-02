@@ -18,7 +18,7 @@ public class DialogService
     
     public void OpenDialog()
     {
-        var viewModel = new DialogViewModel(_aggregator);
+        var viewModel = new DialogViewModel();
         var dialogView = new DialogView
         {
             DataContext = viewModel
@@ -30,7 +30,7 @@ public class DialogService
     
     public void OpenInputDialog()
     {
-        var viewModel = new InputDialogViewModel(_aggregator);
+        var viewModel = new InputDialogViewModel();
         var dialogView = new InputDialogView
         {
             DataContext = viewModel

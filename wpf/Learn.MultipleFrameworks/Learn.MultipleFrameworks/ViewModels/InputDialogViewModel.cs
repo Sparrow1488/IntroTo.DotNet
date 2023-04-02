@@ -1,25 +1,19 @@
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Views;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
-using Prism.Events;
-using Prism.Mvvm;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class InputDialogViewModel : BindableBase
+public class InputDialogViewModel : BindableDialogContext<InputDialogView>
 {
-    private readonly IEventAggregator _aggregator;
     private string? _input;
 
-    public InputDialogViewModel(IEventAggregator aggregator)
+    public InputDialogViewModel()
     {
-        _aggregator = aggregator;
         InputSymbolCommand = new DelegateCommand<string>(OnInputSymbol);
-        SubmitCommand = new DelegateCommand(OnSubmitFormInput);
+        SubmitCommand = new DelegateCommand(RequestDialogClose);
     }
     
     public string? Input
@@ -31,22 +25,11 @@ public class InputDialogViewModel : BindableBase
     public ICommand InputSymbolCommand { get; }
     public ICommand SubmitCommand { get; }
 
-    private void OnSubmitFormInput()
+    public override void RequestDialogClose()
     {
-        if (string.IsNullOrWhiteSpace(Input)) return;
-
-        var dialog = MainWindow.Instance.FindChild<InputDialogView>();
-        
-        var formInput = new FormInput(Input);
-        var context = new DialogCloseContext
-        {
-            Host = MainWindow.Instance,
-            MetroDialog = dialog
-        };
-        
-        _aggregator.GetEvent<SubmitFormInputEvent>().Publish(formInput);
-        _aggregator.GetEvent<DialogCloseRequestedEvent>().Publish(context);
+        base.RequestDialogClose();
+        Aggregator.GetEvent<SubmitFormInputEvent>().Publish(new FormInput(Input ?? ""));
     }
-    
+
     private void OnInputSymbol(string symbol) => Input += symbol;
 }
