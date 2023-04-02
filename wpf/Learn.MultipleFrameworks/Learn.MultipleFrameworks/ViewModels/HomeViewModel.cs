@@ -1,7 +1,8 @@
 using System;
 using System.Windows.Input;
-using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Views;
+using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -11,21 +12,20 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public class HomeViewModel : BindableBase
 {
+    private readonly IDialogService _dialogService;
+    private readonly IDialogCoordinator _dialogCoordinator;
+    private readonly IEventAggregator _aggregator;
     private string? _text;
 
     public HomeViewModel(
         IDialogService dialogService,
+        IDialogCoordinator dialogCoordinator,
         IEventAggregator aggregator)
     {
-        OpenDialogCommand = new DelegateCommand(
-            () =>
-            {
-                aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(() =>
-                {
-                    Text = "Dialog closed at " + DateTime.Now.ToShortTimeString();
-                });
-                dialogService.ShowDialog(Dialogs.Default);
-            });
+        _dialogService = dialogService;
+        _dialogCoordinator = dialogCoordinator;
+        _aggregator = aggregator;
+        OpenDialogCommand = new DelegateCommand(OnOpenDialog);
     }
 
     public string? Text
@@ -35,4 +35,15 @@ public class HomeViewModel : BindableBase
     }
     
     public ICommand OpenDialogCommand { get; }
+
+    private async void OnOpenDialog()
+    {
+        _aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(() =>
+        {
+            Text = "Dialog closed at " + DateTime.Now.ToShortTimeString();
+        });
+            
+        // _dialogService.ShowDialog(Dialogs.Default);
+        await _dialogCoordinator.ShowInputAsync(MainWindow.Instance.DataContext, "Title", "My Message");
+    }
 }

@@ -1,13 +1,15 @@
-﻿<Window x:Class="Learn.MultipleFrameworks.Views.MainWindow"
+﻿<mah:MetroWindow x:Class="Learn.MultipleFrameworks.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:regions="http://prismlibrary.com/"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         regions:ViewModelLocator.AutoWireViewModel="True"
-        Title="MainWindow" Height="450" Width="800">
+        mah:DialogParticipation.Register="{Binding}"
+        Title="{Binding Title}" Height="450" Width="800">
     <Grid>
         <ContentControl regions:RegionManager.RegionName="HomeRegion" />
     </Grid>
-</Window>
+</mah:MetroWindow>
