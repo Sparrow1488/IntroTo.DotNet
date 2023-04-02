@@ -1,10 +1,6 @@
 using System;
-using System.Threading;
 using System.Windows.Input;
-using System.Windows.Threading;
-using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Events;
-using Learn.MultipleFrameworks.Services;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
@@ -17,21 +13,19 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public class HomeViewModel : BindableBase
 {
-    private readonly IRegionManager _manager;
-    private readonly IDialogService _dialogService;
     private readonly IDialogCoordinator _dialogCoordinator;
     private readonly IEventAggregator _aggregator;
     private string? _text;
 
-    public HomeViewModel(
-        CustomDialogService dialogService,
-        IRegionManager manager,
-        IDialogCoordinator dialogCoordinator,
+    public HomeViewModel(IDialogCoordinator dialogCoordinator,
         IEventAggregator aggregator)
     {
-        _manager = manager;
         _dialogCoordinator = dialogCoordinator;
         _aggregator = aggregator;
+        
+        _aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(_ =>
+            Text = "Dialog closed at " + DateTime.Now.ToShortTimeString());
+        
         OpenDialogCommand = new DelegateCommand(OnOpenDialog);
     }
 
@@ -44,7 +38,7 @@ public class HomeViewModel : BindableBase
     public ICommand OpenDialogCommand { get; }
 
     private BaseMetroDialog _dialogView;
-    private async void OnOpenDialog()
+    private void OnOpenDialog()
     {
         var viewModel = new DialogViewModel(_aggregator);
         _dialogView = new DialogView
@@ -52,12 +46,7 @@ public class HomeViewModel : BindableBase
             DataContext = viewModel
         };
         
-        _aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(async () =>
-        {
-            Text = "Dialog closed at " + DateTime.Now.ToShortTimeString();
-            await _dialogCoordinator.HideMetroDialogAsync(MainWindow.Instance.DataContext, _dialogView);
-        }); 
-        
-        await _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, _dialogView);
+        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, _dialogView)
+            .ContinueWith(_ => {});
     }
 }

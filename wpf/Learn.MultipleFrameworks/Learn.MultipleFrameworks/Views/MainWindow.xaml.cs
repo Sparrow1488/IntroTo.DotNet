@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Learn.MultipleFrameworks.Views;
+﻿namespace Learn.MultipleFrameworks.Views;
 
 public partial class MainWindow
 {

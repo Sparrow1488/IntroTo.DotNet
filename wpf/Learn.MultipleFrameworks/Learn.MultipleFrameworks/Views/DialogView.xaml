@@ -22,7 +22,12 @@
         <StackPanel
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom">
-            <Button Content="OK" Padding="25 5" Margin="15" Command="{Binding PressCloseCommand}" />
+            <Button 
+                Content="OK" 
+                Padding="25 5" 
+                Margin="15" 
+                Command="{Binding PressCloseCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:BaseMetroDialog}}}"/>
         </StackPanel>
     </Grid>
 </mah:BaseMetroDialog>
