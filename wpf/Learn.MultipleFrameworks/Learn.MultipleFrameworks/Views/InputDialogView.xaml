@@ -1,0 +1,28 @@
+<mah:BaseMetroDialog x:Class="Learn.MultipleFrameworks.Views.InputDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <StackPanel>
+            <TextBlock Text="{Binding Input}" FontSize="24" />
+        </StackPanel>
+        
+        <WrapPanel>
+            <Button Content="A" Width="50" Height="50" 
+                    Command="{Binding InputSymbolCommand}" 
+                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+            <Button Content="B" Width="50" Height="50" 
+                    Command="{Binding InputSymbolCommand}" 
+                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+            <Button Content="C" Width="50" Height="50" 
+                    Command="{Binding InputSymbolCommand}" 
+                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+            <Button Content="SUBMIT" Width="80" Height="50" 
+                    Command="{Binding SubmitCommand}" />
+        </WrapPanel>
+    </StackPanel>
+</mah:BaseMetroDialog>

@@ -1,8 +1,7 @@
 ﻿using System.Windows;
-using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Modules;
-using Learn.MultipleFrameworks.ViewModels;
+using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Events;
@@ -15,8 +14,8 @@ public partial class App
 {
     protected override void RegisterTypes(IContainerRegistry container)
     {
-        container.RegisterDialog<DialogView, DialogViewModel>(Dialogs.Default);
         container.RegisterSingleton<IDialogCoordinator>(_ => DialogCoordinator.Instance);
+        container.RegisterSingleton<DialogService>();
 
         #region Handle dialog closure
 
@@ -40,5 +39,6 @@ public partial class App
         modules.AddModule<DialogContentModule>();
         modules.AddModule<DialogModule>();
         modules.AddModule<HomeModule>();
+        modules.AddModule<InputModule>();
     }
 }

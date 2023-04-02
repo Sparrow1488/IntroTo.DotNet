@@ -7,9 +7,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="{Binding Text}" FontSize="16" />
+            <TextBlock Text="{Binding DialogClosureTime}" FontSize="16" />
+            <TextBlock Text="{Binding FormInputValue}" FontSize="16" />
             <TextBlock Text="Hello Prism!" FontSize="28" />
-            <Button Content="Open dialog" Command="{Binding OpenDialogCommand}" />            
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Content="Read" Command="{Binding OpenDialogCommand}" Width="50" />            
+                <Button Content="Input" Command="{Binding OpenInputDialogCommand}" Width="50" />            
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </UserControl>

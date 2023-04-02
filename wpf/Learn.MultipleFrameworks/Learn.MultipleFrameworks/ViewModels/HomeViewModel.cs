@@ -1,52 +1,59 @@
 using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
-using Prism.Services.Dialogs;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
 public class HomeViewModel : BindableBase
 {
+    private readonly DialogService _dialogService;
     private readonly IDialogCoordinator _dialogCoordinator;
     private readonly IEventAggregator _aggregator;
-    private string? _text;
+    private string? _dialogClosureTime;
+    private string? _formInputValue;
 
-    public HomeViewModel(IDialogCoordinator dialogCoordinator,
+    public HomeViewModel(
+        DialogService dialogService,
+        IDialogCoordinator dialogCoordinator, 
         IEventAggregator aggregator)
     {
+        _dialogService = dialogService;
         _dialogCoordinator = dialogCoordinator;
         _aggregator = aggregator;
+
+        ConfigureEventsHandlers();
         
-        _aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(_ =>
-            Text = "Dialog closed at " + DateTime.Now.ToShortTimeString());
-        
-        OpenDialogCommand = new DelegateCommand(OnOpenDialog);
+        OpenDialogCommand = new DelegateCommand(_dialogService.OpenDialog);
+        OpenInputDialogCommand = new DelegateCommand(_dialogService.OpenInputDialog);
     }
 
-    public string? Text
+    public string? DialogClosureTime
     {
-        get => _text;
-        set => SetProperty(ref _text, value);
+        get => _dialogClosureTime;
+        set => SetProperty(ref _dialogClosureTime, value);
+    }
+    public string? FormInputValue
+    {
+        get => _formInputValue;
+        set => SetProperty(ref _formInputValue, value);
     }
 
     public ICommand OpenDialogCommand { get; }
+    public ICommand OpenInputDialogCommand { get; }
 
-    private BaseMetroDialog _dialogView;
-    private void OnOpenDialog()
+    private void ConfigureEventsHandlers()
     {
-        var viewModel = new DialogViewModel(_aggregator);
-        _dialogView = new DialogView
-        {
-            DataContext = viewModel
-        };
-        
-        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, _dialogView)
-            .ContinueWith(_ => {});
+        _aggregator.GetEvent<DialogCloseRequestedEvent>()
+            .Subscribe(_ =>
+                DialogClosureTime = "Dialog closed at " + DateTime.Now.ToShortTimeString());
+
+        _aggregator.GetEvent<SubmitFormInputEvent>()
+            .Subscribe(input => FormInputValue = input.Value);
     }
 }

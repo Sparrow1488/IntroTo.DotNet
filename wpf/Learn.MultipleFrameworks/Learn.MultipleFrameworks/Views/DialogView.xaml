@@ -12,9 +12,6 @@
         <StackPanel
             HorizontalAlignment="Center" 
             VerticalAlignment="Center">
-            <!-- <TextBlock  -->
-            <!--     Text="Hello World!"  -->
-            <!--     FontSize="28"  />  -->
             
             <ContentControl regions:RegionManager.RegionName="DialogContentRegion" />
         </StackPanel>
@@ -26,8 +23,7 @@
                 Content="OK" 
                 Padding="25 5" 
                 Margin="15" 
-                Command="{Binding PressCloseCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:BaseMetroDialog}}}"/>
+                Command="{Binding PressCloseCommand}" />
         </StackPanel>
     </Grid>
 </mah:BaseMetroDialog>
