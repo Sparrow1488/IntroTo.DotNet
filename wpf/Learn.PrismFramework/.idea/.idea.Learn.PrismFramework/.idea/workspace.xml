@@ -5,12 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Constants/Regions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Modules/DialogModule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Modules/HomeModule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogView.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogView.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/HomeView.xaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/HomeView.xaml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewsModels/DialogViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewsModels/HomeViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewsModels/MainWindowViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/Keyboard.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework.Modules/Views/KeyboardDialog.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/App.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +113,13 @@
       <workItem from="1680120592070" duration="1084000" />
       <workItem from="1680189579776" duration="1683000" />
       <workItem from="1680197292808" duration="2246000" />
-      <workItem from="1680248417060" duration="3231000" />
+      <workItem from="1680248417060" duration="4225000" />
+      <workItem from="1680446087811" duration="46000" />
+      <workItem from="1680447363267" duration="150000" />
+      <workItem from="1680448653398" duration="83000" />
+      <workItem from="1680449047074" duration="87000" />
+      <workItem from="1680449145325" duration="19000" />
+      <workItem from="1680449168139" duration="2000" />
     </task>
     <servers />
   </component>
@@ -127,5 +139,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Learn.PrismFramework/ViewModels/MainWindowViewModel.cs</url>
+          <line>26</line>
+          <properties documentPath="C:\Users\ilyao\OneDrive\Desktop\Development\Learning\IntroTo\IntroTo.DotNet\wpf\Learn.PrismFramework\Learn.PrismFramework\ViewModels\MainWindowViewModel.cs" initialLine="26" containingFunctionPresentation="constructor 'MainWindowViewModel'">
+            <startOffsets>
+              <option value="857" />
+            </startOffsets>
+            <endOffsets>
+              <option value="878" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

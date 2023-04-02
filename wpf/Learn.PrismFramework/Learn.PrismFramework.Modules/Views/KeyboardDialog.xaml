@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         
         <!-- <ContentControl Grid.Column="0" regions:RegionManager.RegionName="KeyboardRegion" /> -->
-        <views:Keyboard Grid.Column="0" />
+        <views:Keyboard Grid.Column="0" Text="" />
         
         <Button Grid.Column="1" Content="SUBMIT" Command="{Binding SubmitTextCommand}" />
     </Grid>
