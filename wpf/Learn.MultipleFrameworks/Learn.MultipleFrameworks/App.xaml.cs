@@ -40,5 +40,6 @@ public partial class App
         modules.AddModule<DialogModule>();
         modules.AddModule<HomeModule>();
         modules.AddModule<InputModule>();
+        modules.AddModule<NumericInputModule>();
     }
 }

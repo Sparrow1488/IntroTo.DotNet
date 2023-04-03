@@ -6,4 +6,5 @@ public static class Regions
     public const string DialogContentRegion = nameof(DialogContentRegion);
     public const string HomeRegion = nameof(HomeRegion);
     public const string InputRegion = nameof(InputRegion);
+    public const string NumericInputRegion = nameof(NumericInputRegion);
 }

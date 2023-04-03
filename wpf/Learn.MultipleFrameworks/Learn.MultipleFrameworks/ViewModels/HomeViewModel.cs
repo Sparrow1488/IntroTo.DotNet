@@ -54,5 +54,8 @@ public class HomeViewModel : BindableBase
 
         _aggregator.GetEvent<SubmitFormInputEvent>()
             .Subscribe(input => FormInputValue = input.Value);
+        
+        _aggregator.GetEvent<SubmitIntNumberEvent>()
+            .Subscribe(input => FormInputValue = input.Value.ToString());
     }
 }
