@@ -10,8 +10,8 @@
         <Style x:Key="DefaultKeyButton" 
                TargetType="Button" 
                BasedOn="{StaticResource MahApps.Styles.Button}">
-            <Setter Property="Background" Value="#343334"/>
-            <Setter Property="Foreground" Value="#d6d6d3"/>
+            <!-- <Setter Property="Background" Value="#343334"/> -->
+            <!-- <Setter Property="Foreground" Value="#d6d6d3"/> -->
             <Setter Property="Margin" Value="2 2"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Normal"/>
@@ -34,21 +34,19 @@
             </Grid.ColumnDefinitions>
             
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
             
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
-                <TextBox HorizontalContentAlignment="Stretch"
-                         FontSize="18"
-                         mah:TextBoxHelper.ClearTextButton="True"
-                         SpellCheck.IsEnabled="True"
-                         Text="{Binding Input}"
-                         ToolTip="Вставьте текст" />
-            </StackPanel>
+            <TextBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
+                     HorizontalContentAlignment="Stretch"
+                     FontSize="18"
+                     TextWrapping="Wrap"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     Text="{Binding Input}" />
             
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"
@@ -82,7 +80,7 @@
                         Style="{StaticResource KeyButton}" />
             </WrapPanel>
             
-            <Button Content="y"
+            <Button Content="OK"
                     Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
                     Style="{StaticResource DefaultKeyButton}"
