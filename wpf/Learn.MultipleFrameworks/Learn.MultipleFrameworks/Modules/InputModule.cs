@@ -13,6 +13,6 @@ public class InputModule : IModule
     public void OnInitialized(IContainerProvider container)
     {
         var manager = container.Resolve<IRegionManager>();
-        manager.RegisterViewWithRegion(Regions.InputRegion, typeof(InputDialogView));
+        manager.RegisterViewWithRegion(Regions.RegionDialogRegion, typeof(RegionDialogView));
     }
 }

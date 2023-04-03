@@ -9,23 +9,17 @@ using Prism.Mvvm;
 
 namespace Learn.MultipleFrameworks.Services.Dialogs;
 
-public abstract class BindableDialogContext<TView> : BindableBase, IDialogContext 
-    where TView : DependencyObject
+public abstract class BindableDialogContentManager : BindableBase
 {
     protected IContainerProvider Container => ContainerLocator.Container;
-    protected IEventAggregator Aggregator => ContainerLocator.Container.Resolve<IEventAggregator>();
+    protected IEventAggregator Aggregator => Container.Resolve<IEventAggregator>();
     
-    public bool OpenedInDialog()
-    {
-        // TODO: check open in dialog
-        return MainWindow.Instance.FindChild<TView>() is not null;
-    }
-
     public virtual void RequestDialogClose()
     {
-        if (!OpenedInDialog()) return;
+        var dialog = MainWindow.Instance.FindChild<RegionDialogView>() as BaseMetroDialog;
+
+        if (dialog is null) return;
         
-        var dialog = MainWindow.Instance.FindChild<TView>() as BaseMetroDialog;
         var context = new DialogCloseContext
         {
             Host = MainWindow.Instance,

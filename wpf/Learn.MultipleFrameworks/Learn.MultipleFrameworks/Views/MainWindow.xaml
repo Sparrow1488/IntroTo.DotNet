@@ -11,5 +11,6 @@
         Title="{Binding Title}" Height="450" Width="800">
     <Grid>
         <ContentControl regions:RegionManager.RegionName="HomeRegion" />
+        <!-- <ContentControl regions:RegionManager.RegionName="LoginRegion" /> -->
     </Grid>
 </mah:MetroWindow>

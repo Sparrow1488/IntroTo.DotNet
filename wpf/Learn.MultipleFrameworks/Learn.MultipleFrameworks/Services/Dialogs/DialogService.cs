@@ -1,3 +1,4 @@
+using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.ViewModels;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
@@ -16,27 +17,19 @@ public class DialogService
         _dialogCoordinator = dialogCoordinator;
     }
     
-    public void OpenDialog()
+    public void ShowRegionInDialog(string region)
     {
-        var viewModel = new DialogViewModel();
-        var dialogView = new DialogView
-        {
-            DataContext = viewModel
-        };
-        
-        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, dialogView)
+        var dialog = CreateRegionDialog(region);        
+        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, dialog)
             .ContinueWith(_ => {});
     }
-    
-    public void OpenInputDialog()
+
+    private static RegionDialogView CreateRegionDialog(string region)
     {
-        var viewModel = new InputDialogViewModel();
-        var dialogView = new InputDialogView
+        var viewModel = new RegionDialogViewModel(region);
+        return new RegionDialogView
         {
             DataContext = viewModel
         };
-        
-        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, dialogView)
-            .ContinueWith(_ => {});
     }
 }

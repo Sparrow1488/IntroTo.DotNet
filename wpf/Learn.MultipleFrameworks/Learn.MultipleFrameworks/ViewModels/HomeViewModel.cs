@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Input;
+using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
@@ -28,8 +29,8 @@ public class HomeViewModel : BindableBase
 
         ConfigureEventsHandlers();
         
-        OpenDialogCommand = new DelegateCommand(_dialogService.OpenDialog);
-        OpenInputDialogCommand = new DelegateCommand(_dialogService.OpenInputDialog);
+        OpenInputDialogCommand = new DelegateCommand(
+            () => _dialogService.ShowRegionInDialog(Regions.IntNumericInputRegion));
     }
 
     public string? DialogClosureTime
@@ -43,7 +44,6 @@ public class HomeViewModel : BindableBase
         set => SetProperty(ref _formInputValue, value);
     }
 
-    public ICommand OpenDialogCommand { get; }
     public ICommand OpenInputDialogCommand { get; }
 
     private void ConfigureEventsHandlers()

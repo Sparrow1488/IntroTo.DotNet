@@ -6,13 +6,13 @@ using Prism.Regions;
 
 namespace Learn.MultipleFrameworks.Modules;
 
-public class DialogContentModule : IModule
+public class LoginModule : IModule
 {
     public void RegisterTypes(IContainerRegistry containerRegistry) { }
 
-    public void OnInitialized(IContainerProvider containerProvider)
+    public void OnInitialized(IContainerProvider container)
     {
-        var manager = containerProvider.Resolve<IRegionManager>();
-        manager.RegisterViewWithRegion(Regions.DialogContentRegion, typeof(DialogContentView));
+        var manager = container.Resolve<IRegionManager>();
+        manager.RegisterViewWithRegion(Regions.LoginRegion, typeof(LoginView));
     }
 }

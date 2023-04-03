@@ -1,8 +1,8 @@
 namespace Learn.MultipleFrameworks.Views;
 
-public partial class DialogView
+public partial class RegionDialogView
 {
-    public DialogView()
+    public RegionDialogView()
     {
         InitializeComponent();
     }

@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace Learn.MultipleFrameworks.Views;
 
-public partial class NumericInputView : UserControl
+public partial class IntNumericInputView : UserControl
 {
-    public NumericInputView()
+    public IntNumericInputView()
     {
         InitializeComponent();
     }

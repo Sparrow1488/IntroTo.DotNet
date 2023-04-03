@@ -10,14 +10,14 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="{Binding DialogClosureTime}" FontSize="16" />
             <TextBlock Text="{Binding FormInputValue}" FontSize="16" />
-            <TextBlock Text="Hello Prism!" FontSize="28" />
+            
+            <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" Text="Hello Prism!" FontSize="28" />
             <WrapPanel HorizontalAlignment="Center">
-                <Button Content="Read" Command="{Binding OpenDialogCommand}" Width="50" />            
-                <Button Content="Input" Command="{Binding OpenInputDialogCommand}" Width="50" />            
+                <Button Content="Show keyboard" Command="{Binding OpenInputDialogCommand}" Width="110" Margin="5 2" />            
             </WrapPanel>
             
-            <WrapPanel HorizontalAlignment="Center">
-                <ContentControl regions:RegionManager.RegionName="NumericInputRegion" />    
+            <WrapPanel HorizontalAlignment="Center" Margin="10">
+                <ContentControl regions:RegionManager.RegionName="IntNumericInputRegion" />    
             </WrapPanel>
         </StackPanel>
     </Grid>
