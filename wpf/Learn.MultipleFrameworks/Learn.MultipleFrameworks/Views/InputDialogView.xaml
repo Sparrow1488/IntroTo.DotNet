@@ -12,8 +12,9 @@
                BasedOn="{StaticResource MahApps.Styles.Button}">
             <Setter Property="Background" Value="#343334"/>
             <Setter Property="Foreground" Value="#d6d6d3"/>
-            <Setter Property="Margin" Value="2 0"/>
+            <Setter Property="Margin" Value="2 2"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Normal"/>
         </Style>
         <Style x:Key="KeyButton" 
                TargetType="Button"
@@ -41,16 +42,12 @@
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
-                <Border Margin="0 5" 
-                        BorderBrush="#d6d6d3" 
-                        BorderThickness="1" 
-                        CornerRadius="5">
-                    <TextBox Text="{Binding Input}" 
-                             FontSize="24" 
-                             Foreground="#d6d6d3"
-                             Background="#32303a"
-                             TextWrapping="WrapWithOverflow"/>
-                </Border>
+                <TextBox HorizontalContentAlignment="Stretch"
+                         FontSize="18"
+                         mah:TextBoxHelper.ClearTextButton="True"
+                         SpellCheck.IsEnabled="True"
+                         Text="{Binding Input}"
+                         ToolTip="Вставьте текст" />
             </StackPanel>
             
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
