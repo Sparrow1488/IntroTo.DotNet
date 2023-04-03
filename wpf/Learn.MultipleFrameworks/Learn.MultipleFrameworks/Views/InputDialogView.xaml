@@ -4,25 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <StackPanel>
-            <TextBlock Text="{Binding Input}" FontSize="24" />
-        </StackPanel>
+             mc:Ignorable="d">
+    
+    <mah:BaseMetroDialog.Resources>
+        <Style x:Key="DefaultKeyButton" 
+               TargetType="Button" 
+               BasedOn="{StaticResource MahApps.Styles.Button}">
+            <Setter Property="Background" Value="#343334"/>
+            <Setter Property="Foreground" Value="#d6d6d3"/>
+            <Setter Property="Margin" Value="2 0"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style x:Key="KeyButton" 
+               TargetType="Button"
+               BasedOn="{StaticResource DefaultKeyButton}">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Command" Value="{Binding InputSymbolCommand}"/>
+            <Setter Property="CommandParameter" Value="{Binding Path=Content, RelativeSource={RelativeSource Self}}"/>
+        </Style>
+    </mah:BaseMetroDialog.Resources>
+             
+    <StackPanel HorizontalAlignment="Center">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+                <Border Margin="0 5" 
+                        BorderBrush="#d6d6d3" 
+                        BorderThickness="1" 
+                        CornerRadius="5">
+                    <TextBox Text="{Binding Input}" 
+                             FontSize="24" 
+                             Foreground="#d6d6d3"
+                             Background="#32303a"
+                             TextWrapping="WrapWithOverflow"/>
+                </Border>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                <Button Content="7"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="8"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="9"
+                        Style="{StaticResource KeyButton}" />
+            </StackPanel>
         
-        <WrapPanel>
-            <Button Content="A" Width="50" Height="50" 
-                    Command="{Binding InputSymbolCommand}" 
-                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
-            <Button Content="B" Width="50" Height="50" 
-                    Command="{Binding InputSymbolCommand}" 
-                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
-            <Button Content="C" Width="50" Height="50" 
-                    Command="{Binding InputSymbolCommand}" 
-                    CommandParameter="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
-            <Button Content="SUBMIT" Width="80" Height="50" 
+            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                <Button Content="4"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="5"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="6"
+                        Style="{StaticResource KeyButton}" />
+            </StackPanel>
+        
+            <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                <Button Content="1"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="2"
+                        Style="{StaticResource KeyButton}" />
+                <Button Content="3"
+                        Style="{StaticResource KeyButton}" />
+            </StackPanel>
+        
+            <WrapPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="0"
+                        Style="{StaticResource KeyButton}" />
+            </WrapPanel>
+            
+            <Button Content="y"
+                    Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
+                    Width="50"
+                    Style="{StaticResource DefaultKeyButton}"
                     Command="{Binding SubmitCommand}" />
-        </WrapPanel>
+            <Button Content="x"
+                    Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
+                    Width="50"
+                    Style="{StaticResource DefaultKeyButton}"
+                    Command="{Binding SubmitCommand}" />
+        </Grid>
     </StackPanel>
 </mah:BaseMetroDialog>
