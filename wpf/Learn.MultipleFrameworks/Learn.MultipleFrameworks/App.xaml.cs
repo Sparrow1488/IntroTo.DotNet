@@ -39,6 +39,7 @@ public partial class App
         modules.AddModule<HomeModule>();
         modules.AddModule<InputModule>();
         modules.AddModule<NumericInputModule>();
+        modules.AddModule<LimitsInputModule>();
         modules.AddModule<LoginModule>();
     }
 }

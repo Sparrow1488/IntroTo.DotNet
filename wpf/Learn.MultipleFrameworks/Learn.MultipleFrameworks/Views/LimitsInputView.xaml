@@ -1,9 +1,10 @@
-<UserControl x:Class="Learn.MultipleFrameworks.Views.IntNumericInputView"
+<UserControl x:Class="Learn.MultipleFrameworks.Views.LimitsInputView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -12,6 +13,9 @@
             <ResourceDictionary
                 Source="/Learn.MultipleFrameworks;component/Styles/KeyboardStyles.xaml"/>
         </ResourceDictionary.MergedDictionaries>
+            
+        <system:Double x:Key="LongButtonWidth">75</system:Double>
+            
     </ResourceDictionary>
     </UserControl.Resources>
              
@@ -30,12 +34,19 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             
-            <TextBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
+            <TextBox Grid.Row="0" Grid.Column="0"
                      HorizontalContentAlignment="Stretch"
                      FontSize="18"
                      TextWrapping="Wrap"
                      mah:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding Input}" />
+            
+            <Button Grid.Row="0" 
+                    Grid.Column="1"
+                    Width="{StaticResource LongButtonWidth}"
+                    Content="OK"
+                    Command="{Binding SubmitCommand}"
+                    Style="{StaticResource SizedCommandKeyButton}" />
             
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"
@@ -63,22 +74,32 @@
                 <Button Content="3"
                         Style="{StaticResource SizedCommandKeyButton}" />
             </StackPanel>
-        
-            <Button Grid.Column="0" 
-                    Grid.Row="4" 
-                    Content="0"
-                    Style="{StaticResource CommandKeyButton}" />
             
-            <Button Content="x"
-                    Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
-                    Width="50"
-                    Style="{StaticResource KeyButton}"
-                    Command="{Binding ResetCommand}" />
-            <Button Content="OK"
-                    Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
-                    Width="50"
-                    Style="{StaticResource KeyButton}"
-                    Command="{Binding SubmitCommand}" />
+            <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+                <Button Content="+/-"
+                        Style="{StaticResource SizedCommandKeyButton}" />
+                <Button Content="0"
+                        Style="{StaticResource SizedCommandKeyButton}" />
+                <Button Content="."
+                        Style="{StaticResource SizedCommandKeyButton}" />
+            </StackPanel>
+            
+            <Button Content="↑"
+                    Grid.Row="1" Grid.Column="1"
+                    Width="{StaticResource LongButtonWidth}"
+                    Style="{StaticResource SizedCommandKeyButton}" />
+            <Button Content="↓"
+                    Grid.Row="2" Grid.Column="1"
+                    Width="{StaticResource LongButtonWidth}"
+                    Style="{StaticResource SizedCommandKeyButton}" />
+            <Button Content="+100"
+                    Grid.Row="3" Grid.Column="1"
+                    Width="{StaticResource LongButtonWidth}"
+                    Style="{StaticResource SizedCommandKeyButton}" />
+            <Button Content="-100"
+                    Grid.Row="4" Grid.Column="1"
+                    Width="{StaticResource LongButtonWidth}"
+                    Style="{StaticResource SizedCommandKeyButton}" />
         </Grid>
     </StackPanel>
 </UserControl>

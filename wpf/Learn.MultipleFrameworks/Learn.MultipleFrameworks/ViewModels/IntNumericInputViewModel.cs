@@ -17,14 +17,6 @@ public class IntNumericInputViewModel : KeyboardViewModel
 
     protected override void InputSymbol(string symbol)
     {
-        var scopeInput = Input + symbol;
-        
-        if (int.TryParse(scopeInput, out _))
-        {
-            if (scopeInput.StartsWith(DefaultValue[0]))
-                scopeInput = scopeInput.Remove(0, 1);
-            
-            Input = scopeInput;
-        }
+        Input = symbol.TrimStart('0');
     }
 }
