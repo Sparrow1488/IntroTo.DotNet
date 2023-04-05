@@ -13,6 +13,6 @@ public class LimitsInputModule : IModule
     public void OnInitialized(IContainerProvider container)
     {
         var manager = container.Resolve<IRegionManager>();
-        manager.RegisterViewWithRegion(Regions.LimitsInputRegion, typeof(LimitsInputView));
+        manager.RegisterViewWithRegion(Regions.LimitsKeyboardRegion, typeof(LimitsKeyboardView));
     }
 }

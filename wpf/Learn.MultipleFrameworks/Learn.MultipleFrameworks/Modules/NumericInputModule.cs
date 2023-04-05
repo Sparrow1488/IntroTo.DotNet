@@ -13,6 +13,6 @@ public class NumericInputModule : IModule
     public void OnInitialized(IContainerProvider container)
     {
         var manager = container.Resolve<IRegionManager>();
-        manager.RegisterViewWithRegion(Regions.IntNumericInputRegion, typeof(IntNumericInputView));
+        manager.RegisterViewWithRegion(Regions.NumericKeyboardRegion, typeof(NumericKeyboardView));
     }
 }

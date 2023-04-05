@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace Learn.MultipleFrameworks.Views;
 
-public partial class LimitsInputView : UserControl
+public partial class NumericKeyboardView : UserControl
 {
-    public LimitsInputView()
+    public NumericKeyboardView()
     {
         InitializeComponent();
     }

@@ -1,6 +1,6 @@
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class IntNumericInputViewModel : KeyboardViewModel
+public class NumericKeyboardViewModel : KeyboardViewModel
 {
     protected override string DefaultValue => "0";
 

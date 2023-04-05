@@ -18,8 +18,8 @@
             </WrapPanel>
             
             <WrapPanel HorizontalAlignment="Center" Margin="10">
-                <ContentControl regions:RegionManager.RegionName="IntNumericInputRegion" />
-                <!-- <ContentControl regions:RegionManager.RegionName="LimitsInputRegion" /> -->
+                <ContentControl regions:RegionManager.RegionName="NumericKeyboardRegion" />
+                <!-- <ContentControl regions:RegionManager.RegionName="LimitsKeyboardRegion" /> -->
             </WrapPanel>
         </StackPanel>
     </Grid>

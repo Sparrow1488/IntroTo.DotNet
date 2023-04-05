@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class LimitsInputViewModel : KeyboardViewModel
+public class LimitsKeyboardViewModel : KeyboardViewModel
 {
     private const string PositiveSymbol = "+/-";
     private const string PlusOneHundredSymbol = "+100";

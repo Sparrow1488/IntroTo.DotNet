@@ -21,12 +21,12 @@ public class KeyboardModalService
 
     public void ShowNumericKeyboard(Action<KeyboardInput> onInput)
     {
-        ShowSubscribedDialogKeyboard(Regions.IntNumericInputRegion, onInput);
+        ShowSubscribedDialogKeyboard(Regions.NumericKeyboardRegion, onInput);
     }
     
     public void ShowLimitsKeyboard(Action<KeyboardInput> onInput)
     {
-        ShowSubscribedDialogKeyboard(Regions.LimitsInputRegion, onInput);
+        ShowSubscribedDialogKeyboard(Regions.LimitsKeyboardRegion, onInput);
     }
 
     private void ShowSubscribedDialogKeyboard(string keyboardRegion, Action<KeyboardInput> onInput)
