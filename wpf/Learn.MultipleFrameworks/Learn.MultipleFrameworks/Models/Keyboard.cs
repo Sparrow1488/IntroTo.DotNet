@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Learn.MultipleFrameworks.ViewModels;
 
 namespace Learn.MultipleFrameworks.Models;
 

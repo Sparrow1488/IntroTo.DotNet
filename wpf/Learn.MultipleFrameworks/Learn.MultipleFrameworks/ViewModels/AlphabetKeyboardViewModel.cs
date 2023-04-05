@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,16 +6,17 @@ using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Loaders;
 using Prism.Commands;
-using Prism.Events;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
 public class AlphabetKeyboardViewModel : DialogContentInjectable
 {
+    private bool _isUpper;
+    
+    private readonly Dictionary<KeyboardLayout, string> _languagesMap;
     private readonly KeyboardLayoutsManager _keyboardsManager;
     private ObservableCollection<ObservableCollection<KeyButton>> _keyButtonsList;
     private string _nextLanguageLayout;
-    private readonly Dictionary<KeyboardLayout, string> _languagesMap;
 
     public AlphabetKeyboardViewModel(KeyboardLayoutsManager keyboardsManager)
     {
@@ -27,11 +27,29 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
             { KeyboardLayout.EN, "EN" },
             { KeyboardLayout.RU, "RU" }
         };
-        
-        InitButtons(KeyboardLayout.EN);
 
-        ChangeLayoutCommand = new DelegateCommand(() => InitButtons(GetNextLanguageLayout()));
+        KeyButtonsList = new ObservableCollection<ObservableCollection<KeyButton>>();
+        
+        SetLayoutButtons(KeyboardLayout.EN);
+
+        ChangeLayoutCommand = new DelegateCommand(() => SetLayoutButtons(GetNextLanguageLayout()));
+        ChangeUpperCase = new DelegateCommand(() =>
+        {
+            IsUpperCase = !IsUpperCase;
+            
+            var buttons = KeyButtonsList.SelectMany(
+                x => x.ToList())
+                .ToList();
+            
+            if (IsUpperCase)
+                buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+            if (!IsUpperCase)
+                buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+
+            RenderButtons(buttons);
+        });
     }
+
 
     public ObservableCollection<ObservableCollection<KeyButton>> KeyButtonsList
     {
@@ -44,23 +62,35 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         get => _nextLanguageLayout;
         set => SetProperty(ref _nextLanguageLayout, value);
     }
+    
     private KeyboardLayout CurrentLayout { get; set; }
+
+    private bool IsUpperCase
+    {
+        get => _isUpper;
+        set => SetProperty(ref _isUpper, value);
+    }
     
     public ICommand ChangeLayoutCommand { get; }
+    public DelegateCommand ChangeUpperCase { get; }
 
-    private void InitButtons(KeyboardLayout layout)
+    private void SetLayoutButtons(KeyboardLayout layout)
     {
-        // var loadedButtons = _keyboardsManager.LoadLayout(layout);
         var loadedButtons = KeyboardLayoutsStore.GetLayout(layout);
-
-        var buttonsGroup = loadedButtons
-            .OrderBy(x => x.Row)
-            .GroupBy(x => x.Row);
 
         CurrentLayout = layout;
         NextLayout = _languagesMap[GetNextLanguageLayout()];
 
-        KeyButtonsList = new ObservableCollection<ObservableCollection<KeyButton>>();
+        RenderButtons(loadedButtons);
+    }
+
+    private void RenderButtons(List<KeyButton> buttons)
+    {
+        var buttonsGroup = buttons
+            .OrderBy(x => x.Row)
+            .GroupBy(x => x.Row);
+        
+        KeyButtonsList.Clear();
         foreach (var group in buttonsGroup)
         {
             var rowButtons = group.ToList();

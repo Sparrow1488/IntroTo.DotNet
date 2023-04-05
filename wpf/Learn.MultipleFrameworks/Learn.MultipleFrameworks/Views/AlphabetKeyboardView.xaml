@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -42,7 +43,8 @@
             
         </StackPanel>
         
-        <Button Grid.Row="1" Grid.Column="0" Content="Caps"
+        <ToggleButton Grid.Row="1" Grid.Column="0" Content="Caps"
+                Command="{Binding ChangeUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="1" Content="123" 
                 Style="{StaticResource SizedShiftKeyButton}"/>
@@ -53,7 +55,8 @@
                 Content="{Binding NextLayout}" 
                 Command="{Binding ChangeLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="4" Content="Caps"
+        <ToggleButton Grid.Row="1" Grid.Column="4" Content="Caps"
+                Command="{Binding ChangeUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
     </Grid>
 </UserControl>

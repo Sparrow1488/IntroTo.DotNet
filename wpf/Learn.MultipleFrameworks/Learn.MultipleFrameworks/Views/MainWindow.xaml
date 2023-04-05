@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         regions:ViewModelLocator.AutoWireViewModel="True"
         mah:DialogParticipation.Register="{Binding}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="780" Width="800">
     <Grid>
         <ContentControl regions:RegionManager.RegionName="HomeRegion" />
         <!-- <ContentControl regions:RegionManager.RegionName="LoginRegion" /> -->
