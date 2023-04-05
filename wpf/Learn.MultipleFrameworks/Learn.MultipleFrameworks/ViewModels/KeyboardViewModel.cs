@@ -17,7 +17,7 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 #endregion
 
-public abstract class KeyboardViewModel : BindableDialogContentManager
+public abstract class KeyboardViewModel : DialogContentInjectable
 {
     private string _input;
     

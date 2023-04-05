@@ -6,6 +6,8 @@
     <system:Double x:Key="KeyButtonWidth">55</system:Double>
     <system:Double x:Key="KeyButtonHeight">55</system:Double>
     
+    <system:Double x:Key="ShiftKeyButtonWidth">75</system:Double>
+    
     <Style x:Key="KeyButton" 
            TargetType="Button" 
            BasedOn="{StaticResource MahApps.Styles.Button}">
@@ -21,6 +23,12 @@
         <Setter Property="Height" Value="{StaticResource KeyButtonHeight}"/>
     </Style>
     
+    <Style x:Key="SizedShiftKeyButton" 
+           TargetType="Button" 
+           BasedOn="{StaticResource SizedKeyButton}">
+        <Setter Property="Width" Value="{StaticResource ShiftKeyButtonWidth}"/>
+    </Style>
+    
     <Style x:Key="CommandKeyButton" 
            TargetType="Button"
            BasedOn="{StaticResource KeyButton}">
@@ -33,6 +41,24 @@
            BasedOn="{StaticResource SizedKeyButton}">
         <Setter Property="Command" Value="{Binding InputSymbolCommand}"/>
         <Setter Property="CommandParameter" Value="{Binding Path=Content, RelativeSource={RelativeSource Self}}"/>
+    </Style>
+    
+    <Style x:Key="KeyboardRowPanel" TargetType="ItemsControl">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Button Style="{StaticResource SizedCommandKeyButton}" 
+                            Content="{Binding CurrentSymbol}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
 </ResourceDictionary>

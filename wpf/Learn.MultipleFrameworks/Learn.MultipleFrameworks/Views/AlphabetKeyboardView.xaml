@@ -1,0 +1,57 @@
+<UserControl x:Class="Learn.MultipleFrameworks.Views.AlphabetKeyboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="/Learn.MultipleFrameworks;component/Styles/KeyboardStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+            
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5">
+            <ItemsControl ItemsSource="{Binding KeyButtonsList[0]}" 
+                          Style="{StaticResource KeyboardRowPanel}" />
+        
+            <ItemsControl ItemsSource="{Binding KeyButtonsList[1]}" 
+                          Style="{StaticResource KeyboardRowPanel}" />
+        
+            <ItemsControl ItemsSource="{Binding KeyButtonsList[2]}" 
+                          Style="{StaticResource KeyboardRowPanel}" />
+            
+            <ItemsControl ItemsSource="{Binding KeyButtonsList[3]}" 
+                          Style="{StaticResource KeyboardRowPanel}" />
+            
+        </StackPanel>
+        
+        <Button Grid.Row="1" Grid.Column="0" Content="Caps"
+                Style="{StaticResource SizedShiftKeyButton}"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="123" 
+                Style="{StaticResource SizedShiftKeyButton}"/>
+        <Button Grid.Row="1" Grid.Column="2"
+                MinWidth="150"
+                Style="{StaticResource KeyButton}"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="EN" 
+                Style="{StaticResource SizedShiftKeyButton}"/>
+        <Button Grid.Row="1" Grid.Column="4" Content="Caps"
+                Style="{StaticResource SizedShiftKeyButton}"/>
+    </Grid>
+</UserControl>

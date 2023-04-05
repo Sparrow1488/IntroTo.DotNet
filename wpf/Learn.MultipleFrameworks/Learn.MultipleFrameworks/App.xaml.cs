@@ -39,10 +39,13 @@ public partial class App
 
     protected override void ConfigureModuleCatalog(IModuleCatalog modules)
     {
-        modules.AddModule<HomeModule>();
-        modules.AddModule<InputModule>();
-        modules.AddModule<NumericInputModule>();
-        modules.AddModule<LimitsInputModule>();
+        modules.AddModule<HomeModule>();        
         modules.AddModule<LoginModule>();
+        
+        modules.AddModule<DialogModule>();
+        
+        modules.AddModule<AlphabetKeyboardModule>();
+        modules.AddModule<NumericKeyboardModule>();
+        modules.AddModule<LimitsKeyboardModule>();
     }
 }

@@ -6,13 +6,13 @@ using Prism.Regions;
 
 namespace Learn.MultipleFrameworks.Modules;
 
-public class InputModule : IModule
+public class LimitsKeyboardModule : IModule
 {
     public void RegisterTypes(IContainerRegistry containerRegistry) { }
 
     public void OnInitialized(IContainerProvider container)
     {
         var manager = container.Resolve<IRegionManager>();
-        manager.RegisterViewWithRegion(Regions.RegionDialogRegion, typeof(RegionDialogView));
+        manager.RegisterViewWithRegion(Regions.LimitsKeyboardRegion, typeof(LimitsKeyboardView));
     }
 }

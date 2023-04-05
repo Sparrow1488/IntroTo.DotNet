@@ -6,7 +6,7 @@ using Prism.Regions;
 
 namespace Learn.MultipleFrameworks.Modules;
 
-public class NumericInputModule : IModule
+public class NumericKeyboardModule : IModule
 {
     public void RegisterTypes(IContainerRegistry containerRegistry) { }
 
