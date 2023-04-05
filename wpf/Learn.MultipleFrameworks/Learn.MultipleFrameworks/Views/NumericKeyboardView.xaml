@@ -68,6 +68,7 @@
             <Button Grid.Column="0" 
                     Grid.Row="4" 
                     Content="0"
+                    Height="{StaticResource KeyButtonHeight}"
                     Style="{StaticResource CommandKeyButton}" />
             
             <Button Content="x"

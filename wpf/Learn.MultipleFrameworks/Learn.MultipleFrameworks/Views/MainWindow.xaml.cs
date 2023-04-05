@@ -1,6 +1,8 @@
-﻿namespace Learn.MultipleFrameworks.Views;
+﻿using MahApps.Metro.Controls;
 
-public partial class MainWindow
+namespace Learn.MultipleFrameworks.Views;
+
+public partial class MainWindow : MetroWindow
 {
     public static MainWindow Instance = null!;
     
