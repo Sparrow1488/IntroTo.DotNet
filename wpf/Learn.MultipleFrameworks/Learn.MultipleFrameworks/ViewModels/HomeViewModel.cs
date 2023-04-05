@@ -2,6 +2,7 @@ using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Events.Models;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
@@ -12,25 +13,18 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public class HomeViewModel : BindableBase
 {
-    private readonly DialogService _dialogService;
-    private readonly IDialogCoordinator _dialogCoordinator;
     private readonly IEventAggregator _aggregator;
     private string? _dialogClosureTime;
     private string? _formInputValue;
 
-    public HomeViewModel(
-        DialogService dialogService,
-        IDialogCoordinator dialogCoordinator, 
-        IEventAggregator aggregator)
+    public HomeViewModel(DialogService dialogService, IEventAggregator aggregator)
     {
-        _dialogService = dialogService;
-        _dialogCoordinator = dialogCoordinator;
         _aggregator = aggregator;
 
         ConfigureEventsHandlers();
         
         OpenInputDialogCommand = new DelegateCommand(
-            () => _dialogService.ShowRegionInDialog(Regions.IntNumericInputRegion));
+            () => dialogService.ShowRegionInDialog(Regions.LimitsInputRegion));
     }
 
     public string? DialogClosureTime
@@ -52,10 +46,7 @@ public class HomeViewModel : BindableBase
             .Subscribe(_ =>
                 DialogClosureTime = "Dialog closed at " + DateTime.Now.ToShortTimeString());
 
-        _aggregator.GetEvent<SubmitFormInputEvent>()
+        _aggregator.GetEvent<SubmitKeyboardInputEvent>()
             .Subscribe(input => FormInputValue = input.Value);
-        
-        _aggregator.GetEvent<SubmitIntNumberEvent>()
-            .Subscribe(input => FormInputValue = input.Value.ToString());
     }
 }

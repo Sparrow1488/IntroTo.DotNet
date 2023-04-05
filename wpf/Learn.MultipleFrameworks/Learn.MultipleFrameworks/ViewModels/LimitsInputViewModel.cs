@@ -42,7 +42,6 @@ public class LimitsInputViewModel : KeyboardViewModel
 
             #endregion
 
-            // TODO: configure limits 
             #region Limits Symbol Handle
 
             Input = symbol switch

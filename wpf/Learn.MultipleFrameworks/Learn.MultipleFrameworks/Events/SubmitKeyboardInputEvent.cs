@@ -3,7 +3,7 @@ using Prism.Events;
 
 namespace Learn.MultipleFrameworks.Events;
 
-public class SubmitIntNumberEvent : PubSubEvent<IntNumberResult>
+public class SubmitKeyboardInputEvent : PubSubEvent<KeyboardInput>
 {
     
 }

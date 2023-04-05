@@ -1,4 +1,6 @@
 using System.Windows.Input;
+using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Events.Models;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using Prism.Commands;
 
@@ -45,7 +47,11 @@ public abstract class KeyboardViewModel : BindableDialogContentManager
     public ICommand SubmitCommand { get; }
     public ICommand ResetCommand { get; }
 
-    protected virtual void OnSubmitInput() { }
+    protected virtual void OnSubmitInput()
+    {
+        var input = new KeyboardInput(Input);
+        Aggregator.GetEvent<SubmitKeyboardInputEvent>().Publish(input);
+    }
     
     private void ResetInput()
     {
