@@ -7,12 +7,10 @@ namespace Learn.MultipleFrameworks.Services.Dialogs;
 
 public class DialogService
 {
-    private readonly IEventAggregator _aggregator;
     private readonly IDialogCoordinator _dialogCoordinator;
 
-    public DialogService(IEventAggregator aggregator, IDialogCoordinator dialogCoordinator)
+    public DialogService(IDialogCoordinator dialogCoordinator)
     {
-        _aggregator = aggregator;
         _dialogCoordinator = dialogCoordinator;
     }
     

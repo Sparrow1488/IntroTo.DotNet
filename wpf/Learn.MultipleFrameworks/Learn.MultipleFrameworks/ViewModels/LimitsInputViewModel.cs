@@ -31,7 +31,7 @@ public class LimitsInputViewModel : KeyboardViewModel
 
             #endregion
 
-            #region Plus Value Handle
+            #region Add Value Handle
 
             Input = symbol switch
             {

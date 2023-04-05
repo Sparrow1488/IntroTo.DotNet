@@ -1,4 +1,5 @@
 using Learn.MultipleFrameworks.Events;
+using Learn.MultipleFrameworks.Events.Models;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -10,14 +11,21 @@ namespace Learn.MultipleFrameworks.Services.Dialogs;
 
 public abstract class BindableDialogContentManager : BindableBase
 {
-    protected IContainerProvider Container => ContainerLocator.Container;
-    protected IEventAggregator Aggregator => Container.Resolve<IEventAggregator>();
+    private static IContainerProvider Container => ContainerLocator.Container;
+    protected static IEventAggregator Aggregator => Container.Resolve<IEventAggregator>();
     
-    public virtual void RequestDialogClose()
+    /// <summary>
+    /// Отправляет запрос на закрытие диалогового окна 
+    /// </summary>
+    /// <returns>
+    ///     Отправлен запрос на закрытие окна
+    ///     (если false, значит скорее всего компонент открыт не в диалоговом окне)
+    /// </returns>
+    protected static bool RequestDialogClose()
     {
         var dialog = MainWindow.Instance.FindChild<RegionDialogView>() as BaseMetroDialog;
 
-        if (dialog is null) return;
+        if (dialog is null) return false;
         
         var context = new DialogCloseContext
         {
@@ -26,5 +34,7 @@ public abstract class BindableDialogContentManager : BindableBase
         };
         
         Aggregator.GetEvent<DialogCloseRequestedEvent>().Publish(context);
+        
+        return true;
     }
 }

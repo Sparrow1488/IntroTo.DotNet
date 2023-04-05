@@ -9,16 +9,17 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="{Binding DialogClosureTime}" FontSize="16" />
-            <TextBlock Text="{Binding FormInputValue}" FontSize="16" />
+            <TextBlock Text="{Binding KeyboardOneValue}" FontSize="16" ToolTip="Component keyboard input" />
+            <TextBlock Text="{Binding KeyboardTwoValue}" FontSize="16" ToolTip="Modal keyboard input" />
             
             <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" Text="Hello Prism!" FontSize="28" />
             <WrapPanel HorizontalAlignment="Center">
-                <Button Content="Show keyboard" Command="{Binding OpenInputDialogCommand}" Width="110" Margin="5 2" />            
+                <Button Content="Limits keyboard" Command="{Binding ShowKeyboardDialogCommand}" Width="110" Margin="5 2" />            
             </WrapPanel>
             
             <WrapPanel HorizontalAlignment="Center" Margin="10">
-                <!-- <ContentControl regions:RegionManager.RegionName="IntNumericInputRegion" /> -->
-                <ContentControl regions:RegionManager.RegionName="LimitsInputRegion" />
+                <ContentControl regions:RegionManager.RegionName="IntNumericInputRegion" />
+                <!-- <ContentControl regions:RegionManager.RegionName="LimitsInputRegion" /> -->
             </WrapPanel>
         </StackPanel>
     </Grid>

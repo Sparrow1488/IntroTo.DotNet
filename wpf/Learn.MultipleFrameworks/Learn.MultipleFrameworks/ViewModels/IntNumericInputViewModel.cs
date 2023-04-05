@@ -1,6 +1,3 @@
-using Learn.MultipleFrameworks.Events;
-using Learn.MultipleFrameworks.Events.Models;
-
 namespace Learn.MultipleFrameworks.ViewModels;
 
 public class IntNumericInputViewModel : KeyboardViewModel

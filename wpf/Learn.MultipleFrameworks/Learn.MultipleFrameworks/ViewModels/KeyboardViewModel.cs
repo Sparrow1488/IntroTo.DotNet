@@ -47,9 +47,9 @@ public abstract class KeyboardViewModel : BindableDialogContentManager
     public ICommand SubmitCommand { get; }
     public ICommand ResetCommand { get; }
 
-    protected virtual void OnSubmitInput()
+    private void OnSubmitInput(bool openedInDialog)
     {
-        var input = new KeyboardInput(Input);
+        var input = new KeyboardInput(Input, openedInDialog);
         Aggregator.GetEvent<SubmitKeyboardInputEvent>().Publish(input);
     }
     
@@ -60,10 +60,10 @@ public abstract class KeyboardViewModel : BindableDialogContentManager
     
     private void SubmitInput()
     {
-        OnSubmitInput();
+        var openedInDialog = RequestDialogClose();
         
+        OnSubmitInput(openedInDialog);
         ResetInput();
-        RequestDialogClose();
     }
 
     protected virtual void InputSymbol(string symbol)
