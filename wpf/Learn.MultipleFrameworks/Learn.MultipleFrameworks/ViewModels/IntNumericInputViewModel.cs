@@ -44,6 +44,7 @@ public class IntNumericInputViewModel : BindableDialogContentManager
         var input = int.Parse(Input);
         _aggregator.GetEvent<SubmitIntNumberEvent>().Publish(new IntNumberResult(input));
         
+        ResetInput();
         RequestDialogClose();
     }
 

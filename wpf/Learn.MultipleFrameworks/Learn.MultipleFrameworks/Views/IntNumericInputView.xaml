@@ -3,25 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Learn.MultipleFrameworks.Views"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
+    
     <UserControl.Resources>
-        <Style x:Key="DefaultKeyButton" 
-               TargetType="Button" 
-               BasedOn="{StaticResource MahApps.Styles.Button}">
-            <Setter Property="Margin" Value="2 2"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-        </Style>
-        <Style x:Key="KeyButton" 
-               TargetType="Button"
-               BasedOn="{StaticResource DefaultKeyButton}">
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Command" Value="{Binding InputSymbolCommand}"/>
-            <Setter Property="CommandParameter" Value="{Binding Path=Content, RelativeSource={RelativeSource Self}}"/>
-        </Style>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary
+                Source="/Learn.MultipleFrameworks;component/Styles/KeyboardStyles.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
     </UserControl.Resources>
              
     <StackPanel HorizontalAlignment="Center">
@@ -48,45 +39,45 @@
             
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="8"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="9"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
             </StackPanel>
         
             <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
                 <Button Content="4"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="5"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="6"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
             </StackPanel>
         
             <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
                 <Button Content="1"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="2"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
                 <Button Content="3"
-                        Style="{StaticResource KeyButton}" />
+                        Style="{StaticResource SizedCommandKeyButton}" />
             </StackPanel>
         
-            <WrapPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="0"
-                        Style="{StaticResource KeyButton}" />
-            </WrapPanel>
+            <Button Grid.Column="0" 
+                    Grid.Row="4" 
+                    Content="0"
+                    Style="{StaticResource CommandKeyButton}" />
             
             <Button Content="OK"
                     Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
-                    Style="{StaticResource DefaultKeyButton}"
+                    Style="{StaticResource KeyButton}"
                     Command="{Binding SubmitCommand}" />
             <Button Content="x"
                     Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
-                    Style="{StaticResource DefaultKeyButton}"
+                    Style="{StaticResource KeyButton}"
                     Command="{Binding ResetCommand}" />
         </Grid>
     </StackPanel>
