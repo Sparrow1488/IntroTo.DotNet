@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Linq;
 
 namespace Learn.MultipleFrameworks.ViewModels;
@@ -18,16 +19,44 @@ public class LimitsInputViewModel : KeyboardViewModel
         {
             var isZeroFirst = Input.StartsWith('0');
             var isMinusFirst = Input.StartsWith('-');
-            
-            if (symbol == PositiveSymbol && !isZeroFirst && !isMinusFirst)
-                Input = "-" + Input;
-            else if (symbol == PositiveSymbol && !isZeroFirst && isMinusFirst)
-                Input = Input.TrimStart('-');
+
+            #region Positive Symbol Handle
+
+            Input = symbol switch
+            {
+                PositiveSymbol when !isZeroFirst && !isMinusFirst => "-" + Input,
+                PositiveSymbol when !isZeroFirst && isMinusFirst => Input.TrimStart('-'),
+                _ => Input
+            };
+
+            #endregion
+
+            #region Plus Value Handle
+
+            Input = symbol switch
+            {
+                PlusOneHundredSymbol => (double.Parse(Input) + 100).ToString(CultureInfo.CurrentCulture),
+                MinusOneHundredSymbol => (double.Parse(Input) - 100).ToString(CultureInfo.CurrentCulture),
+                _ => Input
+            };
+
+            #endregion
+
+            // TODO: configure limits 
+            #region Limits Symbol Handle
+
+            Input = symbol switch
+            {
+                TopLimitSymbol => "15000",
+                BottomLimitSymbol => DefaultValue,
+                _ => Input
+            };
+
+            #endregion
         }
         else
         {
-            var bondedInput = Input += symbol;
-            Input = bondedInput.TrimStart('0');
+            Input = (Input += symbol).TrimStart('0');
         }
     }
 

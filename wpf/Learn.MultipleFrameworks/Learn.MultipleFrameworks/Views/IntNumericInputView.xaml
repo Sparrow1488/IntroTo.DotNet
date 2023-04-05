@@ -32,6 +32,7 @@
             
             <TextBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
                      HorizontalContentAlignment="Stretch"
+                     VerticalAlignment="Center"
                      FontSize="18"
                      TextWrapping="Wrap"
                      mah:TextBoxHelper.ClearTextButton="True"

@@ -17,6 +17,6 @@ public class IntNumericInputViewModel : KeyboardViewModel
 
     protected override void InputSymbol(string symbol)
     {
-        Input = symbol.TrimStart('0');
+        Input = (Input += symbol).TrimStart('0');
     }
 }
