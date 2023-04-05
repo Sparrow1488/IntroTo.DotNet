@@ -1,16 +1,36 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Services.Dialogs;
+using Learn.MultipleFrameworks.Services.Loaders;
+using Prism.Commands;
+using Prism.Events;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
 public class AlphabetKeyboardViewModel : DialogContentInjectable
 {
+    private readonly KeyboardLayoutsManager _keyboardsManager;
     private ObservableCollection<ObservableCollection<KeyButton>> _keyButtonsList;
+    private string _nextLanguageLayout;
+    private readonly Dictionary<KeyboardLayout, string> _languagesMap;
 
-    public AlphabetKeyboardViewModel()
+    public AlphabetKeyboardViewModel(KeyboardLayoutsManager keyboardsManager)
     {
-        InitButtons();
+        _keyboardsManager = keyboardsManager;
+        
+        _languagesMap = new Dictionary<KeyboardLayout, string>
+        {
+            { KeyboardLayout.EN, "EN" },
+            { KeyboardLayout.RU, "RU" }
+        };
+        
+        InitButtons(KeyboardLayout.EN);
+
+        ChangeLayoutCommand = new DelegateCommand(() => InitButtons(GetNextLanguageLayout()));
     }
 
     public ObservableCollection<ObservableCollection<KeyButton>> KeyButtonsList
@@ -19,84 +39,46 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         set => SetProperty(ref _keyButtonsList, value);
     }
 
-    private void InitButtons()
+    public string NextLayout
     {
-        var buttons = new ObservableCollection<KeyButton>
-        {
-            new("`", 1), // fix
-            new("1", 1),
-            new("2", 1),
-            new("3", 1),
-            new("4", 1),
-            new("5", 1),
-            new("6", 1),
-            new("7", 1),
-            new("8", 1),
-            new("9", 1),
-            new("0", 1),
-            new("%", 1),
-            new("`", 1), // fix
-            
-            new("q", 2),
-            new("w", 2),
-            new("e", 2),
-            new("r", 2),
-            new("t", 2),
-            new("z", 2),
-            new("u", 2),
-            new("i", 2),
-            new("o", 2),
-            new("p", 2),
-            new("/", 2),
-            new("(", 2),
-            
-            new("a", 3),
-            new("s", 3),
-            new("d", 3),
-            new("f", 3),
-            new("g", 3),
-            new("h", 3),
-            new("j", 3),
-            new("k", 3),
-            new("l", 3),
-            new("\"", 3),
-            new("!", 3),
-            new("'", 3),
-            
-            new("y", 4),
-            new("x", 4),
-            new("c", 4),
-            new("v", 4),
-            new("b", 4),
-            new("n", 4),
-            new("m", 4),
-            new("?", 4),
-            new(":", 4),
-            new("_", 4),
-        };
+        get => _nextLanguageLayout;
+        set => SetProperty(ref _nextLanguageLayout, value);
+    }
+    private KeyboardLayout CurrentLayout { get; set; }
+    
+    public ICommand ChangeLayoutCommand { get; }
 
-        var buttonsGroup = buttons
+    private void InitButtons(KeyboardLayout layout)
+    {
+        // var loadedButtons = _keyboardsManager.LoadLayout(layout);
+        var loadedButtons = KeyboardLayoutsStore.GetLayout(layout);
+
+        var buttonsGroup = loadedButtons
             .OrderBy(x => x.Row)
             .GroupBy(x => x.Row);
 
+        CurrentLayout = layout;
+        NextLayout = _languagesMap[GetNextLanguageLayout()];
+
         KeyButtonsList = new ObservableCollection<ObservableCollection<KeyButton>>();
-        
         foreach (var group in buttonsGroup)
         {
             var rowButtons = group.ToList();
             KeyButtonsList.Add(new ObservableCollection<KeyButton>(rowButtons));
         }
     }
+
+    private KeyboardLayout GetNextLanguageLayout()
+    {
+        var mapsList = _languagesMap.ToList();
+        var currentMap = mapsList
+            .First(x => x.Key == CurrentLayout);
+        var currentMapIndex = mapsList.IndexOf(currentMap);
+        
+        return currentMapIndex < mapsList.Count - 1
+            ? mapsList[currentMapIndex + 1].Key 
+            : mapsList.First().Key;
+    }
 }
 
-public class KeyButton
-{
-    public KeyButton(string currentSymbol, int row)
-    {
-        CurrentSymbol = currentSymbol;
-        Row = row;
-    }
-    
-    public string CurrentSymbol { get; set; }
-    public int Row { get; set; }
-}
+

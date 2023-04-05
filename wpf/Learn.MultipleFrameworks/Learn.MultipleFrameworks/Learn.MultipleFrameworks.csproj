@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Prism.Unity" Version="8.1.97" />
     </ItemGroup>
 
@@ -18,6 +19,12 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\Keyboard\EN.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

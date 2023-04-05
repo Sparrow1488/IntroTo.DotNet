@@ -4,6 +4,7 @@ using Learn.MultipleFrameworks.Events.Models;
 using Learn.MultipleFrameworks.Modules;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Keyboards;
+using Learn.MultipleFrameworks.Services.Loaders;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Events;
@@ -19,6 +20,7 @@ public partial class App
         container.RegisterSingleton<IDialogCoordinator>(_ => DialogCoordinator.Instance);
         container.RegisterSingleton<DialogService>();
         container.RegisterSingleton<KeyboardModalService>();
+        container.RegisterSingleton<KeyboardLayoutsManager>();
 
         #region Handle dialog closure
 

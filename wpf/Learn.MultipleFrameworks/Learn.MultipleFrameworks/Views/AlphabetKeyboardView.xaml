@@ -49,7 +49,9 @@
         <Button Grid.Row="1" Grid.Column="2"
                 MinWidth="150"
                 Style="{StaticResource KeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="3" Content="EN" 
+        <Button Grid.Row="1" Grid.Column="3" 
+                Content="{Binding NextLayout}" 
+                Command="{Binding ChangeLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="4" Content="Caps"
                 Style="{StaticResource SizedShiftKeyButton}"/>
