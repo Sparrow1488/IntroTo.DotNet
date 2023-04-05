@@ -1,4 +1,3 @@
-using System.Windows;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls;

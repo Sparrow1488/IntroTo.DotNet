@@ -1,4 +1,3 @@
-using Learn.MultipleFrameworks.Constants;
 using Learn.MultipleFrameworks.ViewModels;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;

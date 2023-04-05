@@ -1,59 +1,21 @@
 using Learn.MultipleFrameworks.Events;
-using System.Windows.Input;
 using Learn.MultipleFrameworks.Events.Models;
-using Learn.MultipleFrameworks.Services.Dialogs;
-using Prism.Commands;
-using Prism.Events;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class IntNumericInputViewModel : BindableDialogContentManager
+public class IntNumericInputViewModel : KeyboardViewModel
 {
-    private readonly IEventAggregator _aggregator;
-    private string _input;
+    protected override string DefaultValue => "0";
 
-    public IntNumericInputViewModel(IEventAggregator aggregator)
-    {
-        _input = DefaultValue;
-        _aggregator = aggregator;
-        InputSymbolCommand = new DelegateCommand<string>(OnInputSymbol);
-        SubmitCommand = new DelegateCommand(SubmitNumericInput);
-        ResetCommand = new DelegateCommand(ResetInput);
-    }
-    
-    public string Input
-    {
-        get => _input;
-        set
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                SetProperty(ref _input, DefaultValue);
-            else
-                SetProperty(ref _input, value);
-        }
-    }
-
-    private static string DefaultValue => "0";
-
-    public ICommand InputSymbolCommand { get; }
-    public ICommand SubmitCommand { get; }
-    public ICommand ResetCommand { get; }
-
-    private void SubmitNumericInput()
+    protected override void OnSubmitInput()
     {
         var input = int.Parse(Input);
-        _aggregator.GetEvent<SubmitIntNumberEvent>().Publish(new IntNumberResult(input));
+        Aggregator.GetEvent<SubmitIntNumberEvent>().Publish(new IntNumberResult(input));
         
-        ResetInput();
-        RequestDialogClose();
+        base.OnSubmitInput();
     }
 
-    private void ResetInput()
-    {
-        Input = DefaultValue;
-    }
-
-    private void OnInputSymbol(string symbol)
+    protected override void InputSymbol(string symbol)
     {
         var scopeInput = Input + symbol;
         
