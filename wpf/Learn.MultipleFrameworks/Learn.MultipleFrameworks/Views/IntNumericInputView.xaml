@@ -87,7 +87,7 @@
                     Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
                     Style="{StaticResource DefaultKeyButton}"
-                    Command="{Binding SubmitCommand}" />
+                    Command="{Binding ResetCommand}" />
         </Grid>
     </StackPanel>
 </UserControl>

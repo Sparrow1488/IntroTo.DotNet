@@ -10,13 +10,15 @@ namespace Learn.MultipleFrameworks.ViewModels;
 public class IntNumericInputViewModel : BindableDialogContentManager
 {
     private readonly IEventAggregator _aggregator;
-    private string _input = "0";
+    private string _input;
 
     public IntNumericInputViewModel(IEventAggregator aggregator)
     {
+        _input = DefaultValue;
         _aggregator = aggregator;
         InputSymbolCommand = new DelegateCommand<string>(OnInputSymbol);
         SubmitCommand = new DelegateCommand(SubmitNumericInput);
+        ResetCommand = new DelegateCommand(ResetInput);
     }
     
     public string Input
@@ -25,14 +27,17 @@ public class IntNumericInputViewModel : BindableDialogContentManager
         set
         {
             if (string.IsNullOrWhiteSpace(value))
-                SetProperty(ref _input, "0");
+                SetProperty(ref _input, DefaultValue);
             else
                 SetProperty(ref _input, value);
         }
     }
 
+    private static string DefaultValue => "0";
+
     public ICommand InputSymbolCommand { get; }
     public ICommand SubmitCommand { get; }
+    public ICommand ResetCommand { get; }
 
     private void SubmitNumericInput()
     {
@@ -42,13 +47,18 @@ public class IntNumericInputViewModel : BindableDialogContentManager
         RequestDialogClose();
     }
 
+    private void ResetInput()
+    {
+        Input = DefaultValue;
+    }
+
     private void OnInputSymbol(string symbol)
     {
         var scopeInput = Input + symbol;
         
         if (int.TryParse(scopeInput, out _))
         {
-            if (scopeInput.StartsWith('0'))
+            if (scopeInput.StartsWith(DefaultValue[0]))
                 scopeInput = scopeInput.Remove(0, 1);
             
             Input = scopeInput;
