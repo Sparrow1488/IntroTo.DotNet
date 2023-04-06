@@ -44,7 +44,7 @@
         </StackPanel>
         
         <Button Grid.Row="1" Grid.Column="0" Content="Caps"
-                Command="{Binding SwitchUpperCase}"
+                Command="{Binding SwitchCapsLockCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="1" 
                 Content="{Binding NextLayoutState}" 
@@ -58,7 +58,7 @@
                 Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="4" Content="Caps"
-                Command="{Binding SwitchUpperCase}"
+                Command="{Binding SwitchCapsLockCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
     </Grid>
 </UserControl>

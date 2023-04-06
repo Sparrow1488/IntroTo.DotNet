@@ -30,6 +30,7 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
 
         SwitchLayoutCommand = new DelegateCommand(SwitchLayout);
         SwitchLayoutStateCommand = new DelegateCommand(SwitchLayoutState);
+        SwitchCapsLockCommand = new DelegateCommand(SwitchCapsLock);
     }
 
     public KeyboardLayout? Layout
@@ -39,6 +40,7 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
     }
 
     private LayoutState? State { get; set; }
+    private bool CapsLockEnabled { get; set; }
 
     public string? NextLayoutName
     {
@@ -54,6 +56,7 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
     
     public ICommand SwitchLayoutCommand { get; }
     public ICommand SwitchLayoutStateCommand { get; }
+    public ICommand SwitchCapsLockCommand { get; }
 
     private void AddLayout(KeyboardLayout layout)
     {
@@ -108,6 +111,21 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         NextLayoutState = nextLayoutState != Layout!.State.ToString()
             ? nextLayoutState
             : string.Empty;
+    }
+
+    private void SwitchCapsLock()
+    {
+        CapsLockEnabled = !CapsLockEnabled;
+        var keysList = Layout!.Keys.ToList();
+        
+        if(!CapsLockEnabled)
+            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+        else
+            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+
+        var updatedLayout = Layout;
+        Layout = null;
+        Layout = updatedLayout;
     }
 
     private KeyboardLayout GetDefaultLayout()
