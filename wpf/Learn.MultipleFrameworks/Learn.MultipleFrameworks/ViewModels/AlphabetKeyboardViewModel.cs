@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Models;
+using Learn.MultipleFrameworks.Models.Layouts;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Loaders;
 using Prism.Commands;
@@ -12,102 +13,96 @@ namespace Learn.MultipleFrameworks.ViewModels;
 public class AlphabetKeyboardViewModel : DialogContentInjectable
 {
     private bool _isUpper;
+    private KeyboardLayout _layout;
+    private string _nextLayoutKeyTextKeyText;
     
-    private readonly Dictionary<KeyboardLayout, string> _languagesMap;
-    private readonly KeyboardLayoutsManager _keyboardsManager;
-    private ObservableCollection<ObservableCollection<KeyButton>> _keyButtonsList;
-    private string _nextLanguageLayout;
+    private readonly List<KeyboardLayout> _layouts = new();
+    private readonly Dictionary<LayoutState, List<KeyboardLayout>> _layoutsStore = new();
 
-    public AlphabetKeyboardViewModel(KeyboardLayoutsManager keyboardsManager)
+    public AlphabetKeyboardViewModel()
     {
-        _keyboardsManager = keyboardsManager;
+        AddLayout(KeyboardLayoutsStore.English);
+        AddLayout(KeyboardLayoutsStore.Russian);
         
-        _languagesMap = new Dictionary<KeyboardLayout, string>
-        {
-            { KeyboardLayout.EN, "EN" },
-            { KeyboardLayout.RU, "RU" }
-        };
+        InitLayoutsStore();
 
-        KeyButtonsList = new ObservableCollection<ObservableCollection<KeyButton>>();
+        SwitchLayout();
+
+        SwitchLayoutCommand = new DelegateCommand(SwitchLayout);
         
-        SetLayoutButtons(KeyboardLayout.EN);
-
-        ChangeLayoutCommand = new DelegateCommand(() => SetLayoutButtons(GetNextLanguageLayout()));
-        ChangeUpperCase = new DelegateCommand(() =>
-        {
-            IsUpperCase = !IsUpperCase;
-            
-            var buttons = KeyButtonsList.SelectMany(
-                x => x.ToList())
-                .ToList();
-            
-            if (IsUpperCase)
-                buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
-            if (!IsUpperCase)
-                buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
-
-            RenderButtons(buttons);
-        });
+        // SwitchUpperCase = new DelegateCommand(() =>
+        // {
+        //     IsUpperCase = !IsUpperCase;
+        //     
+        //     var buttons = KeyButtonsList.SelectMany(
+        //         x => x.ToList())
+        //         .ToList();
+        //     
+        //     if (IsUpperCase)
+        //         buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+        //     if (!IsUpperCase)
+        //         buttons.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+        //
+        //     ShowLayout(buttons);
+        // });
     }
 
 
-    public ObservableCollection<ObservableCollection<KeyButton>> KeyButtonsList
+    public KeyboardLayout Layout
     {
-        get => _keyButtonsList;
-        set => SetProperty(ref _keyButtonsList, value);
+        get => _layout;
+        set => SetProperty(ref _layout, value);
     }
 
-    public string NextLayout
+    public string NextLayoutKeyText
     {
-        get => _nextLanguageLayout;
-        set => SetProperty(ref _nextLanguageLayout, value);
+        get => _nextLayoutKeyTextKeyText;
+        set => SetProperty(ref _nextLayoutKeyTextKeyText, value);
     }
     
-    private KeyboardLayout CurrentLayout { get; set; }
-
     private bool IsUpperCase
     {
         get => _isUpper;
         set => SetProperty(ref _isUpper, value);
     }
     
-    public ICommand ChangeLayoutCommand { get; }
-    public DelegateCommand ChangeUpperCase { get; }
+    public ICommand SwitchLayoutCommand { get; }
+    public ICommand SwitchUpperCase { get; }
 
-    private void SetLayoutButtons(KeyboardLayout layout)
+    private void AddLayout(KeyboardLayout layout)
     {
-        var loadedButtons = KeyboardLayoutsStore.GetLayout(layout);
-
-        CurrentLayout = layout;
-        NextLayout = _languagesMap[GetNextLanguageLayout()];
-
-        RenderButtons(loadedButtons);
+        _layouts.Add(layout);
     }
 
-    private void RenderButtons(List<KeyButton> buttons)
+    private void InitLayoutsStore()
     {
-        var buttonsGroup = buttons
-            .OrderBy(x => x.Row)
-            .GroupBy(x => x.Row);
-        
-        KeyButtonsList.Clear();
-        foreach (var group in buttonsGroup)
+        foreach (var grouping in _layouts.GroupBy(x => x.State))
         {
-            var rowButtons = group.ToList();
-            KeyButtonsList.Add(new ObservableCollection<KeyButton>(rowButtons));
+            var layoutsList = grouping.ToList();
+            _layoutsStore.Add(grouping.Key, layoutsList);
         }
     }
 
-    private KeyboardLayout GetNextLanguageLayout()
+    private void SwitchLayout()
     {
-        var mapsList = _languagesMap.ToList();
-        var currentMap = mapsList
-            .First(x => x.Key == CurrentLayout);
-        var currentMapIndex = mapsList.IndexOf(currentMap);
-        
-        return currentMapIndex < mapsList.Count - 1
-            ? mapsList[currentMapIndex + 1].Key 
-            : mapsList.First().Key;
+        Layout = GetNextLayout();
+        NextLayoutKeyText = GetNextLayout().Type.ToString();
+    }
+
+    private KeyboardLayout GetNextLayout()
+    {
+        var currentLayoutState = Layout.State;
+        var availableStateLayouts = _layoutsStore
+            .Where(x => x.Key == currentLayoutState)
+            .SelectMany(x => x.Value)
+            .ToList();
+
+        var currentLayoutIndex = availableStateLayouts.IndexOf(Layout);
+        var nextLayoutIndex = currentLayoutIndex < availableStateLayouts.Count - 1
+            ? currentLayoutIndex + 1
+            : 0;
+
+        return availableStateLayouts[nextLayoutIndex];
     }
 }
 

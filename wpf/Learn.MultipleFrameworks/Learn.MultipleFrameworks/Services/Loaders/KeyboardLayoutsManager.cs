@@ -16,9 +16,9 @@ public class KeyboardLayoutsManager
         Directory.CreateDirectory(BasePath);
     }
     
-    public List<KeyButton> LoadLayout(KeyboardLayout layout)
+    public List<KeyButton> LoadLayout(LayoutType layoutType)
     {
-        var loadPath = Path.Combine(BasePath, layout + SaveExtension);
+        var loadPath = Path.Combine(BasePath, layoutType + SaveExtension);
         if (!File.Exists(loadPath)) 
             return new List<KeyButton>();
 
@@ -28,13 +28,13 @@ public class KeyboardLayoutsManager
         return keyboard?.KeyButtons ?? new List<KeyButton>();
     }
     
-    public Task SaveLayoutAsync(List<KeyButton> keyButtons, KeyboardLayout layout)
+    public Task SaveLayoutAsync(List<KeyButton> keyButtons, LayoutType layoutType)
     {
-        var savePath = Path.Combine(BasePath, layout + SaveExtension);
+        var savePath = Path.Combine(BasePath, layoutType + SaveExtension);
         var keyboard = new Keyboard
         {
             KeyButtons = keyButtons,
-            Layout = layout
+            LayoutType = layoutType
         };
 
         var jsonKeyboard = JsonConvert.SerializeObject(keyboard, Formatting.Indented);

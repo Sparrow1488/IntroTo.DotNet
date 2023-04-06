@@ -28,23 +28,23 @@
             <RowDefinition />
         </Grid.RowDefinitions>
             
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="5">
-            <ItemsControl ItemsSource="{Binding KeyButtonsList[0]}" 
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <ItemsControl ItemsSource="{Binding Layout[1]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
         
-            <ItemsControl ItemsSource="{Binding KeyButtonsList[1]}" 
+            <ItemsControl ItemsSource="{Binding Layout[2]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
         
-            <ItemsControl ItemsSource="{Binding KeyButtonsList[2]}" 
+            <ItemsControl ItemsSource="{Binding Layout[3]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
             
-            <ItemsControl ItemsSource="{Binding KeyButtonsList[3]}" 
+            <ItemsControl ItemsSource="{Binding Layout[4]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
             
         </StackPanel>
         
-        <ToggleButton Grid.Row="1" Grid.Column="0" Content="Caps"
-                Command="{Binding ChangeUpperCase}"
+        <Button Grid.Row="1" Grid.Column="0" Content="Caps"
+                Command="{Binding SwitchUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="1" Content="123" 
                 Style="{StaticResource SizedShiftKeyButton}"/>
@@ -52,11 +52,11 @@
                 MinWidth="150"
                 Style="{StaticResource KeyButton}"/>
         <Button Grid.Row="1" Grid.Column="3" 
-                Content="{Binding NextLayout}" 
-                Command="{Binding ChangeLayoutCommand}"
+                Content="{Binding NextLayoutKeyText}" 
+                Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <ToggleButton Grid.Row="1" Grid.Column="4" Content="Caps"
-                Command="{Binding ChangeUpperCase}"
+        <Button Grid.Row="1" Grid.Column="4" Content="Caps"
+                Command="{Binding SwitchUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
     </Grid>
 </UserControl>

@@ -4,6 +4,6 @@ namespace Learn.MultipleFrameworks.Models;
 
 public class Keyboard
 {
-    public KeyboardLayout Layout { get; set; }
+    public LayoutType LayoutType { get; set; }
     public List<KeyButton> KeyButtons { get; set; }
 }

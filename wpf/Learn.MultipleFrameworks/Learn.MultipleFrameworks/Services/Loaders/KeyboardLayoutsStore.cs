@@ -1,22 +1,26 @@
 using System;
 using System.Collections.Generic;
 using Learn.MultipleFrameworks.Models;
+using Learn.MultipleFrameworks.Models.Layouts;
 
 namespace Learn.MultipleFrameworks.Services.Loaders;
 
 public static class KeyboardLayoutsStore
 {
-    public static List<KeyButton> GetLayout(KeyboardLayout layout)
+    public static List<KeyButton> GetLayout(LayoutType layoutType)
     {
-        return layout switch
+        return layoutType switch
         {
-            KeyboardLayout.EN => EnglishLayoutButtons,
-            KeyboardLayout.RU => RussianLayoutButtons,
-            KeyboardLayout.Symbols => throw new NotImplementedException(),
-            KeyboardLayout.FullEN => throw new NotImplementedException(),
-            _ => throw new ArgumentOutOfRangeException(nameof(layout), layout, null)
+            LayoutType.EN => EnglishLayoutButtons,
+            LayoutType.RU => RussianLayoutButtons,
+            LayoutType.Symbols => throw new NotImplementedException(),
+            LayoutType.FullEN => throw new NotImplementedException(),
+            _ => throw new ArgumentOutOfRangeException(nameof(layoutType), layoutType, null)
         };
     }
+
+    public static KeyboardLayout English => new EngKeyboardLayout(EnglishLayoutButtons);
+    public static KeyboardLayout Russian => new RusKeyboardLayout(RussianLayoutButtons);
 
     #region English Layout Buttons
 
@@ -116,6 +120,47 @@ public static class KeyboardLayoutsStore
             new KeyButton("б", 3),
             new KeyButton("ю", 3),
             new KeyButton(".", 3),
+        };
+
+    #endregion
+
+    #region Symbols Layout Buttons
+
+    private static List<KeyButton> SymbolsLayoutButtons { get; } =
+        new()
+        {
+            new KeyButton("1", 1),
+            new KeyButton("2", 1),
+            new KeyButton("3", 1),
+            new KeyButton("4", 1),
+            new KeyButton("5", 1),
+            new KeyButton("6", 1),
+            new KeyButton("7", 1),
+            new KeyButton("8", 1),
+            new KeyButton("9", 1),
+            new KeyButton("0", 1),
+            
+            new KeyButton("+", 2),
+            new KeyButton("-", 2),
+            new KeyButton("*", 2),
+            new KeyButton("/", 2),
+            new KeyButton(".", 2),
+            new KeyButton(":", 2),
+            new KeyButton(",", 2),
+            new KeyButton("\"", 2),
+            new KeyButton("?", 2),
+            new KeyButton("!", 2),
+            
+            new KeyButton("⇐", 3),
+            new KeyButton("⇒", 3),
+            new KeyButton("(", 3),
+            new KeyButton(")", 3),
+            new KeyButton("[", 3),
+            new KeyButton("]", 3),
+            new KeyButton("{", 3),
+            new KeyButton("}", 3),
+            new KeyButton("%", 3),
+            new KeyButton("@", 3),
         };
 
     #endregion

@@ -2,7 +2,7 @@ namespace Learn.MultipleFrameworks.Models;
 
 // ReSharper disable file InconsistentNaming
 
-public enum KeyboardLayout
+public enum LayoutType
 {
     EN = 0,
     RU = 10,
