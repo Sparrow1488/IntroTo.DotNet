@@ -26,11 +26,12 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         
         InitLayoutsStore();
 
-        SwitchLayout();
+        SwitchLayout(CapsLockEnabled);
 
-        SwitchLayoutCommand = new DelegateCommand(SwitchLayout);
+        SwitchLayoutCommand = new DelegateCommand(() => SwitchLayout(CapsLockEnabled));
         SwitchLayoutStateCommand = new DelegateCommand(SwitchLayoutState);
-        SwitchCapsLockCommand = new DelegateCommand(SwitchCapsLock);
+        SwitchCapsLockCommand = new DelegateCommand(
+            () => CapsLockEnabled = SwitchCapsLock(CapsLockEnabled));
     }
 
     public KeyboardLayout? Layout
@@ -77,7 +78,7 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         State = GetNextLayoutState();
         if (CanSwitchLayout())
         {
-            SwitchLayout();
+            SwitchLayout(CapsLockEnabled);
         }
     }
 
@@ -86,12 +87,13 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         return !string.IsNullOrWhiteSpace(NextLayoutState);
     }
 
-    private void SwitchLayout()
+    private void SwitchLayout(bool capsLock)
     {
         Layout ??= GetDefaultLayout();
         State ??= Layout.State;
         
         Layout = GetNextLayout();
+        SwitchCapsLock(capsLock);
         
         UpdateLayoutName();
         UpdateLayoutState();
@@ -113,19 +115,24 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
             : string.Empty;
     }
 
-    private void SwitchCapsLock()
+    private bool SwitchCapsLock(bool capsLock)
     {
-        CapsLockEnabled = !CapsLockEnabled;
         var keysList = Layout!.Keys.ToList();
         
-        if(!CapsLockEnabled)
+        if(!capsLock)
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
         else
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
 
-        var updatedLayout = Layout;
-        Layout = null;
-        Layout = updatedLayout;
+        UpdateProperty(ref _layout, Layout, nameof(Layout));
+
+        return !capsLock;
+    }
+
+    private void UpdateProperty<T>(ref T variable, T value, string propertyName)
+    {
+        SetProperty(ref variable!, default, propertyName);
+        SetProperty(ref variable, value, propertyName);
     }
 
     private KeyboardLayout GetDefaultLayout()
