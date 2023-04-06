@@ -1,26 +1,14 @@
-using System;
 using System.Collections.Generic;
 using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Layouts;
 
-namespace Learn.MultipleFrameworks.Services.Loaders;
+namespace Learn.MultipleFrameworks.Services.Stores;
 
 public static class KeyboardLayoutsStore
 {
-    public static List<KeyButton> GetLayout(LayoutType layoutType)
-    {
-        return layoutType switch
-        {
-            LayoutType.EN => EnglishLayoutButtons,
-            LayoutType.RU => RussianLayoutButtons,
-            LayoutType.Symbols => throw new NotImplementedException(),
-            LayoutType.FullEN => throw new NotImplementedException(),
-            _ => throw new ArgumentOutOfRangeException(nameof(layoutType), layoutType, null)
-        };
-    }
-
     public static KeyboardLayout English => new EngKeyboardLayout(EnglishLayoutButtons);
     public static KeyboardLayout Russian => new RusKeyboardLayout(RussianLayoutButtons);
+    public static KeyboardLayout Symbols => new SymKeyboardLayout(SymbolsLayoutButtons);
 
     #region English Layout Buttons
 
@@ -105,6 +93,7 @@ public static class KeyboardLayoutsStore
             new KeyButton("а", 2),
             new KeyButton("п", 2),
             new KeyButton("р", 2),
+            new KeyButton("о", 2),
             new KeyButton("л", 2),
             new KeyButton("д", 2),
             new KeyButton("ж", 2),

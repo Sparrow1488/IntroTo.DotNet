@@ -2,6 +2,6 @@ namespace Learn.MultipleFrameworks.Models;
 
 public enum LayoutState
 {
-    Languages = 0,
-    Numeric = 10
+    Abs = 0,
+    Sym = 10
 }

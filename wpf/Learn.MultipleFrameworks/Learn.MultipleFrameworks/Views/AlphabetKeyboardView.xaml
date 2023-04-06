@@ -47,7 +47,8 @@
                 Command="{Binding SwitchUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="1" 
-                Content="{Binding NextLayoutType}" 
+                Content="{Binding NextLayoutState}" 
+                Command="{Binding SwitchLayoutStateCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="2"
                 MinWidth="150"

@@ -6,6 +6,6 @@ public class RusKeyboardLayout : KeyboardLayout
 {
     public RusKeyboardLayout(IEnumerable<KeyButton> keys) : base(keys) { }
 
-    public override LayoutState State => LayoutState.Languages;
+    public override LayoutState State => LayoutState.Abs;
     public override LayoutType Type => LayoutType.RU;
 }
