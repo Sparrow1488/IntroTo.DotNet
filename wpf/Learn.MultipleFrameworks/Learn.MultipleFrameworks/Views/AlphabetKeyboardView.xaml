@@ -46,13 +46,14 @@
         <Button Grid.Row="1" Grid.Column="0" Content="Caps"
                 Command="{Binding SwitchUpperCase}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="123" 
+        <Button Grid.Row="1" Grid.Column="1" 
+                Content="{Binding NextLayoutType}" 
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="2"
                 MinWidth="150"
                 Style="{StaticResource KeyButton}"/>
         <Button Grid.Row="1" Grid.Column="3" 
-                Content="{Binding NextLayoutKeyText}" 
+                Content="{Binding NextLayoutName}" 
                 Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="1" Grid.Column="4" Content="Caps"

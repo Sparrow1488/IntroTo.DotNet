@@ -14,7 +14,8 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
 {
     private bool _isUpper;
     private KeyboardLayout _layout;
-    private string _nextLayoutKeyTextKeyText;
+    private string _nextLayoutName;
+    private string _nextLayoutType;
     
     private readonly List<KeyboardLayout> _layouts = new();
     private readonly Dictionary<LayoutState, List<KeyboardLayout>> _layoutsStore = new();
@@ -54,10 +55,16 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         set => SetProperty(ref _layout, value);
     }
 
-    public string NextLayoutKeyText
+    public string NextLayoutName
     {
-        get => _nextLayoutKeyTextKeyText;
-        set => SetProperty(ref _nextLayoutKeyTextKeyText, value);
+        get => _nextLayoutName;
+        set => SetProperty(ref _nextLayoutName, value);
+    }
+    
+    public string NextLayoutType
+    {
+        get => _nextLayoutType;
+        set => SetProperty(ref _nextLayoutType, value);
     }
     
     private bool IsUpperCase
@@ -85,24 +92,49 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
 
     private void SwitchLayout()
     {
+        Layout ??= GetDefaultLayout();
+        
         Layout = GetNextLayout();
-        NextLayoutKeyText = GetNextLayout().Type.ToString();
+        NextLayoutName = GetNextLayout().Type.ToString();
+        NextLayoutType = GetNextLayoutState().ToString();
+    }
+
+    private KeyboardLayout GetDefaultLayout()
+    {
+        return _layoutsStore.First().Value.First();
     }
 
     private KeyboardLayout GetNextLayout()
     {
         var currentLayoutState = Layout.State;
+        
         var availableStateLayouts = _layoutsStore
             .Where(x => x.Key == currentLayoutState)
             .SelectMany(x => x.Value)
             .ToList();
 
         var currentLayoutIndex = availableStateLayouts.IndexOf(Layout);
-        var nextLayoutIndex = currentLayoutIndex < availableStateLayouts.Count - 1
-            ? currentLayoutIndex + 1
-            : 0;
+        var nextLayoutIndex = NextIndex(availableStateLayouts, currentLayoutIndex);
 
         return availableStateLayouts[nextLayoutIndex];
+    }
+
+    private LayoutState GetNextLayoutState()
+    {
+        var currentLayoutState = Layout.State;
+
+        var keys = _layoutsStore.Keys.ToList();
+        var currentStateIndex = keys.IndexOf(currentLayoutState);
+        var nextStateIndex = NextIndex(keys, currentStateIndex);
+
+        return keys[nextStateIndex];
+    }
+
+    private static int NextIndex<T>(List<T> items, int currentIndex)
+    {
+        return currentIndex < items.Count - 1
+            ? currentIndex + 1
+            : 0;
     }
 }
 
