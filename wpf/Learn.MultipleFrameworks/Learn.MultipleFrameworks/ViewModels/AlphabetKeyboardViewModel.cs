@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Layouts;
-using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Stores;
 using Prism.Commands;
 
@@ -32,6 +31,15 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
         SwitchLayoutStateCommand = new DelegateCommand(SwitchLayoutState);
         SwitchCapsLockCommand = new DelegateCommand(
             () => CapsLockEnabled = SwitchCapsLock(CapsLockEnabled));
+
+        PressSpaceCommand = new DelegateCommand(() => InputSymbol(" "));
+        PressBackspaceCommand = new DelegateCommand(() =>
+        {
+            if (Input.Length >= 1)
+            {
+                Input = Input.Remove(Input.Length - 1, 1);
+            }
+        });
     }
     
     protected override string DefaultValue => "";
@@ -57,6 +65,8 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
         set => SetProperty(ref _nextLayoutState, value);
     }
     
+    public ICommand PressSpaceCommand { get; }
+    public ICommand PressBackspaceCommand { get; }
     public ICommand SwitchLayoutCommand { get; }
     public ICommand SwitchLayoutStateCommand { get; }
     public ICommand SwitchCapsLockCommand { get; }

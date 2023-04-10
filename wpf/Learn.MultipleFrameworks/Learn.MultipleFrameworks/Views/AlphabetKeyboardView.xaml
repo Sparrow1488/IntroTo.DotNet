@@ -29,7 +29,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
                      HorizontalContentAlignment="Stretch"
                      VerticalAlignment="Center"
                      FontSize="18"
@@ -37,6 +37,10 @@
                      TextWrapping="WrapWithOverflow"
                      mah:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding Input}" />
+            <Button Grid.Row="0" Grid.Column="3" 
+                    Style="{StaticResource SizedShiftKeyButton}"
+                    Content="←" 
+                    Command="{Binding PressBackspaceCommand}"/>
             <Button Grid.Row="0" Grid.Column="4" 
                     Style="{StaticResource SizedShiftKeyButton}"
                     Content="OK" 
@@ -66,6 +70,7 @@
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="2" Grid.Column="2"
                 MinWidth="150"
+                Command="{Binding PressSpaceCommand}"
                 Style="{StaticResource KeyButton}"/>
         <Button Grid.Row="2" Grid.Column="3" 
                 Content="{Binding NextLayoutName}" 
