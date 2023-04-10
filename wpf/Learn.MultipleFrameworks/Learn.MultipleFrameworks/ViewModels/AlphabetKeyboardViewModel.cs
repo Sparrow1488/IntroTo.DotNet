@@ -30,7 +30,7 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
         SwitchLayoutCommand = new DelegateCommand(() => SwitchLayout(CapsLockEnabled));
         SwitchLayoutStateCommand = new DelegateCommand(SwitchLayoutState);
         SwitchCapsLockCommand = new DelegateCommand(
-            () => CapsLockEnabled = SwitchCapsLock(CapsLockEnabled));
+            () => CapsLockEnabled = SwitchCapsLock(!CapsLockEnabled));
 
         PressSpaceCommand = new DelegateCommand(() => InputSymbol(" "));
         PressBackspaceCommand = new DelegateCommand(() =>
@@ -131,14 +131,14 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     {
         var keysList = Layout!.Keys.ToList();
         
-        if(!capsLock)
+        if(capsLock)
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
         else
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
 
         UpdateProperty(ref _layout, Layout, nameof(Layout));
 
-        return !capsLock;
+        return capsLock;
     }
 
     private void UpdateProperty<T>(ref T variable, T value, string propertyName)
