@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Layouts;
-using Learn.MultipleFrameworks.Services.Stores;
+using Learn.MultipleFrameworks.Services.Providers;
 using Prism.Commands;
 
 namespace Learn.MultipleFrameworks.ViewModels;
@@ -13,15 +13,13 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     private KeyboardLayout? _layout;
     private string? _nextLayoutName;
     private string? _nextLayoutState;
-    
-    private readonly List<KeyboardLayout> _layouts = new();
+
+    private readonly List<KeyboardLayout> _layouts;
     private readonly Dictionary<LayoutState, List<KeyboardLayout>> _layoutsStore = new();
 
-    public AlphabetKeyboardViewModel()
+    public AlphabetKeyboardViewModel(KeyboardLayoutsProvider provider)
     {
-        AddLayout(KeyboardLayoutsStore.English);
-        AddLayout(KeyboardLayoutsStore.Russian);
-        AddLayout(KeyboardLayoutsStore.Symbols);
+        _layouts = provider.GetLayouts().ToList();
         
         InitLayoutsStore();
 
@@ -52,7 +50,7 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
 
     private LayoutState? State { get; set; }
     private bool CapsLockEnabled { get; set; }
-
+    
     public string? NextLayoutName
     {
         get => _nextLayoutName;

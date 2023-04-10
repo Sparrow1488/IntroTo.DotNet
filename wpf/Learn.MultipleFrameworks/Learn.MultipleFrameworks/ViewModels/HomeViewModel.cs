@@ -2,7 +2,6 @@ using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
-using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Keyboards;
 using Prism.Commands;
 using Prism.Events;
@@ -18,19 +17,19 @@ public class HomeViewModel : BindableBase
     private string? _keyboardTwoValue;
 
     public HomeViewModel(
-        DialogService dialogService,
         IEventAggregator aggregator,
-        KeyboardModalService keyboardService)
+        IKeyboardModalService keyboardService)
     {
         _aggregator = aggregator;
 
         ConfigureEventsHandlers();
         
-        // OpenInputDialogCommand = new DelegateCommand(
-        //     () => dialogService.ShowRegionInDialog(Regions.LimitsInputRegion));
-        
-        ShowKeyboardDialogCommand = new DelegateCommand(
+        ShowLimitsKeyboardDialogCommand = new DelegateCommand(
             () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue));
+        ShowNumericKeyboardDialogCommand = new DelegateCommand(
+            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue));
+        ShowAlphabetKeyboardDialogCommand = new DelegateCommand(
+            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue));
     }
 
     public string? DialogClosureTime
@@ -49,7 +48,9 @@ public class HomeViewModel : BindableBase
         set => SetProperty(ref _keyboardTwoValue, value);
     }
 
-    public ICommand ShowKeyboardDialogCommand { get; }
+    public ICommand ShowLimitsKeyboardDialogCommand { get; }
+    public ICommand ShowNumericKeyboardDialogCommand { get; }
+    public ICommand ShowAlphabetKeyboardDialogCommand { get; }
 
     private void OnModalKeyboardReceiveValue(KeyboardInput input)
     {

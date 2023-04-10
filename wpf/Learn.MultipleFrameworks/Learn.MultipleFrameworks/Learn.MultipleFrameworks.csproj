@@ -21,10 +21,4 @@
       </Page>
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="Resources\Keyboard\EN.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
 </Project>

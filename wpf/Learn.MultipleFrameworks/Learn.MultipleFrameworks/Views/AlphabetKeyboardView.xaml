@@ -39,7 +39,7 @@
                      Text="{Binding Input}" />
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
-                    Content="←" 
+                    Content="Del" 
                     Command="{Binding PressBackspaceCommand}"/>
             <Button Grid.Row="0" Grid.Column="4" 
                     Style="{StaticResource SizedShiftKeyButton}"

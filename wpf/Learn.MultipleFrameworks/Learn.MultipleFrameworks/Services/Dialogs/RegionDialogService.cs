@@ -7,12 +7,12 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace Learn.MultipleFrameworks.Services.Dialogs;
 
-public class DialogService
+public class RegionDialogService : IRegionDialogService
 {
     private readonly IDialogCoordinator _dialogCoordinator;
     private readonly Brush _windowOverlayBrush;
 
-    public DialogService(IDialogCoordinator dialogCoordinator)
+    public RegionDialogService(IDialogCoordinator dialogCoordinator)
     {
         _dialogCoordinator = dialogCoordinator;
         _windowOverlayBrush = new SolidColorBrush(Colors.Black);

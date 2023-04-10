@@ -14,7 +14,9 @@
             
             <TextBlock FontWeight="DemiBold" HorizontalAlignment="Center" Text="Hello Prism!" FontSize="28" />
             <WrapPanel HorizontalAlignment="Center">
-                <Button Content="Limits keyboard" Command="{Binding ShowKeyboardDialogCommand}" Width="110" Margin="5 2" />            
+                <Button Content="Limits keyboard" Command="{Binding ShowLimitsKeyboardDialogCommand}" Width="120" Margin="5 2" />            
+                <Button Content="Numeric keyboard" Command="{Binding ShowNumericKeyboardDialogCommand}" Width="120" Margin="5 2" />            
+                <Button Content="Alphabet keyboard" Command="{Binding ShowAlphabetKeyboardDialogCommand}" Width="120" Margin="5 2" />            
             </WrapPanel>
             
             <WrapPanel HorizontalAlignment="Center" Margin="10">

@@ -1,9 +1,10 @@
 ﻿using System.Windows;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
+using Learn.MultipleFrameworks.Extensions;
 using Learn.MultipleFrameworks.Modules;
-using Learn.MultipleFrameworks.Services.Dialogs;
 using Learn.MultipleFrameworks.Services.Keyboards;
+using Learn.MultipleFrameworks.Services.Providers;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Events;
@@ -16,36 +17,30 @@ public partial class App
 {
     protected override void RegisterTypes(IContainerRegistry container)
     {
-        container.RegisterSingleton<IDialogCoordinator>(_ => DialogCoordinator.Instance);
-        container.RegisterSingleton<DialogService>();
-        container.RegisterSingleton<KeyboardModalService>();
-
-        #region Handle dialog closure
-
+        container.RegisterSingleton<KeyboardLayoutsProvider>();
+        container.RegisterSingleton<IKeyboardModalService, KeyboardModalService>();
+        container.AddRegionDialogService();
+        
         var aggregator = Container.Resolve<IEventAggregator>();
-        aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(HideDialog);
-
-        #endregion
+        aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(
+            ctx => HideDialog(ctx, Container));
     }
 
-    private void HideDialog(DialogCloseContext context)
-    {
-        var coordinator = Container.Resolve<IDialogCoordinator>();
-        coordinator.HideMetroDialogAsync(context.Host.DataContext, context.MetroDialog)
-            .ContinueWith(_ => {});
-    }
-    
     protected override Window CreateShell() => Container.Resolve<MainWindow>();
 
     protected override void ConfigureModuleCatalog(IModuleCatalog modules)
     {
         modules.AddModule<HomeModule>();        
         modules.AddModule<LoginModule>();
-        
-        modules.AddModule<DialogModule>();
-        
-        modules.AddModule<AlphabetKeyboardModule>();
-        modules.AddModule<NumericKeyboardModule>();
-        modules.AddModule<LimitsKeyboardModule>();
+
+        modules.AddDialogModule();
+        modules.AddKeyboardsModules();
+    }
+    
+    private static void HideDialog(DialogCloseContext context, IContainerProvider container)
+    {
+        var coordinator = container.Resolve<IDialogCoordinator>();
+        coordinator.HideMetroDialogAsync(context.Host.DataContext, context.MetroDialog)
+            .ContinueWith(_ => {});
     }
 }

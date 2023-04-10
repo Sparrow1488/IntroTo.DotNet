@@ -7,13 +7,13 @@ using Prism.Events;
 
 namespace Learn.MultipleFrameworks.Services.Keyboards;
 
-public class KeyboardModalService
+public class KeyboardModalService : IKeyboardModalService
 {
-    private readonly DialogService _dialogService;
+    private readonly IRegionDialogService _dialogService;
     private readonly IEventAggregator _aggregator;
     private Action<KeyboardInput>? _onKeyboardInputAction;
 
-    public KeyboardModalService(DialogService dialogService, IEventAggregator aggregator)
+    public KeyboardModalService(IRegionDialogService dialogService, IEventAggregator aggregator)
     {
         _dialogService = dialogService;
         _aggregator = aggregator;
@@ -27,6 +27,11 @@ public class KeyboardModalService
     public void ShowLimitsKeyboard(Action<KeyboardInput> onInput)
     {
         ShowSubscribedDialogKeyboard(Regions.LimitsKeyboardRegion, onInput);
+    }
+    
+    public void ShowAlphabetKeyboard(Action<KeyboardInput> onInput)
+    {
+        ShowSubscribedDialogKeyboard(Regions.AlphabetKeyboardRegion, onInput);
     }
 
     private void ShowSubscribedDialogKeyboard(string keyboardRegion, Action<KeyboardInput> onInput)
