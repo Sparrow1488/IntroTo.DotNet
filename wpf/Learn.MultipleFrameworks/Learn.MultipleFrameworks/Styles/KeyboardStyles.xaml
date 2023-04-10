@@ -77,15 +77,17 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <!-- <b:Interaction.Triggers> -->
-                    <!--     <b:EventTrigger EventName="MouseLeftButtonDown"> -->
-                    <!--         < -->
-                    <!--         <command:EventToCommand Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.MouseLeftButtonDown }"/> -->
-                    <!--     </b:EventTrigger> -->
-                    <!-- </b:Interaction.Triggers> -->
                     <Button Style="{StaticResource SizedCommandKeyButton}" 
                             mah:ControlsHelper.ContentCharacterCasing="Normal"
-                            Content="{Binding CurrentSymbol}"/>
+                            Content="{Binding CurrentSymbol}">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="PreviewMouseDown">
+                                <b:InvokeCommandAction
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor}, Path=DataContext.InputSymbolCommand }"
+                                    CommandParameter="{Binding CurrentSymbol}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                    </Button>
                 </DataTemplate>
             </Setter.Value>
         </Setter>

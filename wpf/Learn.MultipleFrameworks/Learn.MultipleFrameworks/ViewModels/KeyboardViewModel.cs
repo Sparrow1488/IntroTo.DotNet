@@ -66,7 +66,7 @@ public abstract class KeyboardViewModel : DialogContentInjectable
         ResetInput();
     }
 
-    protected virtual void InputSymbol(string symbol)
+    protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
     }
