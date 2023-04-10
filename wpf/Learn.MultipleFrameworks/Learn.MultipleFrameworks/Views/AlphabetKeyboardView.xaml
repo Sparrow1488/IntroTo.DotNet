@@ -24,11 +24,22 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition />
         </Grid.RowDefinitions>
-            
+        
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <TextBox HorizontalContentAlignment="Stretch"
+                     VerticalAlignment="Center"
+                     FontSize="18"
+                     VerticalContentAlignment="Center"
+                     TextWrapping="Wrap"
+                     mah:TextBoxHelper.ClearTextButton="True"
+                     Text="{Binding Input}" />
+        </StackPanel>
+            
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
             <ItemsControl ItemsSource="{Binding Layout[1]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
         
@@ -43,21 +54,21 @@
             
         </StackPanel>
         
-        <Button Grid.Row="1" Grid.Column="0" Content="Caps"
+        <Button Grid.Row="2" Grid.Column="0" Content="Caps"
                 Command="{Binding SwitchCapsLockCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="1" 
+        <Button Grid.Row="2" Grid.Column="1" 
                 Content="{Binding NextLayoutState}" 
                 Command="{Binding SwitchLayoutStateCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="2"
+        <Button Grid.Row="2" Grid.Column="2"
                 MinWidth="150"
                 Style="{StaticResource KeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="3" 
+        <Button Grid.Row="2" Grid.Column="3" 
                 Content="{Binding NextLayoutName}" 
                 Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="1" Grid.Column="4" Content="Caps"
+        <Button Grid.Row="2" Grid.Column="4" Content="Caps"
                 Command="{Binding SwitchCapsLockCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
     </Grid>

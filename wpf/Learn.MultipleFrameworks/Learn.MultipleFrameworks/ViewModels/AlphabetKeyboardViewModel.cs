@@ -9,7 +9,7 @@ using Prism.Commands;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class AlphabetKeyboardViewModel : DialogContentInjectable
+public class AlphabetKeyboardViewModel : KeyboardViewModel
 {
     private KeyboardLayout? _layout;
     private string? _nextLayoutName;
@@ -33,6 +33,8 @@ public class AlphabetKeyboardViewModel : DialogContentInjectable
         SwitchCapsLockCommand = new DelegateCommand(
             () => CapsLockEnabled = SwitchCapsLock(CapsLockEnabled));
     }
+    
+    protected override string DefaultValue => "";
 
     public KeyboardLayout? Layout
     {
