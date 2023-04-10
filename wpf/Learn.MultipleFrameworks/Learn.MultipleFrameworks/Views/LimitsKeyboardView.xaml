@@ -15,11 +15,10 @@
         </ResourceDictionary.MergedDictionaries>
             
         <system:Double x:Key="LongButtonWidth">75</system:Double>
-            
     </ResourceDictionary>
     </UserControl.Resources>
              
-    <StackPanel HorizontalAlignment="Center">
+    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -102,6 +101,14 @@
                     Grid.Row="4" Grid.Column="3"
                     Width="{StaticResource LongButtonWidth}"
                     Style="{StaticResource SizedCommandKeyButton}" />
+        </Grid>
+            
+        <Grid>
+            <Button Content="↓"
+                    VerticalAlignment="Top"
+                    Command="{Binding PressMagicCommand}"
+                    Width="{StaticResource LongButtonWidth}"
+                    Style="{StaticResource SizedCommandKeyButton}"/>
         </Grid>
     </StackPanel>
 </UserControl>

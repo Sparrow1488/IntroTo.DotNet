@@ -1,5 +1,7 @@
 using System.Globalization;
 using System.Linq;
+using System.Windows.Input;
+using Prism.Commands;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
@@ -10,8 +12,16 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
     private const string MinusOneHundredSymbol = "-100";
     private const string TopLimitSymbol = "↑";
     private const string BottomLimitSymbol = "↓";
+
+    public LimitsKeyboardViewModel()
+    {
+        // TODO: узнаем точное предназначение и будет реализовано
+        PressMagicCommand = new DelegateCommand(() => InputSymbol(BottomLimitSymbol));
+    }
     
     protected override string DefaultValue => "0";
+
+    public ICommand PressMagicCommand { get; }
 
     protected override void InputSymbol(string symbol)
     {
@@ -58,7 +68,7 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
             Input = (Input += symbol).TrimStart('0');
         }
     }
-
+    
     private static bool IsSpecial(string symbol)
     {
         var special = new[]
