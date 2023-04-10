@@ -29,16 +29,19 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
-            <TextBox HorizontalContentAlignment="Stretch"
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
+                     HorizontalContentAlignment="Stretch"
                      VerticalAlignment="Center"
                      FontSize="18"
                      VerticalContentAlignment="Center"
-                     TextWrapping="Wrap"
+                     TextWrapping="WrapWithOverflow"
                      mah:TextBoxHelper.ClearTextButton="True"
                      Text="{Binding Input}" />
-        </StackPanel>
-            
+            <Button Grid.Row="0" Grid.Column="4" 
+                    Style="{StaticResource SizedShiftKeyButton}"
+                    Content="OK" 
+                    Command="{Binding SubmitCommand}"/>
+        
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
             <ItemsControl ItemsSource="{Binding Layout[1]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
