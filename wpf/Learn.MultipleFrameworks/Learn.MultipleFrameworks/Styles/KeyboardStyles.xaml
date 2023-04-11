@@ -20,7 +20,7 @@
     <Style x:Key="KeyButton" 
            TargetType="ButtonBase"
            BasedOn="{StaticResource MahApps.Styles.Button}">
-        <Setter Property="Margin" Value="2 2"/>
+        <Setter Property="Margin" Value="4 4"/>
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush>

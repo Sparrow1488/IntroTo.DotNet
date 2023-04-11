@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -71,16 +72,22 @@
                     Height="{StaticResource KeyButtonHeight}"
                     Style="{StaticResource CommandKeyButton}" />
             
-            <Button Content="x"
-                    Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
+            <Button Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
                     Style="{StaticResource KeyButton}"
-                    Command="{Binding ResetCommand}" />
-            <Button Content="OK"
-                    Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
+                    Command="{Binding ResetCommand}">
+                <Button.Content>
+                    <iconPacks:PackIconMicrons Kind="Cancel" />
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="3" Grid.Column="1" Grid.RowSpan="2"
                     Width="50"
                     Style="{StaticResource KeyButton}"
-                    Command="{Binding SubmitCommand}" />
+                    Command="{Binding SubmitCommand}">
+                <Button.Content>
+                    <iconPacks:PackIconMaterialLight Kind="Check" />
+                </Button.Content>
+            </Button>
         </Grid>
     </StackPanel>
 </UserControl>

@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Layouts;
 using Learn.MultipleFrameworks.Services.Providers;
+using MahApps.Metro.IconPacks;
 using Prism.Commands;
 
 namespace Learn.MultipleFrameworks.ViewModels;
@@ -16,6 +20,7 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
 
     private readonly List<KeyboardLayout> _layouts;
     private readonly Dictionary<LayoutState, List<KeyboardLayout>> _layoutsStore = new();
+    private PackIconMaterialLightKind _capsIconKind;
 
     public AlphabetKeyboardViewModel(KeyboardLayoutsProvider provider)
     {
@@ -29,7 +34,7 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
         SwitchLayoutStateCommand = new DelegateCommand(SwitchLayoutState);
         SwitchCapsLockCommand = new DelegateCommand(
             () => CapsLockEnabled = SwitchCapsLock(!CapsLockEnabled));
-
+        
         PressSpaceCommand = new DelegateCommand(() => InputSymbol(" "));
         PressBackspaceCommand = new DelegateCommand(() =>
         {
@@ -41,6 +46,12 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     }
     
     protected override string DefaultValue => "";
+    
+    public PackIconMaterialLightKind CapsIconKind
+    {
+        get => _capsIconKind;
+        set => SetProperty(ref _capsIconKind, value);
+    }
 
     public KeyboardLayout? Layout
     {
@@ -101,10 +112,10 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     {
         Layout ??= GetDefaultLayout();
         State ??= Layout.State;
-        
+
         Layout = GetNextLayout();
         SwitchCapsLock(capsLock);
-        
+
         UpdateLayoutName();
         UpdateLayoutState();
     }
@@ -128,11 +139,17 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     private bool SwitchCapsLock(bool capsLock)
     {
         var keysList = Layout!.Keys.ToList();
-        
-        if(capsLock)
+
+        if (capsLock)
+        {
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+            CapsIconKind = PackIconMaterialLightKind.ChevronDown;
+        }
         else
+        {
             keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+            CapsIconKind = PackIconMaterialLightKind.ChevronUp;
+        }
 
         UpdateProperty(ref _layout, Layout, nameof(Layout));
 

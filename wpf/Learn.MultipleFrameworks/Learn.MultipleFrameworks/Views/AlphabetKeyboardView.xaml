@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -11,6 +12,17 @@
                 <ResourceDictionary
                     Source="/Learn.MultipleFrameworks;component/Styles/KeyboardStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <Style x:Key="CapsButton" 
+                   TargetType="ButtonBase" 
+                   BasedOn="{StaticResource SizedShiftKeyButton}">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <iconPacks:PackIconMaterialLight Kind="{Binding CapsIconKind}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Command" Value="{Binding SwitchCapsLockCommand}" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -39,12 +51,18 @@
                      Text="{Binding Input}" />
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
-                    Content="Del" 
-                    Command="{Binding PressBackspaceCommand}"/>
+                    Command="{Binding PressBackspaceCommand}">
+                <Button.Content>
+                    <iconPacks:PackIconMaterialLight Kind="ChevronLeft" />
+                </Button.Content>
+            </Button>
             <Button Grid.Row="0" Grid.Column="4" 
                     Style="{StaticResource SizedShiftKeyButton}"
-                    Content="OK" 
-                    Command="{Binding SubmitCommand}"/>
+                    Command="{Binding SubmitCommand}">
+                <Button.Content>
+                    <iconPacks:PackIconMaterialLight Kind="Check" />
+                </Button.Content>
+            </Button>
         
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
             <ItemsControl ItemsSource="{Binding Layout[1]}" 
@@ -58,12 +76,10 @@
             
             <ItemsControl ItemsSource="{Binding Layout[4]}" 
                           Style="{StaticResource KeyboardRowPanel}" />
-            
         </StackPanel>
         
-        <Button Grid.Row="2" Grid.Column="0" Content="Caps"
-                Command="{Binding SwitchCapsLockCommand}"
-                Style="{StaticResource SizedShiftKeyButton}"/>
+        <Button Grid.Row="2" Grid.Column="0"
+                Style="{StaticResource CapsButton}" />
         <Button Grid.Row="2" Grid.Column="1" 
                 Content="{Binding NextLayoutState}" 
                 Command="{Binding SwitchLayoutStateCommand}"
@@ -76,8 +92,7 @@
                 Content="{Binding NextLayoutName}" 
                 Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
-        <Button Grid.Row="2" Grid.Column="4" Content="Caps"
-                Command="{Binding SwitchCapsLockCommand}"
-                Style="{StaticResource SizedShiftKeyButton}"/>
+        <Button Grid.Row="2" Grid.Column="4"
+                Style="{StaticResource CapsButton}"/>
     </Grid>
 </UserControl>

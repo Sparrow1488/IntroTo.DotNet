@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -47,9 +48,12 @@
             <Button Grid.Row="0" 
                     Grid.Column="3"
                     Width="{StaticResource LongButtonWidth}"
-                    Content="OK"
                     Command="{Binding SubmitCommand}"
-                    Style="{StaticResource SizedCommandKeyButton}" />
+                    Style="{StaticResource SizedCommandKeyButton}">
+                    <Button.Content>
+                            <iconPacks:PackIconMaterialLight Kind="Check" />
+                    </Button.Content>
+            </Button>
             
             <!-- 7 - 9 buttons -->
             
