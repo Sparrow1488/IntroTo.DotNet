@@ -18,7 +18,9 @@ public partial class App
     protected override void RegisterTypes(IContainerRegistry container)
     {
         container.RegisterSingleton<KeyboardLayoutsProvider>();
-        container.RegisterSingleton<IKeyboardModalService, KeyboardModalService>();
+
+        container.RegisterScoped<KeyboardSettingsProvider>();
+        container.RegisterScoped<IKeyboardModalService, KeyboardModalService>();
         container.AddRegionDialogService();
         
         var aggregator = Container.Resolve<IEventAggregator>();

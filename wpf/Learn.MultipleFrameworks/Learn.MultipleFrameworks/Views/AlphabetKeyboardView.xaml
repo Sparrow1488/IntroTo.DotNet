@@ -48,7 +48,7 @@
                      VerticalContentAlignment="Center"
                      TextWrapping="WrapWithOverflow"
                      mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding Input}" />
+                     Text="{Binding InputMask}" />
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
                     Command="{Binding PressBackspaceCommand}">

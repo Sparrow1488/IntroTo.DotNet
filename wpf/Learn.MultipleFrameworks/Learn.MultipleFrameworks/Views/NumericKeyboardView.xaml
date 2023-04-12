@@ -37,8 +37,8 @@
                      FontSize="18"
                      TextWrapping="Wrap"
                      mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding Input}" />
-            
+                     Text="{Binding InputMask}" />
+
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"
                         Style="{StaticResource SizedCommandKeyButton}" />

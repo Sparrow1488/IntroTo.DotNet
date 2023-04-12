@@ -2,6 +2,7 @@ using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
+using Learn.MultipleFrameworks.Models.Settings;
 using Learn.MultipleFrameworks.Services.Keyboards;
 using Prism.Commands;
 using Prism.Events;
@@ -23,13 +24,17 @@ public class HomeViewModel : BindableBase
         _aggregator = aggregator;
 
         ConfigureEventsHandlers();
+        var passwordSettings = new KeyboardSettings()
+        {
+            IsPassword = true
+        };
         
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(
             () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue));
         ShowNumericKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue));
+            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
         ShowAlphabetKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue));
+            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
     }
 
     public string? DialogClosureTime

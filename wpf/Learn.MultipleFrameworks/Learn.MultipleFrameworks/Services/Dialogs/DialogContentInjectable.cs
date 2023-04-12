@@ -11,7 +11,7 @@ namespace Learn.MultipleFrameworks.Services.Dialogs;
 
 public abstract class DialogContentInjectable : BindableBase
 {
-    private static IContainerProvider Container => ContainerLocator.Container;
+    protected static IContainerProvider Container => ContainerLocator.Container;
     protected static IEventAggregator Aggregator => Container.Resolve<IEventAggregator>();
     
     /// <summary>
