@@ -16,13 +16,14 @@
             <Style x:Key="CapsButton" 
                    TargetType="ButtonBase" 
                    BasedOn="{StaticResource SizedShiftKeyButton}">
-                <Setter Property="Content">
-                    <Setter.Value>
-                        <iconPacks:PackIconMaterialLight Kind="{Binding CapsIconKind}" />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Command" Value="{Binding SwitchCapsLockCommand}" />
             </Style>
+            
+            <ControlTemplate x:Key="CapsButtonTemplate" TargetType="{x:Type ButtonBase}">
+                <Button Style="{StaticResource CapsButton}">
+                    <iconPacks:PackIconMaterialLight Kind="{Binding CapsIconKind}" />
+                </Button>
+            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -48,7 +49,7 @@
                      VerticalContentAlignment="Center"
                      TextWrapping="WrapWithOverflow"
                      mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding InputMask}" />
+                     Text="{Binding InputMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
                     Command="{Binding PressBackspaceCommand}">
@@ -79,7 +80,7 @@
         </StackPanel>
         
         <Button Grid.Row="2" Grid.Column="0"
-                Style="{StaticResource CapsButton}" />
+                Template="{StaticResource CapsButtonTemplate}" />
         <Button Grid.Row="2" Grid.Column="1" 
                 Content="{Binding NextLayoutState}" 
                 Command="{Binding SwitchLayoutStateCommand}"
@@ -93,6 +94,6 @@
                 Command="{Binding SwitchLayoutCommand}"
                 Style="{StaticResource SizedShiftKeyButton}"/>
         <Button Grid.Row="2" Grid.Column="4"
-                Style="{StaticResource CapsButton}"/>
+                Template="{StaticResource CapsButtonTemplate}" />
     </Grid>
 </UserControl>

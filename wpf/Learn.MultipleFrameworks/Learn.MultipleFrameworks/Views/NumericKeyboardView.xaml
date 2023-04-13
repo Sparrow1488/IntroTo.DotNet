@@ -37,7 +37,7 @@
                      FontSize="18"
                      TextWrapping="Wrap"
                      mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding InputMask}" />
+                     Text="{Binding InputMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"

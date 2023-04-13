@@ -80,11 +80,6 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
     public ICommand SwitchLayoutStateCommand { get; }
     public ICommand SwitchCapsLockCommand { get; }
 
-    private void AddLayout(KeyboardLayout layout)
-    {
-        _layouts.Add(layout);
-    }
-
     private void InitLayoutsStore()
     {
         foreach (var grouping in _layouts.GroupBy(x => x.State))
@@ -110,14 +105,17 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
 
     private void SwitchLayout(bool capsLock)
     {
-        Layout ??= GetDefaultLayout();
-        State ??= Layout.State;
+        Task.Factory.StartNew(() =>
+        {
+            Layout ??= GetDefaultLayout();
+            State ??= Layout.State;
 
-        Layout = GetNextLayout();
-        SwitchCapsLock(capsLock);
+            Layout = GetNextLayout();
+            SwitchCapsLock(capsLock);
 
-        UpdateLayoutName();
-        UpdateLayoutState();
+            UpdateLayoutName();
+            UpdateLayoutState();
+        }).ContinueWith(_ => { });
     }
 
     private void UpdateLayoutName()
@@ -138,20 +136,23 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
 
     private bool SwitchCapsLock(bool capsLock)
     {
-        var keysList = Layout!.Keys.ToList();
-
-        if (capsLock)
+        Task.Factory.StartNew(() =>
         {
-            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
-            CapsIconKind = PackIconMaterialLightKind.ChevronDown;
-        }
-        else
-        {
-            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
-            CapsIconKind = PackIconMaterialLightKind.ChevronUp;
-        }
+            var keysList = Layout!.Keys.ToList();
 
-        UpdateProperty(ref _layout, Layout, nameof(Layout));
+            if (capsLock)
+            {
+                keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+                CapsIconKind = PackIconMaterialLightKind.ChevronDown;
+            }
+            else
+            {
+                keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+                CapsIconKind = PackIconMaterialLightKind.ChevronUp;
+            }
+
+            UpdateProperty(ref _layout, Layout, nameof(Layout));
+        }).ContinueWith(_ => { });
 
         return capsLock;
     }
