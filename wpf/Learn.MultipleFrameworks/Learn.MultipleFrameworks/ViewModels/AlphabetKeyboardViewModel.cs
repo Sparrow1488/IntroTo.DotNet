@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Layouts;
 using Learn.MultipleFrameworks.Services.Providers;
@@ -101,6 +102,8 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
         return !string.IsNullOrWhiteSpace(NextLayoutState);
     }
 
+    private static object _lock = new();
+    
     private void SwitchLayout(bool capsLock)
     {
         Task.Factory.StartNew(() =>
@@ -108,8 +111,11 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
             Layout ??= GetDefaultLayout();
             State ??= Layout.State;
 
-            Layout = GetNextLayout();
-            SwitchCapsLock(capsLock);
+            lock (_lock)
+            {
+                Layout = GetNextLayout();
+                SwitchCapsLock(capsLock);
+            }
 
             UpdateLayoutName();
             UpdateLayoutState();
@@ -134,21 +140,21 @@ public class AlphabetKeyboardViewModel : KeyboardViewModel
 
     private bool SwitchCapsLock(bool capsLock)
     {
+        var keysList = Layout!.Keys.ToList();
+
+        if (capsLock)
+        {
+            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
+            CapsIconKind = PackIconMaterialLightKind.ChevronDown;
+        }
+        else
+        {
+            keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
+            CapsIconKind = PackIconMaterialLightKind.ChevronUp;
+        }
+        
         Task.Factory.StartNew(() =>
         {
-            var keysList = Layout!.Keys.ToList();
-
-            if (capsLock)
-            {
-                keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToUpper());
-                CapsIconKind = PackIconMaterialLightKind.ChevronDown;
-            }
-            else
-            {
-                keysList.ForEach(x => x.CurrentSymbol = x.CurrentSymbol.ToLower());
-                CapsIconKind = PackIconMaterialLightKind.ChevronUp;
-            }
-
             UpdateProperty(ref _layout, Layout, nameof(Layout));
         }).ContinueWith(_ => { });
 

@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
@@ -24,6 +26,10 @@ namespace Learn.MultipleFrameworks.ViewModels;
 public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInfo
 {
     private string _input = string.Empty;
+    private Visibility _passwordVisibility = Visibility.Collapsed;
+    private Visibility _textVisibility = Visibility.Visible;
+
+    public event Action<string?>? PressKeyButton;
 
     public KeyboardViewModel()
     {
@@ -34,7 +40,11 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         Settings = Container.Resolve<KeyboardSettingsProvider>()?.KeyboardSettings;
 
         if (Settings is {IsPassword: true})
+        {
             MaskChar = '*';
+            TextVisibility = Visibility.Collapsed;
+            PasswordVisibility = Visibility.Visible;
+        }
 
         PropertyChanged += (_, args) =>
         {
@@ -45,6 +55,17 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         Input = string.Empty;
     }
 
+    public Visibility PasswordVisibility
+    {
+        get => _passwordVisibility;
+        set => SetProperty(ref _passwordVisibility, value);
+    }
+    public Visibility TextVisibility
+    {
+        get => _textVisibility;
+        set => SetProperty(ref _textVisibility, value);
+    }
+    
     public KeyboardSettings? Settings { get; }
 
     protected abstract string DefaultValue { get; }
@@ -58,7 +79,8 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         {
             const string @default = "";
             if (Settings?.InputValidationFunc == null 
-                && input is not nameof(Input) or nameof(InputMask))
+                || input != nameof(Input)
+                || input != nameof(InputMask))
                 return @default;
 
             var validation = Settings.InputValidationFunc.Invoke(Input);
@@ -112,6 +134,7 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
+        PressKeyButton?.Invoke(symbol);
     }
 
     protected virtual bool UseInputMask()
