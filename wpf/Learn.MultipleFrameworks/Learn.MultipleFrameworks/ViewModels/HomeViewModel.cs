@@ -2,6 +2,7 @@ using System;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
+using Learn.MultipleFrameworks.Models;
 using Learn.MultipleFrameworks.Models.Settings;
 using Learn.MultipleFrameworks.Services.Keyboards;
 using Prism.Commands;
@@ -26,7 +27,11 @@ public class HomeViewModel : BindableBase
         ConfigureEventsHandlers();
         var passwordSettings = new KeyboardSettings()
         {
-            IsPassword = true
+            IsPassword = true,
+            InputValidationFunc = input => 
+                input.Length < 5 
+                    ? new ValidationResult {IsValid = false, ErrorMessage = "Длина пароля меньше пяти"} 
+                    : new ValidationResult {IsValid = true}
         };
         
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(

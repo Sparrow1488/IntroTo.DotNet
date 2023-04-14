@@ -1,6 +1,4 @@
 using System.ComponentModel;
-using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Input;
 using Learn.MultipleFrameworks.Events;
 using Learn.MultipleFrameworks.Events.Models;
@@ -23,10 +21,9 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 #endregion
 
-public abstract class KeyboardViewModel : DialogContentInjectable
+public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInfo
 {
-    private string _input;
-    private FlowDocument _document;
+    private string _input = string.Empty;
 
     public KeyboardViewModel()
     {
@@ -52,6 +49,22 @@ public abstract class KeyboardViewModel : DialogContentInjectable
 
     protected abstract string DefaultValue { get; }
     protected virtual char? MaskChar { get; set; }
+
+    public string Error => string.Empty;
+
+    public string this[string input]
+    {
+        get
+        {
+            const string @default = "";
+            if (Settings?.InputValidationFunc == null 
+                && input is not nameof(Input) or nameof(InputMask))
+                return @default;
+
+            var validation = Settings.InputValidationFunc.Invoke(Input);
+            return validation?.ErrorMessage ?? @default;
+        }
+    }
     
     public string Input
     {

@@ -43,7 +43,7 @@
                      VerticalContentAlignment="Center"
                      TextWrapping="Wrap"
                      mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding InputMask}" />
+                     Text="{Binding InputMask, ValidatesOnDataErrors=True}" />
             
             <Button Grid.Row="0" 
                     Grid.Column="3"
