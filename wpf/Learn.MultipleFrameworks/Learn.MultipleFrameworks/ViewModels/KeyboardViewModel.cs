@@ -29,8 +29,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     private Visibility _passwordVisibility = Visibility.Collapsed;
     private Visibility _textVisibility = Visibility.Visible;
 
-    public event Action<string?>? PressKeyButton;
-
     public KeyboardViewModel()
     {
         ResetCommand = new DelegateCommand(ResetInput);
@@ -42,34 +40,29 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         if (Settings is {IsPassword: true})
         {
             MaskChar = '*';
-            TextVisibility = Visibility.Collapsed;
-            PasswordVisibility = Visibility.Visible;
+            PasswordBoxVisibility = Visibility.Visible;
+            TextBoxVisibility = Visibility.Collapsed;
         }
 
-        PropertyChanged += (_, args) =>
-        {
-            if (args.PropertyName == nameof(Input))
-                OnPropertyChanged(new PropertyChangedEventArgs(nameof(InputMask)));
-        };
-
         Input = string.Empty;
-    }
-
-    public Visibility PasswordVisibility
-    {
-        get => _passwordVisibility;
-        set => SetProperty(ref _passwordVisibility, value);
-    }
-    public Visibility TextVisibility
-    {
-        get => _textVisibility;
-        set => SetProperty(ref _textVisibility, value);
     }
     
     public KeyboardSettings? Settings { get; }
 
     protected abstract string DefaultValue { get; }
     protected virtual char? MaskChar { get; set; }
+
+    public Visibility PasswordBoxVisibility
+    {
+        get => _passwordVisibility;
+        set => SetProperty(ref _passwordVisibility, value);
+    }
+    
+    public Visibility TextBoxVisibility
+    {
+        get => _textVisibility;
+        set => SetProperty(ref _textVisibility, value);
+    }
 
     public string Error => string.Empty;
 
@@ -79,8 +72,7 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         {
             const string @default = "";
             if (Settings?.InputValidationFunc == null 
-                || input != nameof(Input)
-                || input != nameof(InputMask))
+                || input != nameof(Input))
                 return @default;
 
             var validation = Settings.InputValidationFunc.Invoke(Input);
@@ -99,13 +91,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
             else
                 SetProperty(ref _input, value);
         }
-    }
-    public string InputMask
-    {
-        get => UseInputMask() 
-            ? new string((char) MaskChar!, Input.Length) 
-            : Input;
-        set => Input = value;
     }
     
     public ICommand InputSymbolCommand { get; }
@@ -134,7 +119,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
-        PressKeyButton?.Invoke(symbol);
     }
 
     protected virtual bool UseInputMask()

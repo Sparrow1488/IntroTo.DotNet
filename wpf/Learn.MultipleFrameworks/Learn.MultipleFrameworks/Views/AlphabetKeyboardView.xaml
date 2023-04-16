@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             DataContextChanged="OnDataContextChanged"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -44,23 +43,12 @@
         </Grid.RowDefinitions>
         
             <PasswordBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                         x:Name="PasswordBox"
-                         Visibility="{Binding PasswordVisibility}"
-                         HorizontalContentAlignment="Stretch"
-                         VerticalAlignment="Center"
                          FontSize="18"
-                         PasswordChanged="OnPasswordChanged"
-                         VerticalContentAlignment="Center"
-                         mah:TextBoxHelper.ClearTextButton="True" />
+                         Style="{StaticResource InputPasswordBox}" />
             <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                     Visibility="{Binding TextVisibility}"
-                     HorizontalContentAlignment="Stretch"
-                     VerticalAlignment="Center"
                      FontSize="18"
-                     VerticalContentAlignment="Center"
-                     TextWrapping="WrapWithOverflow"
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding Input, ValidatesOnDataErrors=True}" />
+                     Text="{Binding Input, ValidatesOnDataErrors=True}"
+                     Style="{StaticResource InputTextBox}" />
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
                     Command="{Binding PressBackspaceCommand}">

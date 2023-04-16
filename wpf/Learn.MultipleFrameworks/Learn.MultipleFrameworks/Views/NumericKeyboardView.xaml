@@ -31,14 +31,12 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             
+            <PasswordBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
+                     Style="{StaticResource InputPasswordBox}"
+                     VerticalAlignment="Center" />
             <TextBox Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"
-                     HorizontalContentAlignment="Stretch"
-                     VerticalAlignment="Center"
-                     FontSize="18"
-                     TextWrapping="Wrap"
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     mah:ValidationHelper.ShowValidationErrorOnMouseOver="True"
-                     Text="{Binding InputMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                     Style="{StaticResource InputTextBox}"
+                     VerticalAlignment="Center" />
 
             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <Button Content="7"

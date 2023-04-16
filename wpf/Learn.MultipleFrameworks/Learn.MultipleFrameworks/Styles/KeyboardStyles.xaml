@@ -10,11 +10,21 @@
     
     <system:Double x:Key="ShiftKeyButtonWidth">75</system:Double>
     
-    <Style x:Key="KeyboardInputBox" TargetType="TextBox">
+    <Style x:Key="InputPasswordBox" TargetType="PasswordBox">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="FontSize" Value="{StaticResource KeyButtonFontSize}" />
+        <Setter Property="Visibility" Value="{Binding PasswordBoxVisibility}" />
+        <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+        <Setter Property="mah:PasswordBoxBindingBehavior.Password" Value="{Binding Input, ValidatesOnDataErrors=True}" />
+    </Style>
+    
+    <Style x:Key="InputTextBox" TargetType="TextBox">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Visibility" Value="{Binding TextBoxVisibility}" />
+        <Setter Property="FontSize" Value="{StaticResource KeyButtonFontSize}" />
         <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="Text" Value="{Binding Input}" />
+        <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
+        <Setter Property="Text" Value="{Binding Input, Mode=TwoWay, ValidatesOnDataErrors=True}" />
     </Style>
     
     <Style x:Key="KeyButton" 
