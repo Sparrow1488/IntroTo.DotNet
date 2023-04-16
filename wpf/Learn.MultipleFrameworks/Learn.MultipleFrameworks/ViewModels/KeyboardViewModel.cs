@@ -25,7 +25,7 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInfo
 {
-    private string _input = string.Empty;
+    private string _input = null!;
     private Visibility _passwordVisibility = Visibility.Collapsed;
     private Visibility _textVisibility = Visibility.Visible;
 
@@ -42,8 +42,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
             PasswordBoxVisibility = Visibility.Visible;
             TextBoxVisibility = Visibility.Collapsed;
         }
-
-        Input = string.Empty;
     }
     
     public KeyboardSettings? Settings { get; }
@@ -69,13 +67,14 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         get
         {
             const string @default = "";
-            
-            if (Settings?.InputValidationFunc == null || input != nameof(Input))
-                return @default;
-            
-            if (string.IsNullOrWhiteSpace(Input))
-                return @default;
 
+            if (Settings?.InputValidationFunc == null
+                || input != nameof(Input)
+                || string.IsNullOrWhiteSpace(Input))
+            {
+                return @default;
+            }
+            
             var validation = Settings.InputValidationFunc.Invoke(Input);
             return validation.ErrorMessage ?? @default;
         }
