@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Learn.MultipleFrameworks.ViewModels;
 
 public class NumericKeyboardViewModel : KeyboardViewModel
@@ -10,5 +12,10 @@ public class NumericKeyboardViewModel : KeyboardViewModel
         {
             Input = (Input += symbol).TrimStart('0');
         }
+    }
+
+    protected override bool CheckInputValidation(string input)
+    {
+        return input.All(char.IsDigit);
     }
 }

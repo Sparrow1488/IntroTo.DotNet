@@ -85,6 +85,13 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         get => _input;
         set
         {
+            // TODO: not works
+            if (!CheckInputValidation(value))
+            {
+                SetProperty(ref _input, _input);
+                return;                
+            }
+            
             var usePassword = Settings?.IsPassword ?? false;
             if (string.IsNullOrWhiteSpace(value) && !usePassword)
                 SetProperty(ref _input, DefaultValue);
@@ -119,5 +126,10 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
+    }
+
+    protected virtual bool CheckInputValidation(string input)
+    {
+        return true;
     }
 }
