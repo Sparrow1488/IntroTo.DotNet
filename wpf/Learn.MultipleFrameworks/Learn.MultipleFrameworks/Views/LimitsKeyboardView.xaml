@@ -37,13 +37,9 @@
             </Grid.RowDefinitions>
             
             <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                     HorizontalContentAlignment="Stretch"
                      VerticalAlignment="Center"
-                     FontSize="18"
                      VerticalContentAlignment="Center"
-                     TextWrapping="Wrap"
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     Text="{Binding Input, ValidatesOnDataErrors=True}" />
+                     Style="{StaticResource InputTextBox}" />
             
             <Button Grid.Row="0" 
                     Grid.Column="3"

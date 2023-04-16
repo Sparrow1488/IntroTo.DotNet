@@ -39,7 +39,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
 
         if (Settings is {IsPassword: true})
         {
-            MaskChar = '*';
             PasswordBoxVisibility = Visibility.Visible;
             TextBoxVisibility = Visibility.Collapsed;
         }
@@ -50,7 +49,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     public KeyboardSettings? Settings { get; }
 
     protected abstract string DefaultValue { get; }
-    protected virtual char? MaskChar { get; set; }
 
     public Visibility PasswordBoxVisibility
     {
@@ -71,12 +69,15 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
         get
         {
             const string @default = "";
-            if (Settings?.InputValidationFunc == null 
-                || input != nameof(Input))
+            
+            if (Settings?.InputValidationFunc == null || input != nameof(Input))
+                return @default;
+            
+            if (string.IsNullOrWhiteSpace(Input))
                 return @default;
 
             var validation = Settings.InputValidationFunc.Invoke(Input);
-            return validation?.ErrorMessage ?? @default;
+            return validation.ErrorMessage ?? @default;
         }
     }
     
@@ -119,10 +120,5 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
-    }
-
-    protected virtual bool UseInputMask()
-    {
-        return MaskChar != null;
     }
 }

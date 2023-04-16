@@ -15,7 +15,17 @@
         <Setter Property="FontSize" Value="{StaticResource KeyButtonFontSize}" />
         <Setter Property="Visibility" Value="{Binding PasswordBoxVisibility}" />
         <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
-        <Setter Property="mah:PasswordBoxBindingBehavior.Password" Value="{Binding Input, ValidatesOnDataErrors=True}" />
+        <Setter Property="mah:PasswordBoxBindingBehavior.Password" Value="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <TextBlock FontSize="16" Text="{Binding [0].ErrorContent}" Foreground="#FF4500"/>
+                        <AdornedElementPlaceholder x:Name="PasswordBox"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <Style x:Key="InputTextBox" TargetType="TextBox">
@@ -24,7 +34,17 @@
         <Setter Property="FontSize" Value="{StaticResource KeyButtonFontSize}" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True" />
-        <Setter Property="Text" Value="{Binding Input, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+        <Setter Property="Text" Value="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <TextBlock FontSize="16" Text="{Binding [0].ErrorContent}" Foreground="#FF4500"/>
+                        <AdornedElementPlaceholder x:Name="TextBox"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <Style x:Key="KeyButton" 
