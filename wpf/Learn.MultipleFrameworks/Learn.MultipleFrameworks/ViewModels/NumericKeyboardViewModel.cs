@@ -8,7 +8,7 @@ public class NumericKeyboardViewModel : KeyboardViewModel
 
     protected override string? InputChanging(string? input)
     {
-        if (string.IsNullOrWhiteSpace(input) && (!Settings?.IsPassword ?? false))
+        if (string.IsNullOrWhiteSpace(input))
         {
             return DefaultValue;
         }

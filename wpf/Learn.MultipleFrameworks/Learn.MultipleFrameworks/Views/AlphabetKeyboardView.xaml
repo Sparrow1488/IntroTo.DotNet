@@ -27,7 +27,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Grid>
+    <Grid x:Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
@@ -42,12 +42,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-            <PasswordBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                         FontSize="18"
-                         Style="{StaticResource InputPasswordBox}" />
-            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                     FontSize="18"
-                     Style="{StaticResource InputTextBox}" />
+            <StackPanel x:Name="InputPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid Height="{Binding ActualHeight, ElementName=InputPanel}"
+                      Width="{Binding ActualWidth, ElementName=InputPanel}">
+                    <PasswordBox Style="{StaticResource InputPasswordBox}" />
+                    <TextBox Style="{StaticResource InputTextBox}" />
+                </Grid>
+            </StackPanel>
+            
             <Button Grid.Row="0" Grid.Column="3" 
                     Style="{StaticResource SizedShiftKeyButton}"
                     Command="{Binding PressBackspaceCommand}">

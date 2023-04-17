@@ -36,10 +36,15 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             
-            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                     VerticalAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Style="{StaticResource InputTextBox}" />
+                
+                <StackPanel x:Name="InputPanel" Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0">
+                        <Grid Width="{Binding ActualWidth, ElementName=InputPanel}"
+                              Height="{Binding ActualHeight, ElementName=InputPanel}">
+                                <TextBox VerticalAlignment="Center"
+                                         VerticalContentAlignment="Center"
+                                         Style="{StaticResource InputTextBox}" />
+                        </Grid>
+                </StackPanel>
             
             <Button Grid.Row="0" 
                     Grid.Column="3"
