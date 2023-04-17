@@ -25,7 +25,7 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInfo
 {
-    private string _input = null!;
+    private string? _input;
     private Visibility _passwordVisibility = Visibility.Collapsed;
     private Visibility _textVisibility = Visibility.Visible;
 
@@ -42,6 +42,8 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
             PasswordBoxVisibility = Visibility.Visible;
             TextBoxVisibility = Visibility.Collapsed;
         }
+
+        Input = null;
     }
     
     public KeyboardSettings? Settings { get; }
@@ -82,22 +84,19 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     
     public string Input
     {
-        get => _input;
-        set
-        {
-            // TODO: not works
-            if (!CheckInputValidation(value))
-            {
-                SetProperty(ref _input, _input);
-                return;                
-            }
-            
-            var usePassword = Settings?.IsPassword ?? false;
-            if (string.IsNullOrWhiteSpace(value) && !usePassword)
-                SetProperty(ref _input, DefaultValue);
-            else
-                SetProperty(ref _input, value);
-        }
+        get => _input ?? string.Empty;
+        set => SetProperty(ref _input, InputChanging(value));
+        
+        // var usePassword = Settings?.IsPassword ?? false;
+        // if (string.IsNullOrWhiteSpace(value) && !usePassword)
+        //     SetProperty(ref _input, DefaultValue);
+        // else
+        //     SetProperty(ref _input, value);
+    }
+
+    protected virtual string? InputChanging(string? input)
+    {
+        return input;
     }
     
     public ICommand InputSymbolCommand { get; }
@@ -126,10 +125,5 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     protected virtual void InputSymbol(string? symbol)
     {
         Input += symbol;
-    }
-
-    protected virtual bool CheckInputValidation(string input)
-    {
-        return true;
     }
 }

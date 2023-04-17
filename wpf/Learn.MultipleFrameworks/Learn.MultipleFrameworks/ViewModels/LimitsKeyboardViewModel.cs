@@ -23,8 +23,23 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
 
     public ICommand PressMagicCommand { get; }
 
-    protected override void InputSymbol(string symbol)
+    protected override string InputChanging(string? input)
     {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return DefaultValue;
+        }
+
+        if (int.TryParse(input, out _))
+            return TrimStartZero(input);
+
+        return Input;
+    }
+
+    protected override void InputSymbol(string? symbol)
+    {
+        if (symbol == null) return;
+        
         if (IsSpecial(symbol))
         {
             var isZeroFirst = Input.StartsWith('0');
@@ -65,8 +80,16 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
         }
         else
         {
-            Input = (Input += symbol).TrimStart('0');
+            Input = TrimStartZero(Input + symbol);
         }
+    }
+
+    private string TrimStartZero(string input)
+    {
+        if (input.Length > 1)
+            return input.TrimStart('0');
+
+        return input;
     }
     
     private static bool IsSpecial(string symbol)
