@@ -86,12 +86,6 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     {
         get => _input ?? string.Empty;
         set => SetProperty(ref _input, InputChanging(value));
-        
-        // var usePassword = Settings?.IsPassword ?? false;
-        // if (string.IsNullOrWhiteSpace(value) && !usePassword)
-        //     SetProperty(ref _input, DefaultValue);
-        // else
-        //     SetProperty(ref _input, value);
     }
 
     protected virtual string? InputChanging(string? input)

@@ -37,9 +37,9 @@ public class HomeViewModel : BindableBase
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(
             () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue));
         ShowNumericKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
+            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue));
         ShowAlphabetKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
+            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue));
     }
 
     public string? DialogClosureTime

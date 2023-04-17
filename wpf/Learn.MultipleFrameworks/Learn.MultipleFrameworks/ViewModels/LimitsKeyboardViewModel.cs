@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
+using Learn.MultipleFrameworks.Services.Utilities;
 using Prism.Commands;
 
 namespace Learn.MultipleFrameworks.ViewModels;
@@ -31,7 +32,7 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
         }
 
         if (int.TryParse(input, out _))
-            return TrimStartZero(input);
+            return InputUtilities.TrimStartZero(input)!;
 
         return Input;
     }
@@ -80,16 +81,8 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
         }
         else
         {
-            Input = TrimStartZero(Input + symbol);
+            Input = InputUtilities.TrimStartZero(Input + symbol);
         }
-    }
-
-    private string TrimStartZero(string input)
-    {
-        if (input.Length > 1)
-            return input.TrimStart('0');
-
-        return input;
     }
     
     private static bool IsSpecial(string symbol)
