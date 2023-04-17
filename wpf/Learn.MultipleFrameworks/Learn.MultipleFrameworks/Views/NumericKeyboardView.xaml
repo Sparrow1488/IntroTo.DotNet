@@ -33,7 +33,7 @@
             
             <StackPanel x:Name="InputPanel" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
                 <Grid Width="{Binding ActualWidth, ElementName=InputPanel}">
-                    <PasswordBox Style="{StaticResource InputPasswordBox}" />
+                    <PasswordBox Style="{StaticResource InputPasswordBox}" PreviewTextInput="UIElement_OnPreviewTextInput" />
                     <TextBox Style="{StaticResource InputTextBox}" />
                 </Grid>
             </StackPanel>

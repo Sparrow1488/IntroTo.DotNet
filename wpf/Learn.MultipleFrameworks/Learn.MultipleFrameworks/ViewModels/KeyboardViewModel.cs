@@ -25,7 +25,7 @@ namespace Learn.MultipleFrameworks.ViewModels;
 
 public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInfo
 {
-    private string? _input;
+    private string? _input = null;
     private Visibility _passwordVisibility = Visibility.Collapsed;
     private Visibility _textVisibility = Visibility.Visible;
 
@@ -84,7 +84,7 @@ public abstract class KeyboardViewModel : DialogContentInjectable, IDataErrorInf
     
     public string Input
     {
-        get => _input ?? string.Empty;
+        get => _input;
         set => SetProperty(ref _input, InputChanging(value));
     }
 
