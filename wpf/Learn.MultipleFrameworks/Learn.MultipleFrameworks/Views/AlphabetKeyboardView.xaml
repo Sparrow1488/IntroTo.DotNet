@@ -27,7 +27,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <Grid x:Name="Grid">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />

@@ -38,8 +38,7 @@ public static class KeyboardLayoutsStore
             new KeyButton("k", 2),
             new KeyButton("l", 2),
             new KeyButton(";", 2),
-            new KeyButton("!", 2),
-            new KeyButton("'", 2),
+            new KeyButton(",", 2),
                     
             new KeyButton("z", 3),
             new KeyButton("x", 3),
@@ -127,6 +126,7 @@ public static class KeyboardLayoutsStore
             new KeyButton("\"", 2),
             new KeyButton("?", 2),
             new KeyButton("!", 2),
+            new KeyButton("^", 2),
             
             new KeyButton("⇐", 3),
             new KeyButton("⇒", 3),
