@@ -1,5 +1,7 @@
+using System;
 using System.Windows.Media;
 using ControlzEx.Theming;
+using Learn.MultipleFrameworks.Services.Resolvers;
 using Learn.MultipleFrameworks.ViewModels;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls;
@@ -9,11 +11,15 @@ namespace Learn.MultipleFrameworks.Services.Dialogs;
 
 public class RegionDialogService : IRegionDialogService
 {
+    private readonly MainWindowResolver _windowResolver;
     private readonly IDialogCoordinator _dialogCoordinator;
     private readonly Brush _windowOverlayBrush;
 
-    public RegionDialogService(IDialogCoordinator dialogCoordinator)
+    public RegionDialogService(
+        MainWindowResolver windowResolver,
+        IDialogCoordinator dialogCoordinator)
     {
+        _windowResolver = windowResolver;
         _dialogCoordinator = dialogCoordinator;
         _windowOverlayBrush = new SolidColorBrush(Colors.Black);
     }
@@ -22,9 +28,14 @@ public class RegionDialogService : IRegionDialogService
     {
         var dialog = CreateRegionDialog(region);
 
-        FixWindowOverlayBrushInDarkMode(MainWindow.Instance);
+        var window = _windowResolver.GetRequiredWindow();
+        if (window is not MetroWindow metroWindow)
+        {
+            throw new Exception("Resolved MainWindow is not MetroWindow");
+        }
+        FixWindowOverlayBrushInDarkMode(metroWindow);
         
-        _dialogCoordinator.ShowMetroDialogAsync(MainWindow.Instance.DataContext, dialog)
+        _dialogCoordinator.ShowMetroDialogAsync(metroWindow.DataContext, dialog)
             .ContinueWith(_ => {});
     }
 

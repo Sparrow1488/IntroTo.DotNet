@@ -41,6 +41,7 @@
                         <Grid Width="{Binding ActualWidth, ElementName=InputPanel}"
                               Height="{Binding ActualHeight, ElementName=InputPanel}">
                                 <TextBox VerticalAlignment="Center"
+                                         TextWrapping="NoWrap"
                                          VerticalContentAlignment="Center"
                                          Style="{StaticResource InputTextBox}" />
                         </Grid>

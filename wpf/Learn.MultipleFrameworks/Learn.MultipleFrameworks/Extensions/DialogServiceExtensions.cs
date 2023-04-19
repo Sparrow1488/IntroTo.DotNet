@@ -1,6 +1,8 @@
+using Learn.MultipleFrameworks.Modules;
 using Learn.MultipleFrameworks.Services.Dialogs;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Ioc;
+using Prism.Modularity;
 
 namespace Learn.MultipleFrameworks.Extensions;
 
@@ -21,5 +23,12 @@ public static class DialogServiceExtensions
         container.RegisterSingleton<IRegionDialogService, TDialog>();
         
         return container;
+    }
+    
+    public static IModuleCatalog AddDialogModule(this IModuleCatalog modules)
+    {
+        modules.AddModule<DialogModule>();
+
+        return modules;
     }
 }

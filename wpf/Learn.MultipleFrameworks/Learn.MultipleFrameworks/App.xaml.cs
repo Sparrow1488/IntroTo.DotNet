@@ -5,6 +5,7 @@ using Learn.MultipleFrameworks.Extensions;
 using Learn.MultipleFrameworks.Modules;
 using Learn.MultipleFrameworks.Services.Keyboards;
 using Learn.MultipleFrameworks.Services.Providers;
+using Learn.MultipleFrameworks.Services.Resolvers;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Events;
@@ -19,6 +20,7 @@ public partial class App
     {
         container.RegisterSingleton<KeyboardLayoutsProvider>();
 
+        container.RegisterScoped<MainWindowResolver>(_ => new MainWindowResolver(Current.MainWindow));
         container.RegisterScoped<KeyboardSettingsProvider>();
         container.RegisterScoped<IKeyboardModalService, KeyboardModalService>();
         container.AddRegionDialogService();

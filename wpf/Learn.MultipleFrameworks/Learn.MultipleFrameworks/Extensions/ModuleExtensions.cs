@@ -13,11 +13,4 @@ public static class ModuleExtensions
 
         return modules;
     }
-
-    public static IModuleCatalog AddDialogModule(this IModuleCatalog modules)
-    {
-        modules.AddModule<DialogModule>();
-
-        return modules;
-    }
 }

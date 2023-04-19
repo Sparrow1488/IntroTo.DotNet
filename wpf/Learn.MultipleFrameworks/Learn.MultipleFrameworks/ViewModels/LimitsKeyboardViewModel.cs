@@ -31,7 +31,7 @@ public class LimitsKeyboardViewModel : KeyboardViewModel
             return DefaultValue;
         }
 
-        if (int.TryParse(input, out _))
+        if (long.TryParse(input, out _))
             return InputUtilities.TrimStartZero(input)!;
 
         return Input;

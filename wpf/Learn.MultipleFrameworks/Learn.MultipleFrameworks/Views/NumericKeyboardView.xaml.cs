@@ -13,7 +13,7 @@ public partial class NumericKeyboardView : UserControl
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        if (!int.TryParse(e.Text, out _))
+        if (!long.TryParse(e.Text, out _))
         {
             e.Handled = true;
         }

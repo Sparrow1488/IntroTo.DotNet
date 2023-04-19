@@ -42,8 +42,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         
-            <StackPanel x:Name="InputPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                <Grid Height="{Binding ActualHeight, ElementName=InputPanel}"
+            <StackPanel x:Name="InputPanel" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                        VerticalAlignment="Center">
+                <Grid Height="{Binding ActualHeight, ElementName=BackspaceButton}"
                       Width="{Binding ActualWidth, ElementName=InputPanel}">
                     <PasswordBox Style="{StaticResource InputPasswordBox}" />
                     <TextBox Style="{StaticResource InputTextBox}" />
@@ -51,6 +52,7 @@
             </StackPanel>
             
             <Button Grid.Row="0" Grid.Column="3" 
+                    x:Name="BackspaceButton"
                     Style="{StaticResource SizedShiftKeyButton}"
                     Command="{Binding PressBackspaceCommand}">
                 <Button.Content>
