@@ -1,11 +1,13 @@
 ﻿using System.Windows;
-using Learn.MultipleFrameworks.Events;
-using Learn.MultipleFrameworks.Events.Models;
-using Learn.MultipleFrameworks.Extensions;
+using Imlight.Hmi.Module.Dialogs;
+using Imlight.Hmi.Module.Dialogs.Events;
+using Imlight.Hmi.Module.Dialogs.Events.Models;
+using Imlight.Hmi.Module.Dialogs.Extensions;
+using Imlight.Hmi.Module.Dialogs.Services.Resolvers;
+using Imlight.Hmi.Module.Keyboards.Extensions;
+using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
+using Imlight.Hmi.Module.Keyboards.Services.Providers;
 using Learn.MultipleFrameworks.Modules;
-using Learn.MultipleFrameworks.Services.Keyboards;
-using Learn.MultipleFrameworks.Services.Providers;
-using Learn.MultipleFrameworks.Services.Resolvers;
 using Learn.MultipleFrameworks.Views;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Events;
@@ -37,7 +39,7 @@ public partial class App
         modules.AddModule<HomeModule>();        
         modules.AddModule<LoginModule>();
 
-        modules.AddDialogModule();
+        modules.AddModule<DialogModule>();
         modules.AddKeyboardsModules();
     }
     

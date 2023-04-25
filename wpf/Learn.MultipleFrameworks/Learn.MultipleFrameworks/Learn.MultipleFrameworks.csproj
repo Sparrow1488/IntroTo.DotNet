@@ -22,4 +22,9 @@
       </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\..\..\Backend\imlight.hmi\Module\Imlight.Hmi.Module.Dialogs\Imlight.Hmi.Module.Dialogs.csproj" />
+      <ProjectReference Include="..\..\..\..\..\..\Backend\imlight.hmi\Module\Imlight.Hmi.Module.Keyboards\Imlight.Hmi.Module.Keyboards.csproj" />
+    </ItemGroup>
+
 </Project>

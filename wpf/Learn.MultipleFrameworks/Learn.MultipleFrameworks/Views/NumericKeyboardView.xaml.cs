@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Xaml.Behaviors.Layout;
 
 namespace Learn.MultipleFrameworks.Views;
 

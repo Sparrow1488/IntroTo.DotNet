@@ -1,10 +1,11 @@
 using System;
 using System.Windows.Input;
-using Learn.MultipleFrameworks.Events;
-using Learn.MultipleFrameworks.Events.Models;
-using Learn.MultipleFrameworks.Models;
-using Learn.MultipleFrameworks.Models.Settings;
-using Learn.MultipleFrameworks.Services.Keyboards;
+using Imlight.Hmi.Module.Dialogs.Events;
+using Imlight.Hmi.Module.Keyboards.Events;
+using Imlight.Hmi.Module.Keyboards.Events.Models;
+using Imlight.Hmi.Module.Keyboards.Models;
+using Imlight.Hmi.Module.Keyboards.Models.Settings;
+using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;

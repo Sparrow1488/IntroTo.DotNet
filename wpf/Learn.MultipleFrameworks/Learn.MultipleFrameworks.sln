@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.MultipleFrameworks", "Learn.MultipleFrameworks\Learn.MultipleFrameworks.csproj", "{7BD83670-E701-4984-BD5E-9D368EAC59B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Module.Dialogs", "..\..\..\..\..\Backend\imlight.hmi\Module\Imlight.Hmi.Module.Dialogs\Imlight.Hmi.Module.Dialogs.csproj", "{AB8DD314-B9EA-4AD9-BDCD-D99811F7104B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Module.Keyboards", "..\..\..\..\..\Backend\imlight.hmi\Module\Imlight.Hmi.Module.Keyboards\Imlight.Hmi.Module.Keyboards.csproj", "{1864016C-0F26-411B-B9CB-118A063CBCBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{7BD83670-E701-4984-BD5E-9D368EAC59B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD83670-E701-4984-BD5E-9D368EAC59B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD83670-E701-4984-BD5E-9D368EAC59B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8DD314-B9EA-4AD9-BDCD-D99811F7104B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8DD314-B9EA-4AD9-BDCD-D99811F7104B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8DD314-B9EA-4AD9-BDCD-D99811F7104B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8DD314-B9EA-4AD9-BDCD-D99811F7104B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
