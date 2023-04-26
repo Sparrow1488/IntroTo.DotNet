@@ -93,7 +93,6 @@
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.Content>
         <controls:HamburgerMenu
-            x:Name="hamburgerMenu"
             HamburgerButtonName="{x:Static properties:Resources.ShellHamburgerButtonName}"
             IsPaneOpen="False"
             DisplayMode="CompactInline"
@@ -111,7 +110,7 @@
                     ApplyTo="{Binding IsPageRestricted}" />
             </i:Interaction.Behaviors>
             <controls:HamburgerMenu.Content>
-                <ContentControl x:Name="hamburgerMenuContentControl" />
+                <ContentControl x:Name="HamburgerMenuContentControl" />
             </controls:HamburgerMenu.Content>
         </controls:HamburgerMenu>
     </controls:MetroWindow.Content>

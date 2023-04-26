@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 using Learn.TemplateStudio.Constants;
@@ -46,21 +47,21 @@ public class ShellViewModel : BindableBase, IDisposable
     }
 
     // TODO: Change the icons and titles for all HamburgerMenuItems here.
-    public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
+    public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new()
     {
-        new HamburgerMenuGlyphItem() { Label = Resources.ShellMainPage, Glyph = "\uE8A5", Tag = PageKeys.Main },
-        new HamburgerMenuGlyphItem() { Label = Resources.ShellHomePage, Glyph = "\uE8A5", Tag = PageKeys.Home },
-        new HamburgerMenuGlyphItem() { Label = Resources.ShellSecurePage, Glyph = "\uE8A5", Tag = PageKeys.Secure },
+        new HamburgerMenuGlyphItem { Label = Resources.ShellMainPage, Glyph = "\uE8A5", Tag = PageKeys.Main },
+        new HamburgerMenuGlyphItem { Label = Resources.ShellHomePage, Glyph = "\uE8A5", Tag = PageKeys.Home },
+        new HamburgerMenuGlyphItem { Label = Resources.ShellSecurePage, Glyph = "\uE8A5", Tag = PageKeys.Secure },
     };
 
-    public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
+    public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new()
     {
-        new HamburgerMenuGlyphItem() { Label = Resources.ShellSettingsPage, Glyph = "\uE713", Tag = PageKeys.Settings }
+        new HamburgerMenuGlyphItem { Label = Resources.ShellSettingsPage, Glyph = "\uE713", Tag = PageKeys.Settings }
     };
 
     public Func<HamburgerMenuItem, bool> IsPageRestricted { get; } = (menuItem) =>
     {
-        var app = App.Current as App;
+        var app = Application.Current as App;
         var page = app.GetPageType(menuItem.Tag.ToString());
         return Attribute.IsDefined(page.GetType(), typeof(Restricted));
     };
@@ -174,7 +175,8 @@ public class ShellViewModel : BindableBase, IDisposable
         if (!IsLoggedIn)
         {
             IsBusy = true;
-            var loginResult = await _identityService.LoginAsync();
+            // var loginResult = await _identityService.LoginAsync();
+            var loginResult = LoginResultType.Success;
             if (loginResult != LoginResultType.Success)
             {
                 await AuthenticationHelper.ShowLoginErrorAsync(loginResult);

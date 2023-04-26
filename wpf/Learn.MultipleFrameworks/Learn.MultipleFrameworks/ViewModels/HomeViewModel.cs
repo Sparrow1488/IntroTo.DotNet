@@ -9,10 +9,11 @@ using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace Learn.MultipleFrameworks.ViewModels;
 
-public class HomeViewModel : BindableBase
+public class HomeViewModel : BindableBase, INavigationAware
 {
     private readonly IEventAggregator _aggregator;
     private string? _dialogClosureTime;
@@ -80,5 +81,20 @@ public class HomeViewModel : BindableBase
                 if (!input.OpenedInDialog)
                     KeyboardTwoValue = input.Value;
             });
+    }
+
+    public void OnNavigatedTo(NavigationContext context)
+    {
+        
+    }
+
+    public bool IsNavigationTarget(NavigationContext context)
+    {
+        return true;
+    }
+
+    public void OnNavigatedFrom(NavigationContext context)
+    {
+        
     }
 }

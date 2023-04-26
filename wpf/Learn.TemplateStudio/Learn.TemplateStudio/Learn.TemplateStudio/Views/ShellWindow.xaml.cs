@@ -11,7 +11,7 @@ public partial class ShellWindow : MetroWindow
     public ShellWindow(IRegionManager regionManager)
     {
         InitializeComponent();
-        RegionManager.SetRegionName(hamburgerMenuContentControl, Regions.Main);
-        RegionManager.SetRegionManager(hamburgerMenuContentControl, regionManager);
+        RegionManager.SetRegionName(HamburgerMenuContentControl, Regions.Main);
+        RegionManager.SetRegionManager(HamburgerMenuContentControl, regionManager);
     }
 }

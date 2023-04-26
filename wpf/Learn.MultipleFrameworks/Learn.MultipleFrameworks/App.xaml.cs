@@ -37,7 +37,6 @@ public partial class App
     protected override void ConfigureModuleCatalog(IModuleCatalog modules)
     {
         modules.AddModule<HomeModule>();        
-        modules.AddModule<LoginModule>();
 
         modules.AddModule<DialogModule>();
         modules.AddKeyboardsModules();
