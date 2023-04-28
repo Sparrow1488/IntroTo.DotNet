@@ -14,10 +14,12 @@ using Learn.TemplateStudio.Models;
 using Learn.TemplateStudio.Services;
 using Learn.TemplateStudio.ViewModels;
 using Learn.TemplateStudio.Views;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.VisualBasic.Logging;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -35,11 +37,6 @@ namespace Learn.TemplateStudio;
 public partial class App : PrismApplication
 {
     private string[] _startUpArgs;
-
-    public App()
-    {
-        
-    }
 
     public object GetPageType(string pageKey)
         => Container.Resolve<object>(pageKey);
@@ -79,29 +76,62 @@ public partial class App : PrismApplication
         base.OnStartup(e);
     }
 
-    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    protected override void RegisterTypes(IContainerRegistry services)
     {
         // Core Services
-        containerRegistry.Register<IMicrosoftGraphService, MicrosoftGraphService>();
-        containerRegistry.GetContainer().RegisterFactory<IHttpClientFactory>(container => GetHttpClientFactory());
-        containerRegistry.Register<IIdentityCacheService, IdentityCacheService>();
-        containerRegistry.RegisterSingleton<IIdentityService, IdentityService>();
-        containerRegistry.RegisterSingleton<ILocalIdentityService, LocalIdentityService>();
-        containerRegistry.Register<IFileService, FileService>();
+        services.Register<IMicrosoftGraphService, MicrosoftGraphService>();
+        services.GetContainer().RegisterFactory<IHttpClientFactory>(container => GetHttpClientFactory());
+        services.Register<IIdentityCacheService, IdentityCacheService>();
+        services.RegisterSingleton<IIdentityService, IdentityService>();
+        services.RegisterSingleton<ILocalIdentityService, LocalIdentityService>();
+        services.Register<IFileService, FileService>();
 
         // App Services
-        containerRegistry.RegisterSingleton<IUserDataService, UserDataService>();
-        containerRegistry.Register<IApplicationInfoService, ApplicationInfoService>();
-        containerRegistry.Register<ISystemService, SystemService>();
-        containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
-        containerRegistry.Register<IThemeSelectorService, ThemeSelectorService>();
+        services.RegisterSingleton<IUserDataService, UserDataService>();
+        services.Register<IApplicationInfoService, ApplicationInfoService>();
+        services.Register<ISystemService, SystemService>();
+        services.Register<IPersistAndRestoreService, PersistAndRestoreService>();
+        services.Register<IThemeSelectorService, ThemeSelectorService>();
 
         // Views
-        containerRegistry.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
-        containerRegistry.RegisterForNavigation<SecurePage, SecureViewModel>(PageKeys.Secure);
-        containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
-        containerRegistry.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
-        containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
+        services.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
+        services.RegisterForNavigation<SecurePage, SecureViewModel>(PageKeys.Secure);
+        services.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
+        services.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
+        services.RegisterForNavigation<ShellWindow, ShellViewModel>();
+        
+        // Authorization
+        services.Register<IAuthorizationHandlerContextFactory, DefaultAuthorizationHandlerContextFactory>();
+        services.Register<IAuthorizationHandler, PassThroughAuthorizationHandler>();
+        // services.Register<IAuthorizationHandlerProvider, DefaultAuthorizationHandlerProvider>();
+        services.Register<IAuthorizationEvaluator, DefaultAuthorizationEvaluator>();
+        services.Register<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
+        // services.Register<IAuthorizationService, DefaultAuthorizationService>();
+        
+        var policyBuilder = new AuthorizationPolicyBuilder();
+        policyBuilder.AddAuthenticationSchemes("TemplateStudio");
+        policyBuilder.RequireClaim("app.role", "app.claim.role.admin");
+
+        var policy = policyBuilder.Build();
+        var factory = new DefaultAuthorizationHandlerContextFactory();
+        var authEvaluator = new DefaultAuthorizationEvaluator();
+
+        var identity = new ClaimsIdentity(new Claim[]
+        {
+            new("app.role", "app.claim.role.admin") // Change here to change the result
+        }, "TemplateStudio");
+
+        var context = factory.CreateContext(
+            policy.Requirements, 
+            new ClaimsPrincipal(identity),
+            null
+        );
+
+        new PassThroughAuthorizationHandler().HandleAsync(context).GetAwaiter().GetResult();
+        var result = authEvaluator.Evaluate(context);
+        
+        Console.WriteLine(result.Succeeded.ToString());
+
 
         // Configuration
         var configuration = BuildConfiguration();
@@ -110,8 +140,8 @@ public partial class App : PrismApplication
             .Get<AppConfig>();
 
         // Register configurations to IoC
-        containerRegistry.RegisterInstance<IConfiguration>(configuration);
-        containerRegistry.RegisterInstance<AppConfig>(appConfig);
+        services.RegisterInstance<IConfiguration>(configuration);
+        services.RegisterInstance<AppConfig>(appConfig);
     }
 
     private IHttpClientFactory GetHttpClientFactory()
