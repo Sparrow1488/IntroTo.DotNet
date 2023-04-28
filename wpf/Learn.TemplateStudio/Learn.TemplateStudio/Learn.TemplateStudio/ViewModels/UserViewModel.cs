@@ -27,8 +27,4 @@ public class UserViewModel : BindableBase
         get => _photo;
         set => SetProperty(ref _photo, value);
     }
-
-    public UserViewModel()
-    {
-    }
 }

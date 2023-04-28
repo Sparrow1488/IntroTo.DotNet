@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Security.Claims;
 using System.Windows;
 using System.Windows.Input;
 
 using Learn.TemplateStudio.Constants;
-using Learn.TemplateStudio.Contracts.Services;
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Helpers;
 using Learn.TemplateStudio.Helpers;
@@ -17,11 +17,10 @@ using Prism.Regions;
 
 namespace Learn.TemplateStudio.ViewModels;
 
-public class ShellViewModel : BindableBase, IDisposable
+public class ShellViewModel : BindableBase
 {
     private readonly IRegionManager _regionManager;
-    private readonly IIdentityService _identityService;
-    private readonly IUserDataService _userDataService;
+    private readonly ILocalIdentityService _identityService;
     private IRegionNavigationService _navigationService;
     private HamburgerMenuItem _selectedMenuItem;
     private HamburgerMenuItem _selectedOptionsMenuItem;
@@ -34,6 +33,32 @@ public class ShellViewModel : BindableBase, IDisposable
     private ICommand _menuItemInvokedCommand;
     private ICommand _optionsMenuItemInvokedCommand;
 
+    public ShellViewModel(
+        IRegionManager regionManager, 
+        ILocalIdentityService identityService)
+    {
+        _regionManager = regionManager;
+        _identityService = identityService;
+
+        _identityService.OnAuthorized += successes =>
+        {
+            if (!successes) return;
+            
+            var claims = _identityService.User.FindAll("app.claim");
+            var hasSecretPageViewClaim = claims.Any(x => x.Value == "secret_page_view");
+            
+            if (hasSecretPageViewClaim)
+            {
+                MenuItems.Add(new HamburgerMenuGlyphItem
+                {
+                    Label = Resources.ShellSecurePage, 
+                    Glyph = "\uE8A5", 
+                    Tag = PageKeys.Secure
+                });
+            }
+        };
+    }
+    
     public HamburgerMenuItem SelectedMenuItem
     {
         get { return _selectedMenuItem; }
@@ -46,12 +71,10 @@ public class ShellViewModel : BindableBase, IDisposable
         set { SetProperty(ref _selectedOptionsMenuItem, value); }
     }
 
-    // TODO: Change the icons and titles for all HamburgerMenuItems here.
     public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new()
     {
         new HamburgerMenuGlyphItem { Label = Resources.ShellMainPage, Glyph = "\uE8A5", Tag = PageKeys.Main },
         new HamburgerMenuGlyphItem { Label = Resources.ShellHomePage, Glyph = "\uE8A5", Tag = PageKeys.Home },
-        new HamburgerMenuGlyphItem { Label = Resources.ShellSecurePage, Glyph = "\uE8A5", Tag = PageKeys.Secure },
     };
 
     public ObservableCollection<HamburgerMenuItem> OptionMenuItems { get; } = new()
@@ -94,21 +117,6 @@ public class ShellViewModel : BindableBase, IDisposable
 
     public ICommand OptionsMenuItemInvokedCommand => _optionsMenuItemInvokedCommand ?? (_optionsMenuItemInvokedCommand = new DelegateCommand(OnOptionsMenuItemInvoked));
 
-    public ShellViewModel(IRegionManager regionManager, IIdentityService identityService, IUserDataService userDataService)
-    {
-        _regionManager = regionManager;
-        _identityService = identityService;
-        _userDataService = userDataService;
-        _identityService.LoggedIn += OnLoggedIn;
-        _identityService.LoggedOut += OnLoggedOut;
-        _userDataService.UserDataUpdated += OnUserDataUpdated;
-    }
-
-    public void Dispose()
-    {
-        _userDataService.UserDataUpdated -= OnUserDataUpdated;
-    }
-
     private void OnUserDataUpdated(object sender, UserViewModel user)
     {
         var userMenuItem = OptionMenuItems.OfType<HamburgerMenuImageItem>().FirstOrDefault();
@@ -117,13 +125,6 @@ public class ShellViewModel : BindableBase, IDisposable
             userMenuItem.Label = user.Name;
             userMenuItem.Thumbnail = user.Photo;
         }
-    }
-
-    private void OnLoggedIn(object sender, EventArgs e)
-    {
-        IsLoggedIn = true;
-        IsAuthorized = IsLoggedIn && _identityService.IsAuthorized();
-        IsBusy = false;
     }
 
     private void OnLoggedOut(object sender, EventArgs e)
@@ -149,17 +150,17 @@ public class ShellViewModel : BindableBase, IDisposable
         _navigationService = _regionManager.Regions[Regions.Main].NavigationService;
         _navigationService.Navigated += OnNavigated;
         SelectedMenuItem = MenuItems.First();
-        IsLoggedIn = _identityService.IsLoggedIn();
-        IsAuthorized = IsLoggedIn && _identityService.IsAuthorized();
+        IsLoggedIn = _identityService.IsAuthorized();
+        IsAuthorized = _identityService.IsAuthorized();
         var userMenuItem = new HamburgerMenuImageItem()
         {
             Command = new DelegateCommand(OnUserItemSelected, () => !IsBusy)
         };
         if (IsAuthorized)
         {
-            var user = _userDataService.GetUser();
-            userMenuItem.Thumbnail = user.Photo;
-            userMenuItem.Label = user.Name;
+            // var user = _userDataService.GetUser();
+            // userMenuItem.Thumbnail = user.Photo;
+            // userMenuItem.Label = user.Name;
         }
         else
         {

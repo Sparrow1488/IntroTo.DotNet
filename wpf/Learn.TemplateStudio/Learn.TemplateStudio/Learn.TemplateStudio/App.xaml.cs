@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Claims;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -37,6 +38,7 @@ public partial class App : PrismApplication
 
     public App()
     {
+        
     }
 
     public object GetPageType(string pageKey)
@@ -61,7 +63,13 @@ public partial class App : PrismApplication
         identityService.InitializeWithAadAndPersonalMsAccounts(config.IdentityClientId, "http://localhost");
 
         await identityService.AcquireTokenSilentAsync();
-
+        
+        var localIdentityService = Container.Resolve<ILocalIdentityService>();
+        if (!localIdentityService.IsAuthorized())
+        {
+            localIdentityService.AuthorizeUser("1234");
+        }
+        
         base.OnInitialized();
     }
 
@@ -78,6 +86,7 @@ public partial class App : PrismApplication
         containerRegistry.GetContainer().RegisterFactory<IHttpClientFactory>(container => GetHttpClientFactory());
         containerRegistry.Register<IIdentityCacheService, IdentityCacheService>();
         containerRegistry.RegisterSingleton<IIdentityService, IdentityService>();
+        containerRegistry.RegisterSingleton<ILocalIdentityService, LocalIdentityService>();
         containerRegistry.Register<IFileService, FileService>();
 
         // App Services
