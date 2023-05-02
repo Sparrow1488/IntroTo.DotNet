@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic.Logging;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -36,6 +37,8 @@ namespace Learn.TemplateStudio;
 // Tracking issue for improving this is https://github.com/dotnet/wpf/issues/1946
 public partial class App : PrismApplication
 {
+    private const string AppScheme = "TemplateStudio";
+
     private string[] _startUpArgs;
 
     public object GetPageType(string pageKey)
@@ -105,33 +108,72 @@ public partial class App : PrismApplication
         services.Register<IAuthorizationHandler, PassThroughAuthorizationHandler>();
         // services.Register<IAuthorizationHandlerProvider, DefaultAuthorizationHandlerProvider>();
         services.Register<IAuthorizationEvaluator, DefaultAuthorizationEvaluator>();
-        services.Register<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
+        // services.Register<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
         // services.Register<IAuthorizationService, DefaultAuthorizationService>();
-        
-        var policyBuilder = new AuthorizationPolicyBuilder();
-        policyBuilder.AddAuthenticationSchemes("TemplateStudio");
-        policyBuilder.RequireClaim("app.role", "app.claim.role.admin");
 
-        var policy = policyBuilder.Build();
+        var secretPagePolicy = CreatePolicy(builder =>
+        {
+            builder.AddAuthenticationSchemes(AppScheme);
+            builder.RequireAuthenticatedUser();
+            builder.RequireClaim("permission", "permission.see_secret_page");
+        });
+        
+        var adminPolicy = CreatePolicy(builder =>
+        {
+            builder.AddAuthenticationSchemes(AppScheme);
+            builder.RequireClaim("role", "role.admin");
+        });
+        
+        var userPolicy = CreatePolicy(builder =>
+        {
+            builder.AddAuthenticationSchemes(AppScheme);
+            builder.RequireClaim(
+                "role", 
+                "role.user",
+                "role.admin"
+            );
+        });
+
+        var options = new AuthorizationOptions();
+        options.AddPolicy("User", userPolicy);
+        options.AddPolicy("Admin", adminPolicy);
+        options.AddPolicy("SeeSecretPage", secretPagePolicy);
+        
         var factory = new DefaultAuthorizationHandlerContextFactory();
         var authEvaluator = new DefaultAuthorizationEvaluator();
 
-        var identity = new ClaimsIdentity(new Claim[]
-        {
-            new("app.role", "app.claim.role.admin") // Change here to change the result
-        }, "TemplateStudio");
+        // TODO:
+        // + 1. AuthorizationPolicyProvider (ASP.NET Core) - используем AuthorizationOptions (можно написать обертку)
+        // 2. AuthenticationService (Hand made)
+        // 3. Authorize ClaimsPrincipal/Identity using AuthPolicyProvider in CustomAuthorizationService
 
+        var identity = AuthenticateUser();
+
+        #region Policies
+
+        var policies = new List<AuthorizationPolicy>(new []
+        {
+            adminPolicy,
+            userPolicy
+        });
+        var requirements = policies
+            .SelectMany(x => x.Requirements)
+            .ToList();
+
+        #endregion
+
+        var currentPagePolicy = options.GetPolicy("SeeSecretPage");
+        
         var context = factory.CreateContext(
-            policy.Requirements, 
+            currentPagePolicy!.Requirements,
             new ClaimsPrincipal(identity),
             null
         );
-
+        
         new PassThroughAuthorizationHandler().HandleAsync(context).GetAwaiter().GetResult();
         var result = authEvaluator.Evaluate(context);
         
         Console.WriteLine(result.Succeeded.ToString());
-
 
         // Configuration
         var configuration = BuildConfiguration();
@@ -140,8 +182,25 @@ public partial class App : PrismApplication
             .Get<AppConfig>();
 
         // Register configurations to IoC
-        services.RegisterInstance<IConfiguration>(configuration);
-        services.RegisterInstance<AppConfig>(appConfig);
+        services.RegisterInstance(configuration);
+        services.RegisterInstance(appConfig);
+    }
+
+    private static AuthorizationPolicy CreatePolicy(Action<AuthorizationPolicyBuilder> builder)
+    {
+        var policyBuilder = new AuthorizationPolicyBuilder();
+        builder?.Invoke(policyBuilder);
+        
+        return policyBuilder.Build();
+    }
+
+    private static ClaimsIdentity AuthenticateUser()
+    {
+        return new ClaimsIdentity(new Claim[]
+        {
+            new("role", "role.admin"),
+            new("permission", "permission.see_secret_page")
+        }, AppScheme);
     }
 
     private IHttpClientFactory GetHttpClientFactory()
