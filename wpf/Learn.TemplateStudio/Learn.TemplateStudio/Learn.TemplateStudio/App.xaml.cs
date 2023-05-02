@@ -10,6 +10,7 @@ using Learn.TemplateStudio.Constants;
 using Learn.TemplateStudio.Contracts.Services;
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Services;
+using Learn.TemplateStudio.Extensions;
 using Learn.TemplateStudio.Models;
 using Learn.TemplateStudio.Services;
 using Learn.TemplateStudio.ViewModels;
@@ -37,7 +38,7 @@ namespace Learn.TemplateStudio;
 // Tracking issue for improving this is https://github.com/dotnet/wpf/issues/1946
 public partial class App : PrismApplication
 {
-    private const string AppScheme = "TemplateStudio";
+    public const string Scheme = "TemplateStudio";
 
     private string[] _startUpArgs;
 
@@ -106,62 +107,47 @@ public partial class App : PrismApplication
         // Authorization
         services.Register<IAuthorizationHandlerContextFactory, DefaultAuthorizationHandlerContextFactory>();
         services.Register<IAuthorizationHandler, PassThroughAuthorizationHandler>();
-        // services.Register<IAuthorizationHandlerProvider, DefaultAuthorizationHandlerProvider>();
         services.Register<IAuthorizationEvaluator, DefaultAuthorizationEvaluator>();
+        services.Register<UserSession>();
+        
+        // services.Register<IAuthorizationHandlerProvider, DefaultAuthorizationHandlerProvider>();
         // services.Register<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
         // services.Register<IAuthorizationService, DefaultAuthorizationService>();
-
-        var secretPagePolicy = CreatePolicy(builder =>
-        {
-            builder.AddAuthenticationSchemes(AppScheme);
-            builder.RequireAuthenticatedUser();
-            builder.RequireClaim("permission", "permission.see_secret_page");
-        });
         
-        var adminPolicy = CreatePolicy(builder =>
+        // 1. Настроить права доступа (Policy)
+        services.AddAuthorization(options =>
         {
-            builder.AddAuthenticationSchemes(AppScheme);
-            builder.RequireClaim("role", "role.admin");
+            options.AddPolicy("User", builder =>
+            {
+                builder.AddAuthenticationSchemes(Scheme);
+                builder.RequireClaim(
+                    "role", 
+                    "role.user", "role.admin"
+                );
+            });
+            
+            options.AddPolicy("Admin", builder =>
+            {
+                builder.AddAuthenticationSchemes(Scheme);
+                builder.RequireClaim("role", "role.admin");
+            });
+            
+            options.AddPolicy("SeeSecretPage", builder =>
+            {
+                builder.AddAuthenticationSchemes(Scheme);
+                builder.RequireAuthenticatedUser();
+                builder.RequireClaim("permission", "permission.see_secret_page");
+            });
         });
-        
-        var userPolicy = CreatePolicy(builder =>
-        {
-            builder.AddAuthenticationSchemes(AppScheme);
-            builder.RequireClaim(
-                "role", 
-                "role.user",
-                "role.admin"
-            );
-        });
-
-        var options = new AuthorizationOptions();
-        options.AddPolicy("User", userPolicy);
-        options.AddPolicy("Admin", adminPolicy);
-        options.AddPolicy("SeeSecretPage", secretPagePolicy);
         
         var factory = new DefaultAuthorizationHandlerContextFactory();
         var authEvaluator = new DefaultAuthorizationEvaluator();
 
-        // TODO:
-        // + 1. AuthorizationPolicyProvider (ASP.NET Core) - используем AuthorizationOptions (можно написать обертку)
-        // 2. AuthenticationService (Hand made)
-        // 3. Authorize ClaimsPrincipal/Identity using AuthPolicyProvider in CustomAuthorizationService
-
+        
         var identity = AuthenticateUser();
 
-        #region Policies
-
-        var policies = new List<AuthorizationPolicy>(new []
-        {
-            adminPolicy,
-            userPolicy
-        });
-        var requirements = policies
-            .SelectMany(x => x.Requirements)
-            .ToList();
-
-        #endregion
-
+        // 2. Перед навигацией получить Policy для доступа к ViewModel
+        var options = Container.Resolve<AuthorizationOptions>();
         var currentPagePolicy = options.GetPolicy("SeeSecretPage");
         
         var context = factory.CreateContext(
@@ -170,6 +156,7 @@ public partial class App : PrismApplication
             null
         );
         
+        // 3. Проверить, есть ли у текущего пользователя доступ к текущей ViewModel
         new PassThroughAuthorizationHandler().HandleAsync(context).GetAwaiter().GetResult();
         var result = authEvaluator.Evaluate(context);
         
@@ -200,7 +187,7 @@ public partial class App : PrismApplication
         {
             new("role", "role.admin"),
             new("permission", "permission.see_secret_page")
-        }, AppScheme);
+        }, Scheme);
     }
 
     private IHttpClientFactory GetHttpClientFactory()
