@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Learn.TemplateStudio.Services;
+namespace Imlight.Hmi.Module.Authorization.Services;
 
 public class CustomAuthorizationService
 {

@@ -1,9 +1,8 @@
-using Learn.TemplateStudio.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Prism.Ioc;
 
-namespace Learn.TemplateStudio.Extensions;
+namespace Imlight.Hmi.Module.Authorization.Extensions;
 
 public static class AuthorizationExtensions
 {

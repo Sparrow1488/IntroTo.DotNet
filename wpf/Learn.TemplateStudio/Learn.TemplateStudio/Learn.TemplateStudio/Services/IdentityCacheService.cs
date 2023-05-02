@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
-
 using Learn.TemplateStudio.Core.Contracts.Services;
 
 namespace Learn.TemplateStudio.Services;

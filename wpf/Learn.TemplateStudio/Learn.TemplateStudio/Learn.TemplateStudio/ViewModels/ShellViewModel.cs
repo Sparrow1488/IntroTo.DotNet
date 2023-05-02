@@ -1,14 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using System.Security.Claims;
 using System.Windows;
 using System.Windows.Input;
-
+using Imlight.Hmi.Module.Authorization.Services;
 using Learn.TemplateStudio.Constants;
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Helpers;
 using Learn.TemplateStudio.Helpers;
 using Learn.TemplateStudio.Properties;
-using Learn.TemplateStudio.Services;
 using MahApps.Metro.Controls;
 
 using Prism.Commands;

@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Learn.TemplateStudio.Core.Helpers;
+﻿namespace Learn.TemplateStudio.Core.Helpers;
 
 public static class StreamExtensions
 {

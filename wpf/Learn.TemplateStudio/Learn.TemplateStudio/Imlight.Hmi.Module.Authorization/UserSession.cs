@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace Learn.TemplateStudio.Services;
+namespace Imlight.Hmi.Module.Authorization;
 
 public class UserSession
 {

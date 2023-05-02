@@ -7,8 +7,6 @@ using Learn.TemplateStudio.Helpers;
 using Learn.TemplateStudio.Models;
 using Learn.TemplateStudio.ViewModels;
 
-using Microsoft.Extensions.Options;
-
 namespace Learn.TemplateStudio.Services;
 
 public class UserDataService : IUserDataService

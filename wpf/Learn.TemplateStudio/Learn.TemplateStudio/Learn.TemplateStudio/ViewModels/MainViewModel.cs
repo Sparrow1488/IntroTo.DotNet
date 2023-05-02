@@ -1,5 +1,4 @@
-﻿using System.Security.Permissions;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 
 namespace Learn.TemplateStudio.ViewModels;
 

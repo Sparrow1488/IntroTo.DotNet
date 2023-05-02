@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Net.NetworkInformation;
-using System.Reflection;
-using System.Security.Cryptography;
-
+﻿using System.Net.NetworkInformation;
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Helpers;
 

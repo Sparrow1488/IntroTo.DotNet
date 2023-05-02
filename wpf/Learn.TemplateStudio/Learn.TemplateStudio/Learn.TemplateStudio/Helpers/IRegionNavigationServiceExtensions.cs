@@ -1,4 +1,6 @@
-﻿namespace Prism.Regions;
+﻿using Prism.Regions;
+
+namespace Learn.TemplateStudio.Helpers;
 
 public static class IRegionNavigationServiceExtensions
 {

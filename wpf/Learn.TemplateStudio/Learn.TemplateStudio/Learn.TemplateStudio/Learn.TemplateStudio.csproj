@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>Learn.TemplateStudio</RootNamespace>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -22,6 +22,7 @@
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Imlight.Hmi.Module.Authorization\Imlight.Hmi.Module.Authorization.csproj" />
     <ProjectReference Include="..\Learn.TemplateStudio.Core\Learn.TemplateStudio.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

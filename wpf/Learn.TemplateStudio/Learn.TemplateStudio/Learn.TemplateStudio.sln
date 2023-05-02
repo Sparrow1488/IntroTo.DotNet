@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learn.TemplateStudio", "Lea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learn.TemplateStudio.Core", "Learn.TemplateStudio.Core\Learn.TemplateStudio.Core.csproj", "{957ED339-60B3-4A8A-8AF9-2333A026F732}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Module.Authorization", "Imlight.Hmi.Module.Authorization\Imlight.Hmi.Module.Authorization.csproj", "{6D9745F2-7AD7-4BDD-8ED1-93C95EA0CC83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{957ED339-60B3-4A8A-8AF9-2333A026F732}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{957ED339-60B3-4A8A-8AF9-2333A026F732}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{957ED339-60B3-4A8A-8AF9-2333A026F732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9745F2-7AD7-4BDD-8ED1-93C95EA0CC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9745F2-7AD7-4BDD-8ED1-93C95EA0CC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9745F2-7AD7-4BDD-8ED1-93C95EA0CC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9745F2-7AD7-4BDD-8ED1-93C95EA0CC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

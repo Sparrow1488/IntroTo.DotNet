@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Helpers;

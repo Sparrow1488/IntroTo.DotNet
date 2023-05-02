@@ -1,42 +1,30 @@
-﻿using System.Globalization;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Security.Claims;
 using System.Windows;
 using System.Windows.Threading;
-
+using Imlight.Hmi.Module.Authorization;
+using Imlight.Hmi.Module.Authorization.Extensions;
 using Learn.TemplateStudio.Constants;
 using Learn.TemplateStudio.Contracts.Services;
 using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Services;
-using Learn.TemplateStudio.Extensions;
 using Learn.TemplateStudio.Models;
 using Learn.TemplateStudio.Services;
 using Learn.TemplateStudio.ViewModels;
 using Learn.TemplateStudio.Views;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic.Logging;
 using Prism.Ioc;
-using Prism.Mvvm;
 using Prism.Unity;
 
 using Unity;
 
 namespace Learn.TemplateStudio;
 
-// For more information about application lifecycle events see https://docs.microsoft.com/dotnet/framework/wpf/app-development/application-management-overview
-// For docs about using Prism in WPF see https://prismlibrary.com/docs/wpf/introduction.html
-
-// WPF UI elements use language en-US by default.
-// If you need to support other cultures make sure you add converters and review dates and numbers in your UI to ensure everything adapts correctly.
-// Tracking issue for improving this is https://github.com/dotnet/wpf/issues/1946
-public partial class App : PrismApplication
+public partial class App
 {
     public const string Scheme = "TemplateStudio";
 
@@ -82,7 +70,7 @@ public partial class App : PrismApplication
 
     protected override void RegisterTypes(IContainerRegistry services)
     {
-        // Authorization, должно регистрироваться перед ViewModels
+        // Authorization, регистрируется перед добавлением ViewModels
         services.Register<DefaultAuthorizationService>();
         
         services.AddAuthorization(options =>
@@ -110,6 +98,7 @@ public partial class App : PrismApplication
             });
         });
 
+        // TODO: session.Authenticate(identity) вызывается в LoginViewModel
         var session = Container.Resolve<UserSession>();
         session.Authenticate(AuthenticateUser());
         
@@ -151,7 +140,7 @@ public partial class App : PrismApplication
         return new ClaimsIdentity(new Claim[]
         {
             new("role", "role.admin"),
-            // new("permission", "permission.see_secret_page")
+            new("permission", "permission.see_secret_page")
         }, Scheme);
     }
 
@@ -160,7 +149,7 @@ public partial class App : PrismApplication
         var services = new ServiceCollection();
         services.AddHttpClient("msgraph", client =>
         {
-            client.BaseAddress = new System.Uri("https://graph.microsoft.com/v1.0/");
+            client.BaseAddress = new Uri("https://graph.microsoft.com/v1.0/");
         });
 
         return services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>();
@@ -168,7 +157,7 @@ public partial class App : PrismApplication
 
     private IConfiguration BuildConfiguration()
     {
-        var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
         return new ConfigurationBuilder()
             .SetBasePath(appLocation)
             .AddJsonFile("appsettings.json")
