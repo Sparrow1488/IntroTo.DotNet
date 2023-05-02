@@ -82,39 +82,9 @@ public partial class App : PrismApplication
 
     protected override void RegisterTypes(IContainerRegistry services)
     {
-        // Core Services
-        services.Register<IMicrosoftGraphService, MicrosoftGraphService>();
-        services.GetContainer().RegisterFactory<IHttpClientFactory>(container => GetHttpClientFactory());
-        services.Register<IIdentityCacheService, IdentityCacheService>();
-        services.RegisterSingleton<IIdentityService, IdentityService>();
-        services.RegisterSingleton<ILocalIdentityService, LocalIdentityService>();
-        services.Register<IFileService, FileService>();
-
-        // App Services
-        services.RegisterSingleton<IUserDataService, UserDataService>();
-        services.Register<IApplicationInfoService, ApplicationInfoService>();
-        services.Register<ISystemService, SystemService>();
-        services.Register<IPersistAndRestoreService, PersistAndRestoreService>();
-        services.Register<IThemeSelectorService, ThemeSelectorService>();
-
-        // Views
-        services.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
-        services.RegisterForNavigation<SecurePage, SecureViewModel>(PageKeys.Secure);
-        services.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
-        services.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
-        services.RegisterForNavigation<ShellWindow, ShellViewModel>();
+        // Authorization, должно регистрироваться перед ViewModels
+        services.Register<DefaultAuthorizationService>();
         
-        // Authorization
-        services.Register<IAuthorizationHandlerContextFactory, DefaultAuthorizationHandlerContextFactory>();
-        services.Register<IAuthorizationHandler, PassThroughAuthorizationHandler>();
-        services.Register<IAuthorizationEvaluator, DefaultAuthorizationEvaluator>();
-        services.Register<UserSession>();
-        
-        // services.Register<IAuthorizationHandlerProvider, DefaultAuthorizationHandlerProvider>();
-        // services.Register<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
-        // services.Register<IAuthorizationService, DefaultAuthorizationService>();
-        
-        // 1. Настроить права доступа (Policy)
         services.AddAuthorization(options =>
         {
             options.AddPolicy("User", builder =>
@@ -139,29 +109,32 @@ public partial class App : PrismApplication
                 builder.RequireClaim("permission", "permission.see_secret_page");
             });
         });
-        
-        var factory = new DefaultAuthorizationHandlerContextFactory();
-        var authEvaluator = new DefaultAuthorizationEvaluator();
 
+        var session = Container.Resolve<UserSession>();
+        session.Authenticate(AuthenticateUser());
         
-        var identity = AuthenticateUser();
+        // Core Services
+        services.Register<IMicrosoftGraphService, MicrosoftGraphService>();
+        services.GetContainer().RegisterFactory<IHttpClientFactory>(container => GetHttpClientFactory());
+        services.Register<IIdentityCacheService, IdentityCacheService>();
+        services.RegisterSingleton<IIdentityService, IdentityService>();
+        services.RegisterSingleton<ILocalIdentityService, LocalIdentityService>();
+        services.Register<IFileService, FileService>();
 
-        // 2. Перед навигацией получить Policy для доступа к ViewModel
-        var options = Container.Resolve<AuthorizationOptions>();
-        var currentPagePolicy = options.GetPolicy("SeeSecretPage");
-        
-        var context = factory.CreateContext(
-            currentPagePolicy!.Requirements,
-            new ClaimsPrincipal(identity),
-            null
-        );
-        
-        // 3. Проверить, есть ли у текущего пользователя доступ к текущей ViewModel
-        new PassThroughAuthorizationHandler().HandleAsync(context).GetAwaiter().GetResult();
-        var result = authEvaluator.Evaluate(context);
-        
-        Console.WriteLine(result.Succeeded.ToString());
+        // App Services
+        services.RegisterSingleton<IUserDataService, UserDataService>();
+        services.Register<IApplicationInfoService, ApplicationInfoService>();
+        services.Register<ISystemService, SystemService>();
+        services.Register<IPersistAndRestoreService, PersistAndRestoreService>();
+        services.Register<IThemeSelectorService, ThemeSelectorService>();
 
+        // Views
+        services.RegisterForNavigation<SettingsPage, SettingsViewModel>(PageKeys.Settings);
+        services.RegisterForNavigation<SecurePage, SecureViewModel>(PageKeys.Secure);
+        services.RegisterForNavigation<HomePage, HomeViewModel>(PageKeys.Home);
+        services.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main);
+        services.RegisterForNavigation<ShellWindow, ShellViewModel>();
+        
         // Configuration
         var configuration = BuildConfiguration();
         var appConfig = configuration
@@ -173,20 +146,12 @@ public partial class App : PrismApplication
         services.RegisterInstance(appConfig);
     }
 
-    private static AuthorizationPolicy CreatePolicy(Action<AuthorizationPolicyBuilder> builder)
-    {
-        var policyBuilder = new AuthorizationPolicyBuilder();
-        builder?.Invoke(policyBuilder);
-        
-        return policyBuilder.Build();
-    }
-
     private static ClaimsIdentity AuthenticateUser()
     {
         return new ClaimsIdentity(new Claim[]
         {
             new("role", "role.admin"),
-            new("permission", "permission.see_secret_page")
+            // new("permission", "permission.see_secret_page")
         }, Scheme);
     }
 

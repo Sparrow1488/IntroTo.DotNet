@@ -25,6 +25,11 @@ public class CustomAuthorizationService
         _userSession = userSession;
     }
 
+    public AuthorizationResult Authorize(string policy)
+    {
+        return AuthorizeAsync(policy).ConfigureAwait(false).GetAwaiter().GetResult();
+    }
+
     public async Task<AuthorizationResult> AuthorizeAsync(string policy)
     {
         var currentPolicy = _authOptions.GetPolicy(policy);

@@ -8,7 +8,7 @@ using Learn.TemplateStudio.Core.Contracts.Services;
 using Learn.TemplateStudio.Core.Helpers;
 using Learn.TemplateStudio.Helpers;
 using Learn.TemplateStudio.Properties;
-
+using Learn.TemplateStudio.Services;
 using MahApps.Metro.Controls;
 
 using Prism.Commands;
@@ -20,6 +20,7 @@ namespace Learn.TemplateStudio.ViewModels;
 public class ShellViewModel : BindableBase
 {
     private readonly IRegionManager _regionManager;
+    private readonly CustomAuthorizationService _authorizationService;
     private readonly ILocalIdentityService _identityService;
     private IRegionNavigationService _navigationService;
     private HamburgerMenuItem _selectedMenuItem;
@@ -35,28 +36,24 @@ public class ShellViewModel : BindableBase
 
     public ShellViewModel(
         IRegionManager regionManager, 
+        CustomAuthorizationService authorizationService,
         ILocalIdentityService identityService)
     {
         _regionManager = regionManager;
+        _authorizationService = authorizationService;
         _identityService = identityService;
 
-        _identityService.OnAuthorized += successes =>
+        var result = _authorizationService.Authorize("SeeSecretPage");
+
+        if (result.Succeeded)
         {
-            if (!successes) return;
-            
-            var claims = _identityService.User.FindAll("app.claim");
-            var hasSecretPageViewClaim = claims.Any(x => x.Value == "secret_page_view");
-            
-            if (hasSecretPageViewClaim)
+            MenuItems.Add(new HamburgerMenuGlyphItem
             {
-                MenuItems.Add(new HamburgerMenuGlyphItem
-                {
-                    Label = Resources.ShellSecurePage, 
-                    Glyph = "\uE8A5", 
-                    Tag = PageKeys.Secure
-                });
-            }
-        };
+                Label = Resources.ShellSecurePage, 
+                Glyph = "\uE8A5", 
+                Tag = PageKeys.Secure
+            });
+        }
     }
     
     public HamburgerMenuItem SelectedMenuItem
