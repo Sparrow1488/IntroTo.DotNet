@@ -18,7 +18,6 @@ namespace Learn.TemplateStudio.ViewModels;
 public class ShellViewModel : BindableBase
 {
     private readonly IRegionManager _regionManager;
-    private readonly CustomAuthorizationService _authorizationService;
     private readonly ILocalIdentityService _identityService;
     private IRegionNavigationService _navigationService;
     private HamburgerMenuItem _selectedMenuItem;
@@ -38,10 +37,9 @@ public class ShellViewModel : BindableBase
         ILocalIdentityService identityService)
     {
         _regionManager = regionManager;
-        _authorizationService = authorizationService;
         _identityService = identityService;
 
-        var result = _authorizationService.Authorize("SeeSecretPage");
+        var result = authorizationService.Authorize("SeeSecretPage");
 
         if (result.Succeeded)
         {

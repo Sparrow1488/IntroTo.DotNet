@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Imlight.Hmi.Module.Dialogs.Events;
 using Imlight.Hmi.Module.Keyboards.Events;
@@ -12,6 +14,21 @@ using Prism.Mvvm;
 using Prism.Regions;
 
 namespace Learn.MultipleFrameworks.ViewModels;
+
+public class DelegateValidationRule : ValidationRule
+{
+    private readonly Func<object, ValidationResult> _validate;
+
+    public DelegateValidationRule(Func<object, ValidationResult> validate)
+    {
+        _validate = validate;
+    }
+    
+    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    {
+        return _validate.Invoke(value);
+    }
+}
 
 public class HomeViewModel : BindableBase, INavigationAware
 {
@@ -30,10 +47,13 @@ public class HomeViewModel : BindableBase, INavigationAware
         var passwordSettings = new KeyboardSettings()
         {
             IsPassword = true,
-            InputValidationFunc = input => 
-                input.Length < 5 
-                    ? new ValidationResult {IsValid = false, ErrorMessage = "Длина пароля меньше пяти"} 
-                    : new ValidationResult {IsValid = true}
+            InputValidationRule = new DelegateValidationRule(input =>
+            {
+                var inputText = input as string;
+                return inputText!.Length < 5 
+                    ? new ValidationResult(false, "Длина пароля меньше пяти")
+                    : new ValidationResult(true, null);
+            })
         };
         
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(
