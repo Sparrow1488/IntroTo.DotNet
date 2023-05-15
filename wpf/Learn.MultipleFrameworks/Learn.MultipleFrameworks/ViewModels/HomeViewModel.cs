@@ -49,11 +49,12 @@ public class HomeViewModel : BindableBase, INavigationAware
         _aggregator = aggregator;
 
         ConfigureEventsHandlers();
+        
         var settings = new KeyboardSettings
         {
             // IsPassword = true,
             Limit = new Limit(-1100, 5600),
-            StartValue = "790"
+            // StartValue = "790"
         };
 
         settings.InputValidationRule = new DelegateValidationRule(input =>
