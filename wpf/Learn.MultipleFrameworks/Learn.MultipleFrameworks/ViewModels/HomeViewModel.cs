@@ -1,8 +1,12 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Imlight.Hmi.Module.Dialogs.Events;
+using Imlight.Hmi.Module.Dialogs.Models;
+using Imlight.Hmi.Module.Dialogs.Services.Dialogs;
+using Imlight.Hmi.Module.Keyboards.Constants;
 using Imlight.Hmi.Module.Keyboards.Events;
 using Imlight.Hmi.Module.Keyboards.Events.Models;
 using Imlight.Hmi.Module.Keyboards.Models;
@@ -39,29 +43,51 @@ public class HomeViewModel : BindableBase, INavigationAware
 
     public HomeViewModel(
         IEventAggregator aggregator,
+        IRegionDialogService dialogService,
         IKeyboardModalService keyboardService)
     {
         _aggregator = aggregator;
 
         ConfigureEventsHandlers();
-        var passwordSettings = new KeyboardSettings()
+        var settings = new KeyboardSettings
         {
-            IsPassword = true,
-            InputValidationRule = new DelegateValidationRule(input =>
+            // IsPassword = true,
+            Limit = new Limit(-1100, 5600),
+            StartValue = "790"
+        };
+
+        settings.InputValidationRule = new DelegateValidationRule(input =>
+        {
+            if (!long.TryParse((string?) input, out var numInput))
             {
-                var inputText = input as string;
-                return inputText!.Length < 5 
-                    ? new ValidationResult(false, "Длина пароля меньше пяти")
-                    : new ValidationResult(true, null);
-            })
+                return ValidationResult.ValidResult;
+            }
+            
+            var inLimits = settings.Limit.Value.IsInLimit(numInput);
+            var isValid = true;
+            var error = $"Конечная позиция должна быть в пределах [{settings.Limit.Value.Min};{settings.Limit.Value.Max}], а иначего Lorem inpsum text fish";
+
+            if (!inLimits)
+            {
+                isValid = false;
+            }
+
+            return new ValidationResult(isValid, error);
+        });
+
+        var dialogSettings = new DialogSettings
+        {
+            Title = "Пример собственного заголовка"
         };
         
+        ShowHomeDialogCommand = new DelegateCommand(
+            () => dialogService.ShowRegionInDialog(Regions.HomeRegion));
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue));
+            () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue, settings, dialogSettings));
         ShowNumericKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
+            () => keyboardService.ShowNumericKeyboard(OnModalKeyboardReceiveValue, settings, dialogSettings));
         ShowAlphabetKeyboardDialogCommand = new DelegateCommand(
-            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue, passwordSettings));
+            () => keyboardService.ShowAlphabetKeyboard(OnModalKeyboardReceiveValue, settings, dialogSettings));
     }
 
     public string? DialogClosureTime
@@ -80,6 +106,7 @@ public class HomeViewModel : BindableBase, INavigationAware
         set => SetProperty(ref _keyboardTwoValue, value);
     }
 
+    public ICommand ShowHomeDialogCommand { get; }
     public ICommand ShowLimitsKeyboardDialogCommand { get; }
     public ICommand ShowNumericKeyboardDialogCommand { get; }
     public ICommand ShowAlphabetKeyboardDialogCommand { get; }

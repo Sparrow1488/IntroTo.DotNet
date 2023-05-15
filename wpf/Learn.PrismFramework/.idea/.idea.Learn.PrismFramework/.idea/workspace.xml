@@ -4,20 +4,7 @@
     <projectFile>Learn.PrismFramework.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Modules/DialogContentModule.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewModels/DialogContentViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogContentView.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogContentView.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/App.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/App.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Constants/Regions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Constants/Regions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewModels/HomeViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/ViewModels/HomeViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/DialogView.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/HomeView.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/HomeView.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Learn.MultipleFrameworks/Learn.MultipleFrameworks/Views/MainWindow.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Learn.PrismFramework/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c1eda859-02e0-4e3f-9f8c-72cf1a93e6e5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,6 +109,7 @@
       <workItem from="1680449168139" duration="2000" />
       <workItem from="1680451010818" duration="49000" />
       <workItem from="1680451206016" duration="12000" />
+      <workItem from="1684158803641" duration="39000" />
     </task>
     <servers />
   </component>
