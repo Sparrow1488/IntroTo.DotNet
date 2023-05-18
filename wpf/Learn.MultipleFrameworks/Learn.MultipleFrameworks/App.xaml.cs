@@ -5,6 +5,7 @@ using Imlight.Hmi.Module.Dialogs.Events.Models;
 using Imlight.Hmi.Module.Dialogs.Extensions;
 using Imlight.Hmi.Module.Dialogs.Services.Resolvers;
 using Imlight.Hmi.Module.Keyboards.Extensions;
+using Imlight.Hmi.Module.Keyboards.Models.Settings;
 using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
 using Imlight.Hmi.Module.Keyboards.Services.Providers;
 using Learn.MultipleFrameworks.Modules;
@@ -23,7 +24,8 @@ public partial class App
         container.RegisterSingleton<KeyboardLayoutsProvider>();
 
         container.RegisterScoped<MainWindowResolver>(_ => new MainWindowResolver(Current.MainWindow));
-        container.RegisterScoped<KeyboardSettingsProvider>();
+        container.RegisterScoped<ScopedInstanceProvider<KeyboardSettings>, KeyboardSettingsProvider>();
+        container.RegisterScoped<ScopedInstanceProvider<KeyboardWrapperSettings>, KeyboardWrapperSettingsProvider>();
         container.RegisterScoped<IKeyboardModalService, KeyboardModalService>();
         container.AddRegionDialogService();
         

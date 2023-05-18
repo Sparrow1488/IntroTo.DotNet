@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Imlight.Hmi.Base.Core.Models;
 using Imlight.Hmi.Module.Dialogs.Events;
 using Imlight.Hmi.Module.Dialogs.Models;
 using Imlight.Hmi.Module.Dialogs.Services.Dialogs;
@@ -53,7 +54,7 @@ public class HomeViewModel : BindableBase, INavigationAware
         var settings = new KeyboardSettings
         {
             // IsPassword = true,
-            Limit = new Limit(-1100, 5600),
+            Limit = new Limit<long>(-1100, 5600),
             // StartValue = "790"
         };
 
@@ -64,7 +65,7 @@ public class HomeViewModel : BindableBase, INavigationAware
                 return ValidationResult.ValidResult;
             }
             
-            var inLimits = settings.Limit.Value.IsInLimit(numInput);
+            var inLimits = settings.Limit.Value.IsValid(numInput);
             var isValid = true;
             var error = $"Конечная позиция должна быть в пределах [{settings.Limit.Value.Min};{settings.Limit.Value.Max}], а иначего Lorem inpsum text fish";
 

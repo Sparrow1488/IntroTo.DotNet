@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Module.Dialogs"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Module.Keyboards", "..\..\..\..\..\Backend\imlight.hmi\Module\Imlight.Hmi.Module.Keyboards\Imlight.Hmi.Module.Keyboards.csproj", "{1864016C-0F26-411B-B9CB-118A063CBCBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Base.Core", "..\..\..\..\..\Backend\imlight.hmi\Base\Core\Imlight.Hmi.Base.Core.csproj", "{18AF652E-BA8E-4332-9D58-655E16FC783C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imlight.Hmi.Base.Wpf", "..\..\..\..\..\Backend\imlight.hmi\Base\Wpf\Imlight.Hmi.Base.Wpf.csproj", "{C6261183-7DF6-4877-8DBA-8BBC6D8E6778}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1864016C-0F26-411B-B9CB-118A063CBCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18AF652E-BA8E-4332-9D58-655E16FC783C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18AF652E-BA8E-4332-9D58-655E16FC783C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18AF652E-BA8E-4332-9D58-655E16FC783C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18AF652E-BA8E-4332-9D58-655E16FC783C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6261183-7DF6-4877-8DBA-8BBC6D8E6778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6261183-7DF6-4877-8DBA-8BBC6D8E6778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6261183-7DF6-4877-8DBA-8BBC6D8E6778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6261183-7DF6-4877-8DBA-8BBC6D8E6778}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
