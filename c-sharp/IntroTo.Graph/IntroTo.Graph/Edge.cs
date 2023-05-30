@@ -10,6 +10,10 @@ public class Edge
     }
 
     public Vertex From { get; }
+
     public Vertex To { get; }
+
     public int Weight { get; }
+
+    public override string ToString() => $"({From.Id}; {To.Id})";
 }

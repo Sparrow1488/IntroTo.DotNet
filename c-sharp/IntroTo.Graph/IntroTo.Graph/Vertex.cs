@@ -8,4 +8,6 @@ public class Vertex
     }
     
     public int Id { get; }
+
+    public override string ToString() => Id.ToString();
 }

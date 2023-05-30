@@ -25,4 +25,14 @@ public class Graph
 
         return matrix;
     }
+
+    public IList<Vertex> GetAdjacentVertices(Vertex vertex)
+    {
+        var adjacentEdges = Edges.Where(x => x.From == vertex || x.To == vertex);
+        return adjacentEdges.Select(
+            x => x.From == vertex
+            ? x.To
+            : x.From
+        ).ToList();
+    }
 }

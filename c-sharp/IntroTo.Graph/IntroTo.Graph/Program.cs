@@ -20,7 +20,9 @@ var edges = new List<Edge>
 
 var graph = new Graph(edges, vertices.Select(x => x.Value).ToList());
 var matrix = graph.GetMatrix();
+var adjacentVertices = graph.GetAdjacentVertices(vertices[2]);
 
+Console.WriteLine("Adjacent vertices: " + string.Join(", ", adjacentVertices));
 Console.WriteLine(GetMatrixConsoleView(matrix));
 // Console.WriteLine(GetGraphConsoleView(graph));
 
@@ -40,7 +42,7 @@ static string GetMatrixConsoleView(int[,] matrix)
 {
     var builder = new StringBuilder();
 
-    for (var row = 1; row < matrix.GetLength(0); row++)
+    for (var row = 1; row < matrix.GetLength(0); row++) // пропускаю ноль, так как Id у вершин идет с 1
     {
         for (var column = 1; column < matrix.GetLength(1); column++)
         {
