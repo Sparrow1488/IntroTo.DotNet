@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using IntroTo.Graph;
+using IntroTo.Graph.Algorithms;
 
 Console.WriteLine("Hello, Graph!");
 
@@ -24,19 +25,11 @@ var adjacentVertices = graph.GetAdjacentVertices(vertices[2]);
 
 Console.WriteLine("Adjacent vertices: " + string.Join(", ", adjacentVertices));
 Console.WriteLine(GetMatrixConsoleView(matrix));
-// Console.WriteLine(GetGraphConsoleView(graph));
 
-static string GetGraphConsoleView(Graph graph)
-{
-    var builder = new StringBuilder();
+var waveAlgorithm = new GraphWaveAlgorithm();
+var route = waveAlgorithm.Execute(graph, new WaveAlgorithmArgs(vertices[5], vertices[7]));
 
-    builder.AppendLine($"Edges {graph.Edges.Count}, Vertices {graph.Vertices.Count}");
-    
-    foreach (var edge in graph.Edges)
-        builder.AppendLine($"Edge, From: {edge.From.Id}; To: {edge.To.Id}");
-
-    return builder.ToString();
-}
+Console.WriteLine(route);
 
 static string GetMatrixConsoleView(int[,] matrix)
 {

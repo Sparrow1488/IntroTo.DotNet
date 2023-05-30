@@ -26,9 +26,15 @@ public class Graph
         return matrix;
     }
 
-    public IList<Vertex> GetAdjacentVertices(Vertex vertex)
+    public IList<Vertex> GetAdjacentVertices(Vertex vertex, bool inDepth = false)
     {
-        var adjacentEdges = Edges.Where(x => x.From == vertex || x.To == vertex);
+        var adjacentEdges = Enumerable.Empty<Edge>();
+        
+        if (inDepth)
+        {
+            adjacentEdges = Edges.Where(x => x.To == vertex);
+        }
+        adjacentEdges = Edges.Where(x => x.From == vertex || x.To == vertex);
         return adjacentEdges.Select(
             x => x.From == vertex
             ? x.To
