@@ -1,9 +1,15 @@
 ﻿using System.Windows;
+using Imlight.Hmi.Base.Core.Services;
 using Imlight.Hmi.Module.Dialogs;
 using Imlight.Hmi.Module.Dialogs.Events;
 using Imlight.Hmi.Module.Dialogs.Events.Models;
 using Imlight.Hmi.Module.Dialogs.Extensions;
+using Imlight.Hmi.Module.Dialogs.Models;
+using Imlight.Hmi.Module.Dialogs.Modules;
+using Imlight.Hmi.Module.Dialogs.Services.Providers;
 using Imlight.Hmi.Module.Dialogs.Services.Resolvers;
+using Imlight.Hmi.Module.Keyboards.Events;
+using Imlight.Hmi.Module.Keyboards.Events.Models;
 using Imlight.Hmi.Module.Keyboards.Extensions;
 using Imlight.Hmi.Module.Keyboards.Models.Settings;
 using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
@@ -19,19 +25,22 @@ namespace Learn.MultipleFrameworks;
 
 public partial class App
 {
+    private IEventAggregator _aggregator = null!;
+
     protected override void RegisterTypes(IContainerRegistry container)
     {
         container.RegisterSingleton<KeyboardLayoutsProvider>();
 
         container.RegisterScoped<MainWindowResolver>(_ => new MainWindowResolver(Current.MainWindow));
         container.RegisterScoped<ScopedInstanceProvider<KeyboardSettings>, KeyboardSettingsProvider>();
-        container.RegisterScoped<ScopedInstanceProvider<KeyboardWrapperSettings>, KeyboardWrapperSettingsProvider>();
+        container.RegisterScoped<ScopedInstanceProvider<SubmitWrapperSettings>, SubmitWrapperSettingsProvider>();
         container.RegisterScoped<IKeyboardModalService, KeyboardModalService>();
         container.AddRegionDialogService();
         
-        var aggregator = Container.Resolve<IEventAggregator>();
-        aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(
+        _aggregator = Container.Resolve<IEventAggregator>();
+        _aggregator.GetEvent<DialogCloseRequestedEvent>().Subscribe(
             ctx => HideDialog(ctx, Container));
+        _aggregator.GetEvent<KeyboardValidationErrorEvent>().Subscribe(OnKeyboardValidationErrors);
     }
 
     protected override Window CreateShell() => Container.Resolve<MainWindow>();
@@ -41,6 +50,7 @@ public partial class App
         modules.AddModule<HomeModule>();        
 
         modules.AddModule<DialogModule>();
+        modules.AddModule<SubmitWrapperModule>();
         modules.AddKeyboardsModules();
     }
     
@@ -49,5 +59,10 @@ public partial class App
         var coordinator = container.Resolve<IDialogCoordinator>();
         coordinator.HideMetroDialogAsync(context.Host.DataContext, context.MetroDialog)
             .ContinueWith(_ => {});
+    }
+
+    private void OnKeyboardValidationErrors(KeyboardValidationErrorArgs args)
+    {
+        _aggregator.GetEvent<SubmitWrapperEnableEvent>().Publish(new SubmitWrapperEnableArgs(args.IsValid));
     }
 }

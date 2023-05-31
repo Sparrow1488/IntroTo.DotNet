@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Imlight.Hmi.Base.Core.Models;
@@ -10,7 +9,6 @@ using Imlight.Hmi.Module.Dialogs.Services.Dialogs;
 using Imlight.Hmi.Module.Keyboards.Constants;
 using Imlight.Hmi.Module.Keyboards.Events;
 using Imlight.Hmi.Module.Keyboards.Events.Models;
-using Imlight.Hmi.Module.Keyboards.Models;
 using Imlight.Hmi.Module.Keyboards.Models.Settings;
 using Imlight.Hmi.Module.Keyboards.Services.Keyboards;
 using Prism.Commands;
@@ -53,9 +51,10 @@ public class HomeViewModel : BindableBase, INavigationAware
         
         var settings = new KeyboardSettings
         {
-            // IsPassword = true,
+            IsPassword = false,
             Limit = new Limit<long>(-1100, 5600),
-            // StartValue = "790"
+            BlockSubmitOnErrors = true,
+            StartValue = "200"
         };
 
         settings.InputValidationRule = new DelegateValidationRule(input =>
@@ -83,7 +82,7 @@ public class HomeViewModel : BindableBase, INavigationAware
         };
         
         ShowHomeDialogCommand = new DelegateCommand(
-            () => dialogService.ShowRegionInDialog(Regions.HomeRegion));
+            () => dialogService.ShowRegionInDialog(Constants.Regions.HomeRegion));
         ShowLimitsKeyboardDialogCommand = new DelegateCommand(
             () => keyboardService.ShowLimitsKeyboard(OnModalKeyboardReceiveValue, settings, dialogSettings));
         ShowNumericKeyboardDialogCommand = new DelegateCommand(
