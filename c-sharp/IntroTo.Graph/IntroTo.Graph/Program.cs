@@ -44,7 +44,7 @@ static string GetMatrixConsoleView(int[,] matrix)
 
     for (var row = 0; row < matrix.GetLength(0); row++)
     {
-        for (var column = 1; column < matrix.GetLength(1); column++)
+        for (var column = 0; column < matrix.GetLength(1); column++)
         {
             builder.Append(matrix[row, column] + " ");
         }
