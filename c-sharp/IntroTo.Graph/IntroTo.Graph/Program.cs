@@ -26,10 +26,13 @@ var adjacentVertices = graph.GetAdjacentVertices(vertices[2]);
 Console.WriteLine("Adjacent vertices: " + string.Join(", ", adjacentVertices));
 Console.WriteLine(GetMatrixConsoleView(matrix));
 
-var waveAlgorithm = new GraphWaveAlgorithm();
-var route = waveAlgorithm.Execute(graph, new WaveAlgorithmArgs(vertices[5], vertices[7]));
+var dfs = new GraphDepthFirstSearchAlgorithm();
+var dfsRoute = dfs.Execute(graph, new DfsArgs(vertices[1], vertices[4]));
 
-Console.WriteLine(route);
+// var waveAlgorithm = new GraphWaveAlgorithm();
+// var route = waveAlgorithm.Execute(graph, new WaveAlgorithmArgs(vertices[5], vertices[7]));
+
+Console.WriteLine(dfsRoute);
 
 static string GetMatrixConsoleView(int[,] matrix)
 {
