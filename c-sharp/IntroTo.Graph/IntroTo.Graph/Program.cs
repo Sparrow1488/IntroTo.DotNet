@@ -33,9 +33,6 @@ Console.WriteLine(GetMatrixConsoleView(matrix));
 var dfs = new GraphDepthFirstSearchAlgorithm();
 var dfsRoute = dfs.Execute(graph, new DfsArgs(vertices[1], vertices[9]));
 
-// var waveAlgorithm = new GraphWaveAlgorithm();
-// var route = waveAlgorithm.Execute(graph, new WaveAlgorithmArgs(vertices[5], vertices[7]));
-
 Console.WriteLine(dfsRoute);
 
 static string GetMatrixConsoleView(int[,] matrix)

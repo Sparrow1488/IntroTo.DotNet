@@ -12,13 +12,14 @@ public class GraphDepthFirstSearchAlgorithm : IAlgorithm<Graph, List<Vertex>, Df
     {
         Graph = input;
         
-        SearchInDepth(args.Start, args.Finish, Route);
+        SearchInDepth(args.Start, args.Finish);
+        Route.Add(args.Start);
 
+        Route.Reverse();
         return Route;
     }
 
-
-    private static void SearchInDepth(Vertex current, Vertex finish, List<Vertex> route)
+    private static void SearchInDepth(Vertex current, Vertex finish)
     {
         if (Visited.ContainsKey(current.Id))
         {
@@ -31,21 +32,15 @@ public class GraphDepthFirstSearchAlgorithm : IAlgorithm<Graph, List<Vertex>, Df
             return;
         }
         
-        var depthRoute = new List<Vertex>();
         Visited.Add(current.Id, current);
-        depthRoute.Add(current);
 
         foreach (var adjacent in Graph.GetAdjacentVertices(current))
         {
-            SearchInDepth(adjacent, finish, depthRoute);
+            SearchInDepth(adjacent, finish);
             
             if (WasFound)
             {
-                if (adjacent == finish)
-                {
-                    depthRoute.Add(adjacent);
-                }
-                route.AddRange(depthRoute);
+                Route.Add(adjacent);
                 return;
             }
         }
