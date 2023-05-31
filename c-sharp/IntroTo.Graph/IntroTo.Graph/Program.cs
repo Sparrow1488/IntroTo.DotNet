@@ -4,7 +4,7 @@ using IntroTo.Graph.Algorithms;
 
 Console.WriteLine("Hello, Graph!");
 
-var vertices = Enumerable.Range(1, 7)
+var vertices = Enumerable.Range(1, 9)
     .Select(x => new Vertex(x))
     .ToDictionary(x => x.Id);
 
@@ -16,7 +16,11 @@ var edges = new List<Edge>
     new(vertices[3], vertices[4], 1),
     new(vertices[4], vertices[3], 1),
     new(vertices[1], vertices[5], 5),
-    new(vertices[5], vertices[6], 7)
+    new(vertices[5], vertices[6], 7),
+    new(vertices[6], vertices[5], 7),
+    new(vertices[6], vertices[8], 3),
+    new(vertices[6], vertices[9], 3),
+    new(vertices[8], vertices[4], 3)
 };
 
 var graph = new Graph(edges, vertices.Select(x => x.Value).ToList());
@@ -27,7 +31,7 @@ Console.WriteLine("Adjacent vertices: " + string.Join(", ", adjacentVertices));
 Console.WriteLine(GetMatrixConsoleView(matrix));
 
 var dfs = new GraphDepthFirstSearchAlgorithm();
-var dfsRoute = dfs.Execute(graph, new DfsArgs(vertices[1], vertices[4]));
+var dfsRoute = dfs.Execute(graph, new DfsArgs(vertices[1], vertices[9]));
 
 // var waveAlgorithm = new GraphWaveAlgorithm();
 // var route = waveAlgorithm.Execute(graph, new WaveAlgorithmArgs(vertices[5], vertices[7]));
@@ -38,7 +42,7 @@ static string GetMatrixConsoleView(int[,] matrix)
 {
     var builder = new StringBuilder();
 
-    for (var row = 1; row < matrix.GetLength(0); row++) // пропускаю ноль, так как Id у вершин идет с 1
+    for (var row = 0; row < matrix.GetLength(0); row++)
     {
         for (var column = 1; column < matrix.GetLength(1); column++)
         {

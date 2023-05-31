@@ -17,8 +17,8 @@ public class Graph
 
         foreach (var edge in Edges)
         {
-            var row = edge.From.Id;
-            var column = edge.To.Id;
+            var row = edge.From.Id - 1;
+            var column = edge.To.Id - 1;
 
             matrix[row, column] = edge.Weight;
         }
