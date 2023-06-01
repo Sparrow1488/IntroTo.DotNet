@@ -2,24 +2,23 @@ using System.Transactions;
 
 namespace IntroTo.Graph.Algorithms;
 
-public static class DfoAlgorithm
+public static class DfsAlgorithm
 {
     private static readonly HashSet<Vertex> Visited = new();
     private static readonly Dictionary<Vertex, Vertex> Prior = new();
 
-    public static List<Vertex> DfoStackPath(Graph graph, Vertex start, Vertex finish)
+    public static List<Vertex> DfsStackPath(Graph graph, Vertex start, Vertex finish)
     {
-        DfoStack(graph, start, start, finish);
+        DfsStack(graph, start, start, finish);
         return GetPath(start, finish);
     }
 
-    private static void DfoStack(Graph graph, Vertex previous, Vertex current, Vertex finish)
+    private static void DfsStack(Graph graph, Vertex previous, Vertex current, Vertex finish)
     {
         if (Visited.Contains(current))
             return;
 
-        if (Prior.TryAdd(current, previous))
-            Prior[current] = previous;
+        Prior[current] = previous;
 
         if (current == finish)
             return;
@@ -27,11 +26,14 @@ public static class DfoAlgorithm
         Visited.Add(current);
 
         foreach (var adjacent in graph.GetAdjacentVertices(current))
-            DfoStack(graph, current, adjacent, finish);
+            DfsStack(graph, current, adjacent, finish);
     }
 
     private static List<Vertex> GetPath(Vertex start, Vertex finish)
     {
+        if (!Prior.ContainsKey(finish) && !Prior.ContainsKey(start))
+            return new List<Vertex>();
+        
         var path = new List<Vertex> { finish };
         var current = finish;
         while (current != start)
@@ -43,8 +45,8 @@ public static class DfoAlgorithm
         path.Reverse();
         return path;
     }
-    
-    public static bool Dfo(Graph graph, Vertex start, Vertex finish) 
+
+    public static bool Dfs(Graph graph, Vertex start, Vertex finish) 
     {
         var stack = new Stack<Vertex>();
         var visited = new HashSet<Vertex>();
@@ -56,13 +58,15 @@ public static class DfoAlgorithm
 
             if (current == finish)
                 return true;
-            
-            if (visited.Contains(current))
-                continue;
 
             foreach (var adjacent in graph.GetAdjacentVertices(current))
+            {
                 if (!visited.Contains(adjacent))
+                {
                     stack.Push(adjacent);
+                    visited.Add(adjacent);
+                }
+            }
             
             visited.Add(current);
         }

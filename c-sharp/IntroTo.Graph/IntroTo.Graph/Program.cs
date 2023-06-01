@@ -22,18 +22,10 @@ var edges = new List<Edge>
 };
 
 var graph = new Graph(edges, vertices.Select(x => x.Value).ToList());
-var matrix = graph.GetMatrix();
-var adjacentVertices = graph.GetAdjacentVertices(vertices[6]);
 
-Console.WriteLine("Adjacent vertices: " + string.Join(", ", adjacentVertices));
-Console.WriteLine(GetMatrixConsoleView(matrix));
-
-var dfoPath = DfoAlgorithm.DfoStackPath(graph, vertices[1], vertices[8]);
-Console.WriteLine("DFO Stack path: \t" + dfoPath.Count);
-// var dfoPath = DfoAlgorithm.DfoPath(graph, vertices[1], vertices[8]);
-// Console.WriteLine("DFO Stack path: \t" + dfoPath.Count);
-Console.WriteLine("DFO: \t" + DfoAlgorithm.Dfo(graph, vertices[1], vertices[7]));
-Console.WriteLine("DFO: \t" + DfoAlgorithm.Dfo(graph, vertices[1], vertices[9]));
+BfsAlgorithm.Bfs(graph, vertices[5]);
+// Console.WriteLine(DfsAlgorithm.Dfs(graph, vertices[1], vertices[4]));
+// Console.WriteLine(DfsAlgorithm.DfsStackPath(graph, vertices[1], vertices[9]));
 
 static string GetMatrixConsoleView(int[,] matrix)
 {
