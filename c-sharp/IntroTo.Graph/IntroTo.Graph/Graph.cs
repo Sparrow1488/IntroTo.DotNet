@@ -21,14 +21,33 @@ public class Graph
             var column = edge.To.Id - 1;
 
             matrix[row, column] = edge.Weight;
+            matrix[column, row] = edge.Weight;
         }
 
         return matrix;
     }
 
+    public Dictionary<Vertex, List<Vertex>> GetVerticesList()
+    {
+        var result = new Dictionary<Vertex, List<Vertex>>();
+        var addToResult = (Vertex v) =>
+            result.TryAdd(v, new List<Vertex>(GetAdjacentVertices(v)));
+        
+        foreach (var edge in Edges)
+        {
+            var from = edge.From;
+            var to = edge.To;
+            
+            addToResult.Invoke(from);
+            addToResult.Invoke(to);
+        }
+
+        return result;
+    }
+
     public IList<Vertex> GetAdjacentVertices(Vertex vertex, bool inDepth = false)
     {
-        var adjacentEdges = Enumerable.Empty<Edge>();
+        IEnumerable<Edge> adjacentEdges;
         
         if (inDepth)
         {
