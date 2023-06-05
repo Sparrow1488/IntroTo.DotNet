@@ -2,7 +2,7 @@
 
 Console.WriteLine("Hello, Graph!");
 
-var graph = GraphGenerator.GenerateCellField(5);
+var graph = GraphGenerator.GenerateCellField(8);
 
 // var vertices = Enumerable.Range(1, 9)
 //     .Select(x => new Vertex(x))
@@ -25,3 +25,5 @@ var graph = GraphGenerator.GenerateCellField(5);
 
 GraphViewer.ShowVerticesList(graph);
 GraphViewer.ShowMatrix(graph);
+
+Console.ReadKey();
