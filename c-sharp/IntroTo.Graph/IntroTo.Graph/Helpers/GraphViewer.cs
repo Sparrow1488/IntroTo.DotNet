@@ -43,9 +43,11 @@ public static class GraphViewer
         var builder = new StringBuilder();
 
         var keys = list.Keys.OrderBy(x => x.Id).ToList();
+        var maxKeyLength = keys.Max(x => x.Id).ToString().Length;
         foreach (var key in keys)
         {
-            builder.AppendLine($"{key.Id} -> " + string.Join(", ", list[key].OrderBy(x => x.Id).Select(x => x.Id)));
+            var padding = new string(' ', maxKeyLength - key.Id.ToString().Length);
+            builder.AppendLine($"{key.Id}{padding} -> " + string.Join(", ", list[key].OrderBy(x => x.Id).Select(x => x.Id)));
         }
         
         Console.WriteLine(builder.ToString());
