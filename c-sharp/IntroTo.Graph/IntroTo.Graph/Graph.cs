@@ -2,14 +2,19 @@ namespace IntroTo.Graph;
 
 public class Graph
 {
-    public Graph(IList<Edge> edges, IList<Vertex> vertices)
+    public Graph(IList<Edge> edges, IList<Vertex> vertices, bool hashVerticesList = false)
     {
         Edges = edges;
         Vertices = vertices;
+        if (hashVerticesList)
+        {
+            VerticesList = GetVerticesList();
+        }
     }
     
     public IList<Edge> Edges { get; }
     public IList<Vertex> Vertices { get; }
+    private Dictionary<Vertex, List<Vertex>>? VerticesList { get; }
 
     public int[,] GetMatrix()
     {
@@ -29,6 +34,9 @@ public class Graph
 
     public Dictionary<Vertex, List<Vertex>> GetVerticesList()
     {
+        if (VerticesList is not null)
+            return VerticesList;
+        
         var result = new Dictionary<Vertex, List<Vertex>>();
         var addToResult = (Vertex v) =>
             result.TryAdd(v, new List<Vertex>(GetAdjacentVertices(v)));
@@ -45,19 +53,18 @@ public class Graph
         return result;
     }
 
-    public IList<Vertex> GetAdjacentVertices(Vertex vertex, bool inDepth = false)
+    public List<Vertex> GetAdjacentVertices(Vertex vertex)
     {
-        IEnumerable<Edge> adjacentEdges;
-        
-        if (inDepth)
+        if (VerticesList is null)
         {
-            adjacentEdges = Edges.Where(x => x.To == vertex);
+            var adjacentEdges = Edges.Where(x => x.To == vertex || x.From == vertex);
+            return adjacentEdges.Select(
+                x => x.To == vertex
+                    ? x.From
+                    : x.To
+            ).ToList();
         }
-        adjacentEdges = Edges.Where(x => x.From == vertex || x.To == vertex);
-        return adjacentEdges.Select(
-            x => x.From == vertex
-            ? x.To
-            : x.From
-        ).ToList();
+
+        return VerticesList[vertex];
     }
 }

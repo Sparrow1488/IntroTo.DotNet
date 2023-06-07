@@ -2,6 +2,23 @@ namespace IntroTo.Graph.Algorithms;
 
 public static class BfsAlgorithm
 {
+    public static List<Vertex> Bfs(Graph graph, List<Vertex> vertices)
+    {
+        var path = new List<Vertex> { vertices[0] };
+
+        var finishIndex = 1;
+        while (finishIndex < vertices.Count)
+        {
+            var start = vertices[finishIndex - 1];
+            var finish = vertices[finishIndex - 0];
+            path.AddRange(Bfs(graph, start, finish).Skip(1));
+            
+            finishIndex++;
+        }
+
+        return path;
+    }
+    
     public static List<Vertex> Bfs(Graph graph, Vertex start, Vertex finish)
     {
         var visited = new HashSet<Vertex>(); // black
