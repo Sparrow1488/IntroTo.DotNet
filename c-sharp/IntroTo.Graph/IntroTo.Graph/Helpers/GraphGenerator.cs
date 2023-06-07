@@ -1,8 +1,10 @@
+using IntroTo.Graph.Contracts;
+
 namespace IntroTo.Graph.Helpers;
 
 public static class GraphGenerator
 {
-    public static Graph GenerateCellField(int size, bool hashVerticesList = false)
+    public static IGraph GenerateCellField(int size, bool hashVerticesList = false)
     {
         var field = new Vertex[size, size];
         var edges = new List<Edge>();

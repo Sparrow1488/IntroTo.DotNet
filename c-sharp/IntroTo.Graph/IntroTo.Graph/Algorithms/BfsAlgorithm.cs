@@ -1,8 +1,10 @@
+using IntroTo.Graph.Contracts;
+
 namespace IntroTo.Graph.Algorithms;
 
 public static class BfsAlgorithm
 {
-    public static List<Vertex> Bfs(Graph graph, List<Vertex> vertices)
+    public static List<Vertex> Bfs(IGraph graph, List<Vertex> vertices)
     {
         var path = new List<Vertex> { vertices[0] };
 
@@ -19,7 +21,7 @@ public static class BfsAlgorithm
         return path;
     }
     
-    public static List<Vertex> Bfs(Graph graph, Vertex start, Vertex finish)
+    public static List<Vertex> Bfs(IGraph graph, Vertex start, Vertex finish)
     {
         var visited = new HashSet<Vertex>(); // black
         var calculated = new Dictionary<Vertex, int>(); // gray
@@ -76,7 +78,7 @@ public static class BfsAlgorithm
         return path;
     }
     
-    public static void Bfs(Graph graph, Vertex start)
+    public static void Bfs(IGraph graph, Vertex start)
     {
         var visited = new HashSet<Vertex>(); // black
         var calculated = new Dictionary<Vertex, int>(); // gray
