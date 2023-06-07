@@ -1,4 +1,5 @@
 using IntroTo.Graph.Contracts;
+using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Helpers;
 
@@ -43,6 +44,6 @@ public static class GraphGenerator
                 verticesList.Add(vertex);
             }
         }
-        return new Graph(edges, verticesList, hashVerticesList);
+        return new Structures.Graph(edges, verticesList, hashVerticesList);
     }
 }

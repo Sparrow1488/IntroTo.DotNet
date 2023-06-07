@@ -1,4 +1,4 @@
-namespace IntroTo.Graph;
+namespace IntroTo.Graph.Structures;
 
 public class Vertex
 {

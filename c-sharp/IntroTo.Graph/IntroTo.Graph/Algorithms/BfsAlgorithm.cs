@@ -1,4 +1,5 @@
 using IntroTo.Graph.Contracts;
+using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Algorithms;
 

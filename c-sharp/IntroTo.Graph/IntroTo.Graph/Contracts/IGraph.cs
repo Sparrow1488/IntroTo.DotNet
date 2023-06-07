@@ -1,3 +1,5 @@
+using IntroTo.Graph.Structures;
+
 namespace IntroTo.Graph.Contracts;
 
 public interface IGraph

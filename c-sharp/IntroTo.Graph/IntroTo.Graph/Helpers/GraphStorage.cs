@@ -1,4 +1,5 @@
 using IntroTo.Graph.Contracts;
+using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Helpers;
 
@@ -25,6 +26,6 @@ public static class GraphStorage
             new(vertices[10], vertices[8])
         };
 
-        return new Graph(edges, vertices.SkipLast(1).ToList(), hashNeighbours);
+        return new Structures.Graph(edges, vertices.SkipLast(1).ToList(), hashNeighbours);
     }
 }

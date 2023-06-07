@@ -1,11 +1,21 @@
-﻿using IntroTo.Graph;
+﻿using System.Xml.Serialization;
+using IntroTo.Graph;
 using IntroTo.Graph.Algorithms;
 using IntroTo.Graph.Helpers;
+using IntroTo.Graph.Managers;
+using IntroTo.Graph.Managers.Importers;
+using IntroTo.Graph.Structures;
 using IntroTo.Graph.Views;
 
 Console.WriteLine("Hello, Graph!");
 
-var graph = GraphGenerator.GenerateCellField(5, true);
+var manager = new GraphManager();
+var graph = manager.Import(
+    File.OpenRead(@"C:\Users\ilyao\OneDrive\Desktop\Docs\Practice\Graphs\Type1.graphml"),
+    new GraphOnlineImporter()
+);
+
+// var graph = GraphGenerator.GenerateCellField(5, true);
 
 var route = BfsAlgorithm.Bfs(
     graph, 

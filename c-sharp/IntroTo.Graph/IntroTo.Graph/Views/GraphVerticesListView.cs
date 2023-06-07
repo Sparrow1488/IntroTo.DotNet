@@ -18,7 +18,7 @@ public class GraphVerticesListView : ConsoleDataView<IGraph>
 
         if (Graph.VertexNeighbours is null)
         {
-            if (Graph is Graph graph)
+            if (Graph is Structures.Graph graph)
                 graph.CreateVerticesNeighbours();
             else throw new Exception("Graph VerticesNeighbours is null");
         }

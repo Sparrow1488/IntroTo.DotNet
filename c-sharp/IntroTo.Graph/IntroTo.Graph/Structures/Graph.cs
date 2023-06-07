@@ -1,6 +1,6 @@
 using IntroTo.Graph.Contracts;
 
-namespace IntroTo.Graph;
+namespace IntroTo.Graph.Structures;
 
 public class Graph : IGraph
 {

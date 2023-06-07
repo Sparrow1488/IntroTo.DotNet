@@ -1,8 +1,8 @@
-namespace IntroTo.Graph;
+namespace IntroTo.Graph.Structures;
 
 public class Edge
 {
-    public Edge(Vertex from, Vertex to, int weight = 0)
+    public Edge(Vertex from, Vertex to, int weight = 1)
     {
         From = from;
         To = to;
