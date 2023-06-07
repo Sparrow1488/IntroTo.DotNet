@@ -8,13 +8,14 @@ public class Graph
         Vertices = vertices;
         if (hashVerticesList)
         {
-            VerticesList = GetVerticesList();
+            CreateVerticesAdjacentEdges();
+            CreateVerticesAdjacentVertices();
         }
     }
     
     public IList<Edge> Edges { get; }
     public IList<Vertex> Vertices { get; }
-    private Dictionary<Vertex, List<Vertex>>? VerticesList { get; }
+    private Dictionary<Vertex, VertexNeighbours>? VerticesList { get; set; }
 
     public int[,] GetMatrix()
     {
@@ -32,26 +33,52 @@ public class Graph
         return matrix;
     }
 
-    public Dictionary<Vertex, List<Vertex>> GetVerticesList()
+    public Dictionary<Vertex, VertexNeighbours> CreateVerticesAdjacentEdges()
     {
-        if (VerticesList is not null)
-            return VerticesList;
-        
-        var result = new Dictionary<Vertex, List<Vertex>>();
-        var addToResult = (Vertex v) =>
-            result.TryAdd(v, new List<Vertex>(GetAdjacentVertices(v)));
+        VerticesList ??= new Dictionary<Vertex, VertexNeighbours>();
+        var addAdjacent = (Vertex v, Edge e) =>
+        {
+            if (!VerticesList.ContainsKey(v))
+                VerticesList.Add(v, new VertexNeighbours());
+            
+            var edges = VerticesList[v].Edges;
+            edges.Add(e);
+        };
         
         foreach (var edge in Edges)
         {
-            var from = edge.From;
-            var to = edge.To;
-            
-            addToResult.Invoke(from);
-            addToResult.Invoke(to);
+            addAdjacent.Invoke(edge.From, edge);
+            addAdjacent.Invoke(edge.To, edge);
         }
 
-        return result;
+        return VerticesList;
     }
+
+    public Dictionary<Vertex, VertexNeighbours> CreateVerticesAdjacentVertices()
+    {
+        if (VerticesList is null)
+            throw new Exception($"Сначала используйте вызов ${nameof(CreateVerticesAdjacentEdges)} ");
+
+        VerticesList ??= new Dictionary<Vertex, VertexNeighbours>();
+        
+        foreach (var vertex in Vertices)
+        {
+            if (!VerticesList.ContainsKey(vertex)) continue;
+            
+            var neighbours = VerticesList[vertex];
+            var edges = neighbours.Edges;
+            
+            var vertices = GetAdjacentVertices(vertex, edges);
+            neighbours.Vertices.AddRange(vertices);
+        }
+
+        return VerticesList;
+    }
+
+    public static IEnumerable<Vertex> GetAdjacentVertices(Vertex vertex, List<Edge> edges)
+        => edges.Select(edge => edge.To == vertex
+            ? edge.From
+            : edge.To);
 
     public List<Vertex> GetAdjacentVertices(Vertex vertex)
     {
@@ -65,6 +92,6 @@ public class Graph
             ).ToList();
         }
 
-        return VerticesList[vertex];
+        return VerticesList[vertex].Vertices;
     }
 }

@@ -39,7 +39,7 @@ public static class GraphViewer
 
     public static void ShowVerticesList(Graph graph)
     {
-        var list = graph.GetVerticesList();
+        var list = graph.CreateVerticesAdjacentVertices();
         var builder = new StringBuilder();
 
         var keys = list.Keys.OrderBy(x => x.Id).ToList();
@@ -47,7 +47,7 @@ public static class GraphViewer
         foreach (var key in keys)
         {
             var padding = new string(' ', maxKeyLength - key.Id.ToString().Length);
-            builder.AppendLine($"{key.Id}{padding} -> " + string.Join(", ", list[key].OrderBy(x => x.Id).Select(x => x.Id)));
+            builder.AppendLine($"{key.Id}{padding} -> " + string.Join(", ", list[key].Vertices.OrderBy(x => x.Id).Select(x => x.Id)));
         }
         
         Console.WriteLine(builder.ToString());

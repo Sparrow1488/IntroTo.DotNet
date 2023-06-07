@@ -2,7 +2,7 @@ namespace IntroTo.Graph.Helpers;
 
 public static class GraphGenerator
 {
-    public static Graph GenerateCellField(int size)
+    public static Graph GenerateCellField(int size, bool hashVerticesList = false)
     {
         var field = new Vertex[size, size];
         var edges = new List<Edge>();
@@ -41,6 +41,6 @@ public static class GraphGenerator
                 verticesList.Add(vertex);
             }
         }
-        return new Graph(edges, verticesList);
+        return new Graph(edges, verticesList, hashVerticesList);
     }
 }
