@@ -2,6 +2,6 @@ namespace IntroTo.Graph.Contracts;
 
 public interface IGraphManager
 {
-    IGraph Import(Stream stream, IDataStreamImporter<IGraph> importer);
-    Stream Export(IGraph graph, IDataStreamExporter<IGraph> exporter);
+    Structures.Graph Import(Stream stream, IDataStreamImporter<Structures.Graph> importer);
+    Stream Export(Structures.Graph graph, IDataStreamExporter<Structures.Graph> exporter);
 }

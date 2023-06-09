@@ -1,5 +1,3 @@
-using System.Transactions;
-using IntroTo.Graph.Contracts;
 using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Algorithms;
@@ -9,13 +7,13 @@ public static class DfsAlgorithm
     private static readonly HashSet<Vertex> Visited = new();
     private static readonly Dictionary<Vertex, Vertex> Prior = new();
 
-    public static List<Vertex> DfsStackPath(IGraph graph, Vertex start, Vertex finish)
+    public static List<Vertex> DfsStackPath(Structures.Graph graph, Vertex start, Vertex finish)
     {
         DfsStack(graph, start, start, finish);
         return GetPath(start, finish);
     }
 
-    private static void DfsStack(IGraph graph, Vertex previous, Vertex current, Vertex finish)
+    private static void DfsStack(Structures.Graph graph, Vertex previous, Vertex current, Vertex finish)
     {
         if (Visited.Contains(current))
             return;
@@ -48,7 +46,7 @@ public static class DfsAlgorithm
         return path;
     }
 
-    public static bool Dfs(IGraph graph, Vertex start, Vertex finish) 
+    public static bool Dfs(Structures.Graph graph, Vertex start, Vertex finish) 
     {
         var stack = new Stack<Vertex>();
         var visited = new HashSet<Vertex>();

@@ -4,9 +4,9 @@ namespace IntroTo.Graph.Managers;
 
 public class GraphManager : IGraphManager
 {
-    public IGraph Import(Stream stream, IDataStreamImporter<IGraph> importer)
+    public Structures.Graph Import(Stream stream, IDataStreamImporter<Structures.Graph> importer)
         => importer.Import(stream);
 
-    public Stream Export(IGraph graph, IDataStreamExporter<IGraph> exporter)
+    public Stream Export(Structures.Graph graph, IDataStreamExporter<Structures.Graph> exporter)
         => exporter.Export(graph);
 }

@@ -1,14 +1,13 @@
-using IntroTo.Graph.Contracts;
 using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Helpers;
 
 public static class GraphStorage
 {
-    public static IGraph GetType1(bool hashNeighbours)
+    public static Structures.Graph GetType1(bool hashNeighbours)
     {
         var vertices = Enumerable.Range(1, 11).Select(x => new Vertex(x - 1)).ToList();
-        var edges = new List<Edge>
+        var edges = new Edge[]
         {
             new(vertices[1], vertices[2]),
             new(vertices[1], vertices[3]),
@@ -26,6 +25,6 @@ public static class GraphStorage
             new(vertices[10], vertices[8])
         };
 
-        return new Structures.Graph(edges, vertices.SkipLast(1).ToList(), hashNeighbours);
+        return new Structures.Graph(edges, vertices.SkipLast(1).ToArray(), hashNeighbours);
     }
 }

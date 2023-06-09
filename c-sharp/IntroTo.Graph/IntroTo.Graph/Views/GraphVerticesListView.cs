@@ -1,16 +1,15 @@
 using System.Text;
-using IntroTo.Graph.Contracts;
 
 namespace IntroTo.Graph.Views;
 
-public class GraphVerticesListView : ConsoleDataView<IGraph>
+public class GraphVerticesListView : ConsoleDataView<Structures.Graph>
 {
-    public GraphVerticesListView(IGraph graph)
+    public GraphVerticesListView(Structures.Graph graph)
     {
         Graph = graph;
     }
     
-    private IGraph Graph { get; }
+    private Structures.Graph Graph { get; }
     
     public override string ToString()
     {

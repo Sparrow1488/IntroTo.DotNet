@@ -1,17 +1,16 @@
 using System.Text;
-using IntroTo.Graph.Contracts;
 
 namespace IntroTo.Graph.Views;
 
-public class GraphMatrixView : ConsoleDataView<IGraph>
+public class GraphMatrixView : ConsoleDataView<Structures.Graph>
 {
-    public GraphMatrixView(IGraph graph)
+    public GraphMatrixView(Structures.Graph graph)
     {
         Graph = graph;
         Matrix = Graph.GetMatrix();
     }
 
-    private IGraph Graph { get; }
+    private Structures.Graph Graph { get; }
     private int[,] Matrix { get; }
 
     public override string ToString()

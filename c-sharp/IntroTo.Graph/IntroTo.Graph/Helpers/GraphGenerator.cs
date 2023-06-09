@@ -1,14 +1,13 @@
-using IntroTo.Graph.Contracts;
 using IntroTo.Graph.Structures;
 
 namespace IntroTo.Graph.Helpers;
 
 public static class GraphGenerator
 {
-    public static IGraph GenerateCellField(int size, bool hashVerticesList = false)
+    public static Structures.Graph GenerateCellField(int size, bool hashVerticesList = false)
     {
         var field = new Vertex[size, size];
-        var edges = new List<Edge>();
+        var edges = new List<Edge>((size - 1) * size * 2);
 
         field[0, 0] = new Vertex(1);
         
@@ -35,15 +34,16 @@ public static class GraphGenerator
             }
         }
 
-        var verticesList = new List<Vertex>(size * size);
+        var vertices = new List<Vertex>(size * size);
         for (var i = 0; i < size; i++)
         {
             for (var j = 0; j < size; j++)
             {
                 var vertex = field[i, j];
-                verticesList.Add(vertex);
+                vertices.Add(vertex);
             }
         }
-        return new Structures.Graph(edges, verticesList, hashVerticesList);
+        
+        return new Structures.Graph(edges.ToArray(), vertices.ToArray(), hashVerticesList);
     }
 }

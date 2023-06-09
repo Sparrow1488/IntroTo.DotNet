@@ -7,9 +7,9 @@ namespace IntroTo.Graph.Managers.Importers;
 
 // ReSharper disable file CollectionNeverQueried.Local
 
-public class GraphOnlineImporter : IDataStreamImporter<IGraph>
+public class GraphOnlineImporter : IDataStreamImporter<Structures.Graph>
 {
-    public IGraph Import(Stream stream)
+    public Structures.Graph Import(Stream stream)
     {
         using var xmlTextReader = new XmlTextReader(stream);
 
@@ -31,7 +31,7 @@ public class GraphOnlineImporter : IDataStreamImporter<IGraph>
         var verticesMap = vertices.ToDictionary(x => x.Id);
         var edges = new List<Edge>(exEdges.Select(x => new Edge(verticesMap[x.Source + 1], verticesMap[x.Target + 1])));
         
-        return new Structures.Graph(edges, vertices, true);
+        return new Structures.Graph(edges.ToArray(), vertices.ToArray(), true);
     }
 
     private class ExternalGraphEdge

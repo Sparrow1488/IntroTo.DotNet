@@ -1,15 +1,13 @@
-using IntroTo.Graph.Contracts;
-
 namespace IntroTo.Graph.Structures;
 
-public class Graph : IGraph
+public class Graph
 {
     private Dictionary<Vertex, VertexNeighbours>? _vertexNeighbours;
     
-    public Graph(List<Edge> edges, List<Vertex> vertices, bool hashVerticesList = false)
+    public Graph(Edge[] edges, Vertex[] vertices, bool hashVerticesList = false)
     {
-        Edges = edges.AsReadOnly();
-        Vertices = vertices.AsReadOnly();
+        Edges = edges;
+        Vertices = vertices;
 
         if (hashVerticesList)
         {
@@ -17,13 +15,13 @@ public class Graph : IGraph
         }
     }
     
-    public IReadOnlyList<Edge> Edges { get; }
-    public IReadOnlyList<Vertex> Vertices { get; }
+    public Edge[] Edges { get; }
+    public Vertex[] Vertices { get; }
     public IReadOnlyDictionary<Vertex, VertexNeighbours>? VertexNeighbours => _vertexNeighbours?.AsReadOnly();
 
     public int[,] GetMatrix()
     {
-        var matrix = new int[Vertices.Count, Vertices.Count];
+        var matrix = new int[Vertices.Length, Vertices.Length];
 
         foreach (var edge in Edges)
         {
@@ -64,14 +62,14 @@ public class Graph : IGraph
 
     private void CreateVerticesAdjacentVertices()
     {
-        if (VertexNeighbours is null)
+        if (_vertexNeighbours is null)
             throw new Exception($"Сначала используйте вызов ${nameof(CreateVerticesAdjacentEdges)} ");
 
         foreach (var vertex in Vertices)
         {
-            if (!VertexNeighbours.ContainsKey(vertex)) continue;
+            if (!_vertexNeighbours.ContainsKey(vertex)) continue;
             
-            var neighbours = VertexNeighbours[vertex];
+            var neighbours = _vertexNeighbours[vertex];
             var edges = neighbours.Edges;
             
             var vertices = GetAdjacentVertices(vertex, edges);
