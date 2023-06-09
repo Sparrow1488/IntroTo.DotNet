@@ -1,4 +1,6 @@
-namespace IntroTo.Graph.Contracts;
+using IntroTo.Graph.Contracts;
+
+namespace IntroTo.Graph.Views;
 
 public abstract class ConsoleDataView<TData> : IDataView<TData>
     where TData : class
