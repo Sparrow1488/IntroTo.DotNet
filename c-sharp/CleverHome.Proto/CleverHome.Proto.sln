@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleverHome.Proto", "CleverHome.Proto\CleverHome.Proto.csproj", "{CF707920-4F62-4E0C-A7BB-C44BC3277F6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleverHome.Client", "CleverHome.Client\CleverHome.Client.csproj", "{60491BE0-36F3-472C-BC1F-960D0799BD1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF707920-4F62-4E0C-A7BB-C44BC3277F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF707920-4F62-4E0C-A7BB-C44BC3277F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF707920-4F62-4E0C-A7BB-C44BC3277F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF707920-4F62-4E0C-A7BB-C44BC3277F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60491BE0-36F3-472C-BC1F-960D0799BD1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60491BE0-36F3-472C-BC1F-960D0799BD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60491BE0-36F3-472C-BC1F-960D0799BD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60491BE0-36F3-472C-BC1F-960D0799BD1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

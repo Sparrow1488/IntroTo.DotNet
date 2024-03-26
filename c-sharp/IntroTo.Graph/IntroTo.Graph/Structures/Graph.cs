@@ -96,4 +96,14 @@ public class Graph
 
         return _vertexNeighbours[vertex].Vertices;
     }
+    
+    public IEnumerable<Edge> GetAdjacentEdges(Vertex vertex)
+    {
+        if (_vertexNeighbours is null)
+        {
+            return Edges.Where(x => x.To == vertex || x.From == vertex).ToList();
+        }
+
+        return _vertexNeighbours[vertex].Edges;
+    }
 }

@@ -4,6 +4,50 @@ namespace IntroTo.Graph.Algorithms;
 
 public static class BfsAlgorithm
 {
+    public static List<Vertex> Bfs2(Structures.Graph graph, Vertex start, Vertex finish)
+    {
+        var visited = new HashSet<Vertex>();
+        var history = new Dictionary<Vertex, LinkedList<Vertex>>();
+        
+        var queue = new Queue<Vertex>();
+        queue.Enqueue(start);
+
+        visited.Add(start);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            foreach (var adjacent in graph.GetAdjacentEdges(current))
+            {
+                var adjacentVertex = adjacent.To != current
+                    ? adjacent.To
+                    : adjacent.From;
+                
+                if (history.TryGetValue(adjacentVertex, out var previous))
+                {
+                    previous.AddLast(current);
+                }
+                else
+                {
+                    var list = new LinkedList<Vertex>();
+                    list.AddLast(current);
+                    history.Add(adjacentVertex, list);
+                }
+                
+                if (!visited.Contains(adjacentVertex))
+                {
+                    visited.Add(adjacentVertex);
+                    queue.Enqueue(adjacentVertex);
+
+                    if (adjacentVertex == finish)
+                        return GetPath(start, finish, history);
+                }
+            }
+        }
+
+        return new List<Vertex>();
+    }
+    
     public static List<Vertex> Bfs(Structures.Graph graph, List<Vertex> vertices)
     {
         var path = new List<Vertex> { vertices[0] };
@@ -53,9 +97,7 @@ public static class BfsAlgorithm
                     queue.Enqueue(adjacent);
 
                     if (adjacent == finish)
-                    {
                         return GetPath(start, finish, history);
-                    }
                 }
             }
         }

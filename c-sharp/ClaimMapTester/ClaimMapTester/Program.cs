@@ -1,24 +1,52 @@
 ﻿using System.Collections.Specialized;
 
+var permissions = new List<string>()
+{
+    "Manual",
+    "Auto",
+    "Config",
+    "EditUsers"
+};
+
+var mask = new List<int>();
+
+var previous = 0;
+permissions.ForEach(_ =>
+{
+    previous = BitVector32.CreateMask(previous);
+    mask.Add(previous);
+});
+
+Console.WriteLine(mask);
+
+
+
+
+
+
 var valueFromPlc = 255;
 Console.WriteLine(valueFromPlc);
-
+    
 var claims = new BitVector32(valueFromPlc);
 Console.WriteLine(claims.ToString());
 
-int manual = BitVector32.CreateMask();
-int auto = BitVector32.CreateMask(manual);
-int config = BitVector32.CreateMask(auto);
-int movedrive = BitVector32.CreateMask(config);
-int edituser = BitVector32.CreateMask(movedrive);
+var manual = BitVector32.CreateMask();
+var auto = BitVector32.CreateMask(manual);
+var config = BitVector32.CreateMask(auto);
+var moveDrive = BitVector32.CreateMask(config);
+var editUser = BitVector32.CreateMask(moveDrive);
+var editPerformance = BitVector32.CreateMask(editUser);
+var editScene = BitVector32.CreateMask(editPerformance);
 
 Console.WriteLine("\tClaims[auto]  до: {0}", claims[auto] );
 
 claims[manual] = false;
 claims[auto] = false;
 claims[config] = false;
-claims[movedrive] = false;
-claims[edituser] = false;
+claims[moveDrive] = true;
+claims[editUser] = false;
+claims[editPerformance] = false;
+claims[editScene] = true;
 
 Console.WriteLine("\tClaims[auto]  после: {0}", claims[auto]);
 

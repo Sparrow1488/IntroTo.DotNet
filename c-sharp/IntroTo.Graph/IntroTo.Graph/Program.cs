@@ -1,7 +1,5 @@
 ﻿using IntroTo.Graph.Algorithms;
 using IntroTo.Graph.Helpers;
-using IntroTo.Graph.Managers;
-using IntroTo.Graph.Managers.Importers;
 using IntroTo.Graph.Structures;
 using IntroTo.Graph.Views;
 
