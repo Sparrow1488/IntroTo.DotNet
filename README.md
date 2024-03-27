@@ -445,7 +445,7 @@ OPTIONS * HTTP/1.1
 
 `Options`, кстати, можно было бы использовать для получения методов в заголовке `Allow: ...`, то-есть можно ли обращаться к данному ресурсу через Get, Post или как то еще. Но из-за сложности бизнес логики (требования к авторизации, ограничении прав доступа и прочего) лепить Options на каждый адрес нереально геморно и не практично, поэтому хуета, но идея прикольная.
 
-Далее необходим заголовок `HOSTЖ address`, указывающий, куда именно мы хотим обратиться.
+Далее необходим заголовок `HOST: address`, указывающий, куда именно мы хотим обратиться.
 
 ```http
 GET /index.html HTTP/1.1
@@ -531,6 +531,194 @@ Hello World!
 
 
 
+# Git
+
+**git** - распределенная система контроля версий. Распределенная подразумевает хранение экземпляра у каждого из пользователей.
+
+**Команды**
+
+**git config** - редактирование конфиг файлов гита. Флаги: `--local (default)`,  `--global`, `--system`. 
+
+- **local** сохранится в *./git/config* 
+- **global** в *~/.gitconfig* or *C:/Users/<USERNAME>/.gitconfig*
+- **system** в */etc/.gitconfig* or *C:/Program Files/Git/etc/.gitconfig*
+
+```bash
+git config --global user.name USERNAME
+git config --global user.email USEREMAIL
+git list # Вывод значений из всех конфигов
+git config --unset user.email
+git config --list --global # Вывод значений глобальных настроек
+
+git config alias.c config # Установить алиас для вызова 'git config' == 'git c'
+git config --list --local
+
+git config --local alias.hi '!echo "hello"; echo "world"' # Так же можно выводить другие команды
+
+git config -h # Больше информации
+
+git config --global core.edotor <PATH> # Установить путь до текстового редактора
+```
+
+**Структура git**
+
+![](./docs/imgs/git-structure.png)
+
+**Index** - это специальная промежуточная область, в которой хранятся изменения файлов на пути от рабочей директории до репозитория. При выполнении коммита в него попадают только те изменения, которые были добавлены в индекс. [Подробнее](https://ru.hexlet.io/courses/intro_to_git/lessons/index/theory_unit).
+
+```bash
+git add <FILE/DIRECTORY> # Проиндексировать файл/директорию
+git add . # Все файлы в текущей папке
+git add -A # Все файлы начиная с корня проекта
+
+git commit # Откроет текстовый редактор для комментирования
+git commit -m <MESSAGE> # Комментарий без текстового редактора
+git show --pretty=fuller # Подробная информация
+
+git reset HEAD <FILE> # Раскоммитить добавленный файл
+
+git commit -am <DESC> # Обновить уже добавленные в индекс файлы и закоммитить в репо
+git commit -m <DESC> <FILE>
+```
+
+[Права на файлы](https://www.youtube.com/watch?v=KrlYu1ToS-o&list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb&index=4)
+
+[Правильное написание коммитов](https://youtu.be/WlIzoLK46is?list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb&t=156)
+
+```bash
+git add -p <FILE> # Выборочно добавить строчки в коммит
+> (1/1) Stage this hunk [y,n,q,a,d,e,?]? ? # '?' - для помощи
+y - stage this hunk
+n - do not stage this hunk
+...
+```
+
+Флаг `--cached` у некоторых команд указывает, что операция будет выполнения по отношению к файлам в индексе.
+
+**Ветки**
+
+```bash
+git branch # Список всех веток
+git branch <NAME> # Создать новую ветку
+git checkout <NAME> # Переключить ссылку в HEAD на указанную ветку
+git checkout -b <NAME> # git branch <NAME> + git checkout <NAME>
+```
+
+**HEAD** — это **указатель на текущую ветку, которая, в свою очередь, является указателем на последний коммит, сделанный в этой ветке**. Это значит, что HEAD будет родителем следующего созданного коммита.
+
+В `./git/refs/heads/<BRANCH>` лежат названия последнего коммита ветки.
+
+В `./git/HEAD` название текущей ветки 
+
+При переключении через `git checkout` имея не закомиченные изменения, выплюнет ошибку. Но с флагом `-f --force` мы сможем переключиться, **сбросив все изменения**. Так же можно сбросить изменения на текущей ветке `git checkout -f HEAD` или без HEAD, т.к. он по умолчанию.
+
+```bash
+git stash # Сохранить не закоммиченные изменения, удалить из файлов, архивировать. Это позволит нам переключить между ветками, не потеряв изменения
+git stash pop # Применить изменения (можно импользовать в разных ветках, перетаскивая изменения)
+```
+
+Для переноса ветки на прошлый коммит, нужно переключиться на другую ветку или создать новую ветку на текущем коммите. А после перенести ветку на другой коммит. Подробнее: [Ручной перенос веток](https://www.youtube.com/watch?v=6oZG-pAeHRE&list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb&index=15).
+
+```bash
+git checkout -b <BRANCH1>
+git branch <BRANCH2> <COMMIT> # Создаем ветку NEWBRANCH2, которую переносим на COMMIT
+git branch -f <EXISTS_BRANCH> <COMMIt> # Если ветка существует, то флаг -f --force переносит ее
+git branch <BRANCH2> <BRANCH1> # Вместе коммита, можно передать название ветки, что эквивалентно ее текущему коммиту
+git checkout -B <BRANCH2> <COMMIT> # Передвинуть ветку + переключиться на нее
+```
+
+[Detached HEAD (отделенный HEAD)](https://www.youtube.com/watch?v=g0GgtqlhHaw&list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb&index=16).
+
+```bash
+git checkout <BRANCH/COMMIT> <FILE> # Вернуть/Восстановить файл из указанной ветки
+
+git restore --staged <FILE> # Отменить staged изменения (из индекса)
+git restore <FILE> # Удалить не закоммиченные изменения
+```
+
+**Просмотр коммитов**
+
+```bash
+git log # Вывести коммиты с текущей ветки
+git log --oneline # Вывести только header коммитов
+git show <COMMIT/BRANCH> # Информация о коммите с изменениями
+git show <COMMIT> -q # Информация о коммите без изменений
+
+git show HEAD~ # Информация о прошлом коммите
+git show @~ # @ == HEAD, но на винде могут потребоваться скобки '@~'
+git show HEAD~~~
+git show HEAD~3
+git show '@~3' --oneline -q # Инфо о 3 коммите от текущего без подробностей и изменений (показать только header)
+
+git show <COMMIT>:<FILE> # Просмотр проиндексированного файла на коммите
+git show :<FILE> # Просмотр текущего индексированного файла (в случае, если отличается от того, что лежит в директории)
+```
+
+**Слияние веток алгоритмом Fast-Forward (перемотка)**
+
+Переносит ветку вперед.
+
+```
+(A)->(B)->(C)
+main      fix
+
+fix$ git merge main
+
+(A)->(B)->(C)
+          fix
+          main
+          
+main "перематывается" вперед
+```
+
+Отменить слияние:
+
+```bash
+git branch -f <BRANCH> <OLD_COMMIT> # Но прошлый коммит мы 100% не помним, поэтому:
+cat ./.git/ORIG_HEAD # Коммит, откуда мы сливали ветку
+git branch -f <BRANCH> ORIG_HEAD
+
+git branch -f <BRANCH> <BRANCH_TARGET> # Перенести ветку вперед (аналогична git merge)
+```
+
+**Удаление веток**
+
+```bash
+git branch -d <BRANCH> # Удалить ветку, если она соединена с текущей
+git branch -D <BRANCH> # Удалить ветку, которая не соединена. Получатся недостижимые коммиты
+```
+
+**Недостижимые коммиты** - коммиты, которые не прикреплены к какой либо ветке (обращаться к ним можно по их хэшу). Спустя время гит их удаляет (`gc.reflogExpireUnreachable="30 days ago"`).
+
+Чтобы вернуть удаленную ветку, можно сделать:
+
+```bash
+git branch <BRANCH> <COMMIT>
+
+git reflog # Выведет историю изменений HEAD (checkout, reset и др), таким образом, можно поискать и восстановить удаленную ветку
+git reflog --no-decorate # Убрать показ лишних ссылок
+git reflog --date=iso # Вывести дату коммитов вместо их номера
+
+git branch <BRANCH> HEAD@{num/'date'} # Для указания коммита через reflog
+```
+
+**reflog** очищает историю спустя 90 дней (`gc.reflogExpire="90 days ago"`).
+
+**reflog'и** хранятся локально и на удаленный сервер не пушатся.
+
+```bash
+git checkout @{-1} # Вернуться на ветку до checkout (предыдущую ветку). Берет из reflog
+git checkout - # Аналогично
+```
+
+
+
+Продолжить: [4.1 Git – Удаление "лишних" файлов и незакоммиченных изменений (youtube.com)](https://www.youtube.com/watch?v=h9kYvAQoXjo&list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb&index=23)
+
+
+
+
+
 **Feature**
 
 - [ ] **Базы данных**
@@ -538,8 +726,8 @@ Hello World!
   - [ ] SQL / NoSQL
   - [ ] Различия некоторых баз данных
 - [ ] **Git**
-  - [ ] Устройство гит
-  - [ ] Основные команды
+  - [x] Устройство гит
+  - [x] Основные команды
   - [ ] Теги, прочее
 - [ ] **Docker**
 - [ ] **Docker Compose**
